@@ -132,9 +132,10 @@ void Player::update(sf::Time dt){
 
 	//If case is a key
 	if(maze.operator()(playerY, playerX) == 'k' && unlockSoundPlayed != true){
+		maze.operator()(playerY, playerX) = ' ';
 		maze.operator()(16, 3) = ' ';
 		unlockSound.play();
-		std::cout << "Change content:" << maze.operator()(16, 3) << ":P" << std::endl;
+		std::cout << "Change content:" << maze.operator()(playerY, playerX) << ":P" << std::endl;
 		unlockSoundPlayed = true;
 	}
 
@@ -144,7 +145,12 @@ void Player::update(sf::Time dt){
 	if(maze.operator()(playerY, playerX) == 'e' && exit != true){
 		winSound.play();
 		std::cout << "Exit!!" << std::endl;
-		exit = true;
+		//exit = true;
+
+		maze.setNewMaze( maze.getMaze2() );
+
+		//reset unlock sound
+		unlockSoundPlayed = false;
 	}
 
 

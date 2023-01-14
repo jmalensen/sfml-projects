@@ -24,6 +24,9 @@ class Map{
 	char operator()(int row, int col) const;
 	char& operator()(int row, int col);
 
+	void setNewMaze(std::array<std::array<char, 26>, 21> newMaze);
+	std::array<std::array<char, 26>, 21>& getMaze2();
+
 	//Initialization
 	void init();
 
@@ -36,6 +39,7 @@ class Map{
 	static constexpr int BLOCK_SIZE = 40;
 
 	std::array<std::array<char, COLS>, ROWS> maze;
+	std::array<std::array<char, COLS>, ROWS> maze2;
 };
 
 #endif // MAP_H
