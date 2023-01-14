@@ -17,12 +17,15 @@ class Player{
 	void init();
 
 	//Getters
-	int getPlayerX();
-	int getPlayerY();
+	int getPlayerX() const;
+	int getPlayerY() const;
 
 	//Setters
 	void setPlayerX(int newX);
 	void setPlayerY(int newY);
+
+	//Getter exit
+	bool getExited() const;
 
 	//Update position
 	void update(sf::Time dt);
@@ -38,6 +41,14 @@ class Player{
 	//Sounds
 	sf::SoundBuffer buffer;
 	sf::Sound sound;
+
+	sf::SoundBuffer buffer2;
+	sf::Sound unlockSound;
+	bool unlockSoundPlayed;
+
+	sf::SoundBuffer buffer3;
+	sf::Sound winSound;
+	bool exit;
 
 	//Texture for the player
 	sf::Texture texturePlayer;

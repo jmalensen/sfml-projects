@@ -56,6 +56,13 @@ void Game::handleEvents(){
 		if(event.type == sf::Event::Closed){
 			window.close();
 		}
+
+		if(player.getExited()){
+			//Slow down program
+			std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+
+			window.close();
+		}
 	}
 }
 

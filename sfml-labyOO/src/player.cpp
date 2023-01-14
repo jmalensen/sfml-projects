@@ -15,11 +15,26 @@ void Player::init(){
 	playerX = 1;
 	playerY = 1;
 
-	//Sounds
+	///Sounds
+	//Movement sound
 	if (!buffer.loadFromFile("sounds/jump.wav")){
 		std::cout << "Fail to load sound file" << std::endl;
 	}
 	sound.setBuffer(buffer);
+
+	//Unlock sound
+	if (!buffer2.loadFromFile("sounds/unlock-sound.wav")){
+		std::cout << "Fail to load unlock sound file" << std::endl;
+	}
+	unlockSound.setBuffer(buffer2);
+	unlockSoundPlayed = false;
+
+	//Win sound
+	if (!buffer3.loadFromFile("sounds/win.wav")){
+		std::cout << "Fail to load win sound file" << std::endl;
+	}
+	winSound.setBuffer(buffer3);
+	exit = false;
 
 	//Texture for the player
 	if(!texturePlayer.loadFromFile("images/dino.png")){
@@ -38,10 +53,10 @@ void Player::init(){
 }
 
 //Getters
-int Player::getPlayerX(){
+int Player::getPlayerX() const{
 	return playerX;
 }
-int Player::getPlayerY(){
+int Player::getPlayerY() const{
 	return playerY;
 }
 
@@ -51,6 +66,10 @@ void Player::setPlayerX(int newX){
 }
 void Player::setPlayerY(int newY){
 	playerY = newY;
+}
+
+bool Player::getExited() const{
+	return exit;
 }
 
 void Player::update(sf::Time dt){
@@ -112,15 +131,20 @@ void Player::update(sf::Time dt){
 	}
 
 	//If case is a key
-	if(maze.operator()(playerY, playerX) == 'k'){
+	if(maze.operator()(playerY, playerX) == 'k' && unlockSoundPlayed != true){
 		maze.operator()(16, 3) = ' ';
+		unlockSound.play();
 		std::cout << "Change content:" << maze.operator()(16, 3) << ":P" << std::endl;
+		unlockSoundPlayed = true;
 	}
 
 	std::cout << playerY << " " << playerX << std::endl;
 
-	if(maze.operator()(playerY, playerX) == 'e'){
+	//Sound of the win for the exit
+	if(maze.operator()(playerY, playerX) == 'e' && exit != true){
+		winSound.play();
 		std::cout << "Exit!!" << std::endl;
+		exit = true;
 	}
 
 
