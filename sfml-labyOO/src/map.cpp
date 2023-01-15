@@ -110,7 +110,15 @@ void Map::init(){
 	if(!textureTrophyIcon.loadFromFile("images/trophy.png")){
 		std::cout << "Failed to load trophy icon texture" << std::endl;
 	}
+
+	//Trophy animation
+	rectSourceSpriteTrophy.left = 0;
+	rectSourceSpriteTrophy.top = 0;
+	rectSourceSpriteTrophy.width = 60;
+	rectSourceSpriteTrophy.height = 60;
+
 	trophySprite.setTexture(textureTrophyIcon);
+	trophySprite.setTextureRect(rectSourceSpriteTrophy);
 
 	//Text to display the level number
 	if (!font.loadFromFile("fonts/arial.ttf")){
@@ -167,6 +175,9 @@ void Map::update(sf::Time dt){
 
 	static float currentTimeNL = 0.0f;
 	currentTimeNL += dt.asSeconds();
+
+	static float currentTimeE = 0.0f;
+	currentTimeE += dt.asSeconds();
 	
 	if(currentTime >= frameDuration){
 		//Set rectangle left position
@@ -196,6 +207,21 @@ void Map::update(sf::Time dt){
 
 		//Set the rectangle so we see the movement
 		nextLevelSprite.setTextureRect(rectSourceSpriteNextLevel);
+	}
+
+	if(currentTimeE >= frameDurationNL){
+		//Set rectangle left position
+		if (rectSourceSpriteTrophy.left == 300){
+			rectSourceSpriteTrophy.left = 0;
+		}
+		else{
+			rectSourceSpriteTrophy.left += 60;
+		}
+
+		currentTimeE = 0;
+
+		//Set the rectangle so we see the movement
+		trophySprite.setTextureRect(rectSourceSpriteTrophy);
 	}
 }
 

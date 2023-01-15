@@ -79,6 +79,7 @@ class Map{
 
 	//Texture for the trophy icon
 	sf::Texture textureTrophyIcon;
+	sf::IntRect rectSourceSpriteTrophy;
 	sf::Sprite trophySprite;
 
 	///Text to display the level number
