@@ -35,6 +35,9 @@ class Map{
 	//Initialization
 	void init();
 
+	//Update maze
+	void update(sf::Time dt);
+
 	//Draw the map
 	void draw(sf::RenderTarget& target);
 
@@ -66,10 +69,12 @@ class Map{
 
 	//Texture for the key
 	sf::Texture textureKey;
+	sf::IntRect rectSourceSpriteKey;
 	sf::Sprite keySprite;
 
 	//Texture for the nextLevel icon
 	sf::Texture textureNextLevelIcon;
+	sf::IntRect rectSourceSpriteNextLevel;
 	sf::Sprite nextLevelSprite;
 
 	//Texture for the trophy icon

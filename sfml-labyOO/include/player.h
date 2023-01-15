@@ -49,6 +49,9 @@ class Player{
 	sf::SoundBuffer buffer;
 	sf::Sound sound;
 
+	sf::SoundBuffer bufferHurt;
+	sf::Sound hurtSound;
+
 	sf::SoundBuffer buffer2;
 	sf::Sound unlockSound;
 	bool unlockSoundPlayed;

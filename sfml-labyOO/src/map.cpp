@@ -37,12 +37,12 @@ void Map::init(){
 		"#  #### #  ####  #### ###",
 		"# #    # # #    # #    ##",
 		"# # #### #### # #### #  #",
-		"# # #    #    #    # #  #",
-		"# # # #### #### # # #####",
+		"# # #         #    # #  #",
+		"# # ###### #### # # #####",
 		"# # # #    #    # # #   #",
-		"# # # # #### #### # # # #",
+		"# # # # #### # ## # # # #",
 		"##### # ### ## #### ### #",
-		"#     #     #         # #",
+		"#     # #   #         # #",
 		"###   #####    ######   #",
 		"#   #     e#   #      ###",
 		"################   ###  #",
@@ -81,13 +81,30 @@ void Map::init(){
 	if(!textureKey.loadFromFile("images/key.png")){
 		std::cout << "Failed to load key texture" << std::endl;
 	}
+
+	//Key animation
+	rectSourceSpriteKey.left = 0;
+	rectSourceSpriteKey.top = 0;
+	rectSourceSpriteKey.width = 60;
+	rectSourceSpriteKey.height = 60;
+
 	keySprite.setTexture(textureKey);
+	keySprite.setTextureRect(rectSourceSpriteKey);
+
 
 	//Texture for the nextLevel icon
 	if(!textureNextLevelIcon.loadFromFile("images/nextlevel.png")){
 		std::cout << "Failed to load next level icon texture" << std::endl;
 	}
+
+	//NextLevel animation
+	rectSourceSpriteNextLevel.left = 0;
+	rectSourceSpriteNextLevel.top = 0;
+	rectSourceSpriteNextLevel.width = 60;
+	rectSourceSpriteNextLevel.height = 60;
+
 	nextLevelSprite.setTexture(textureNextLevelIcon);
+	nextLevelSprite.setTextureRect(rectSourceSpriteNextLevel);
 
 	//Texture for the trophy icon
 	if(!textureTrophyIcon.loadFromFile("images/trophy.png")){
@@ -135,6 +152,51 @@ int Map::getLevel(){
 
 void Map::setLevel(int newLevel){
 	levelNum = newLevel;
+}
+
+void Map::update(sf::Time dt){
+
+	///Small animation of key
+	//Duration of the frame
+	static float frameDuration = 0.2f;
+	static float frameDurationNL = 0.1f;
+
+	//Current time needed for the delta time
+	static float currentTime = 0.0f;
+	currentTime += dt.asSeconds();
+
+	static float currentTimeNL = 0.0f;
+	currentTimeNL += dt.asSeconds();
+	
+	if(currentTime >= frameDuration){
+		//Set rectangle left position
+		if (rectSourceSpriteKey.left == 120){
+			rectSourceSpriteKey.left = 0;
+		}
+		else{
+			rectSourceSpriteKey.left += 60;
+		}
+
+		currentTime = 0;
+
+		//Set the rectangle so we see the movement
+		keySprite.setTextureRect(rectSourceSpriteKey);
+	}
+
+	if(currentTimeNL >= frameDurationNL){
+		//Set rectangle left position
+		if (rectSourceSpriteNextLevel.left == 240){
+			rectSourceSpriteNextLevel.left = 0;
+		}
+		else{
+			rectSourceSpriteNextLevel.left += 60;
+		}
+
+		currentTimeNL = 0;
+
+		//Set the rectangle so we see the movement
+		nextLevelSprite.setTextureRect(rectSourceSpriteNextLevel);
+	}
 }
 
 void Map::draw(sf::RenderTarget& target){

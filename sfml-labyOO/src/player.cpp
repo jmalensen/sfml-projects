@@ -17,7 +17,14 @@ void Player::init(){
 		std::cout << "Fail to load sound file" << std::endl;
 	}
 	sound.setBuffer(buffer);
-	sound.setVolume(30);
+	sound.setVolume(10);
+
+	//Hurt sound
+	if (!bufferHurt.loadFromFile("sounds/hitHurt.wav")){
+		std::cout << "Fail to load hurt sound file" << std::endl;
+	}
+	hurtSound.setBuffer(bufferHurt);
+	hurtSound.setVolume(10);
 
 	//Unlock sound
 	if (!buffer2.loadFromFile("sounds/unlock-sound.wav")){
@@ -92,44 +99,60 @@ void Player::update(sf::Time dt){
 	//Handle movement of player
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
 		if(lastMove >= moveDelay){
-			std::cout << "Going up" << std::endl;
-			sound.play();
 			if(maze.operator()(playerY-1, playerX) != '#'){
+				std::cout << "Going up" << std::endl;
+				sound.play();
 				playerY--;
 				lastMove = sf::Time::Zero;
+			}
+			else{
+				std::cout << "Ouch" << std::endl;
+				hurtSound.play();
 			}
 		}
 	}
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
 		if(lastMove >= moveDelay){
-			std::cout << "Going down" << std::endl;
-			sound.play();
 			if(maze.operator()(playerY+1, playerX) != '#'){
+				std::cout << "Going down" << std::endl;
+				sound.play();
 				playerY++;
 				lastMove = sf::Time::Zero;
+			}
+			else{
+				std::cout << "Ouch" << std::endl;
+				hurtSound.play();
 			}
 		}
 	}
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
 		if(lastMove >= moveDelay){
-			std::cout << "Going left" << std::endl;
-			sound.play();
 			if(maze.operator()(playerY, playerX-1) != '#'){
+				std::cout << "Going left" << std::endl;
+				sound.play();
 				playerX--;
 				lastMove = sf::Time::Zero;
+			}
+			else{
+				std::cout << "Ouch" << std::endl;
+				hurtSound.play();
 			}
 		}
 	}
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 		if(lastMove >= moveDelay){
-			std::cout << "Going right" << std::endl;
-			sound.play();
 			if(maze.operator()(playerY, playerX+1) != '#'){
+				std::cout << "Going right" << std::endl;
+				sound.play();
 				playerX++;
 				lastMove = sf::Time::Zero;
+			}
+			else{
+				std::cout << "Ouch" << std::endl;
+				hurtSound.play();
 			}
 		}
 	}
@@ -140,7 +163,12 @@ void Player::update(sf::Time dt){
 		maze.operator()(playerY, playerX) = ' ';
 
 		//Open the path
-		maze.operator()(16, 3) = ' ';
+		if(maze.getLevel() == 1){
+			maze.operator()(16, 3) = ' ';
+		}
+		else if(maze.getLevel() == 2){
+			maze.operator()(5, 5) = ' ';
+		}
 		unlockSound.play();
 
 		std::cout << "Change content:" << maze.operator()(playerY, playerX) << ":P" << std::endl;

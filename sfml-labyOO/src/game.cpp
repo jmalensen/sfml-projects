@@ -64,6 +64,9 @@ void Game::handleEvents(){
 }
 
 void Game::update(sf::Time TimePerFrame){
+	//Update the maze
+	map.update(TimePerFrame);
+
 	//Update the game
 	player.update(TimePerFrame);
 }
