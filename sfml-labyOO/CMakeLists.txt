@@ -11,8 +11,6 @@ enable_testing()
 
 # I../includes
 include_directories(/include)
-#add_executable(${PROJECT_NAME} ${HELLO_SOURCE})
-
 
 set(SFML_INCLUDE_DIR "/opt/homebrew/Cellar/sfml/2.5.1_2/include")
 set(SFML_LIBRARY_DIR "/opt/homebrew/Cellar/sfml/2.5.1_2/lib")
@@ -22,13 +20,11 @@ link_directories(${SFML_LIBRARY_DIR})
 
 find_package(SFML 2.5 COMPONENTS system window graphics network audio REQUIRED)
 
-#target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics sfml-audio sfml-network)
+# puts all .cpp files inside src to the SRC_FILES variable
+file(GLOB_RECURSE SRC_FILES src/*.cpp)
 
-# puts all .cpp files inside src to the SOURCES variable
-file(GLOB SOURCES src/*.cpp)
-
-# compiles the files defined by SOURCES to generante the executable defined by EXEC
-add_executable(${PROJECT_NAME} ${SOURCES})
+# compiles the files defined by SRC_FILES to generante the executable defined by EXEC
+add_executable(${PROJECT_NAME} ${SRC_FILES})
 
 
 # set the C++20 standard
