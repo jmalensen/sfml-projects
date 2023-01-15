@@ -50,6 +50,36 @@ class Map{
 
 	//Store the multiple mazes (dynamic names aren't possible in c++)
 	std::unordered_map<std::string, std::array<std::array<char, COLS>, ROWS>> mazeList;
+
+	///Textures
+	//Texture for the wall
+	sf::Texture wallTexture;
+	sf::Sprite wallSprite;
+
+	//Texture for the path
+	sf::Texture texturePath;
+	sf::Sprite pathSprite;
+
+	//Texture for the background
+	sf::Texture textureBackground;
+	sf::Sprite backgroundI;
+
+	//Texture for the key
+	sf::Texture textureKey;
+	sf::Sprite keySprite;
+
+	//Texture for the nextLevel icon
+	sf::Texture textureNextLevelIcon;
+	sf::Sprite nextLevelSprite;
+
+	//Texture for the trophy icon
+	sf::Texture textureTrophyIcon;
+	sf::Sprite trophySprite;
+
+	///Text to display the level number
+	sf::Text text;
+	//Select the font
+	sf::Font font;
 };
 
 #endif // MAP_H

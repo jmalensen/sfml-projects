@@ -58,6 +58,60 @@ void Map::init(){
 
 	mazeList = {{"maze", maze}, {"maze2", maze2}};
 	levelNum = 1;
+
+	//Texture for the wall
+	if(!wallTexture.loadFromFile("images/wallbrick.png")){
+		std::cout << "Failed to load wall texture" << std::endl;
+	}
+	wallSprite.setTexture(wallTexture);
+
+	//Texture for the path
+	if(!texturePath.loadFromFile("images/pathtexture.png")){
+		std::cout << "Failed to load texturePath" << std::endl;
+	}
+	pathSprite.setTexture(texturePath);
+
+	//Texture for the background
+	if(!textureBackground.loadFromFile("images/background.jpg")){
+		std::cout << "Failed to load background texture" << std::endl;
+	}
+	backgroundI.setTexture(textureBackground);
+
+	//Texture for the key
+	if(!textureKey.loadFromFile("images/key.png")){
+		std::cout << "Failed to load key texture" << std::endl;
+	}
+	keySprite.setTexture(textureKey);
+
+	//Texture for the nextLevel icon
+	if(!textureNextLevelIcon.loadFromFile("images/nextlevel.png")){
+		std::cout << "Failed to load next level icon texture" << std::endl;
+	}
+	nextLevelSprite.setTexture(textureNextLevelIcon);
+
+	//Texture for the trophy icon
+	if(!textureTrophyIcon.loadFromFile("images/trophy.png")){
+		std::cout << "Failed to load trophy icon texture" << std::endl;
+	}
+	trophySprite.setTexture(textureTrophyIcon);
+
+	//Text to display the level number
+	if (!font.loadFromFile("fonts/arial.ttf")){
+		std::cout << "Failed to load font" << std::endl;
+	}
+	text.setFont(font);
+
+	//Set the string to display
+	text.setString("Level: " + std::to_string(levelNum) );
+
+	//Set the character size (in pixels, not points)
+	text.setCharacterSize(36);
+
+	//Set the text style
+	text.setStyle(sf::Text::Bold);
+
+	//Set the color
+	text.setFillColor(sf::Color::White);
 }
 
 //Get the value of a block in the map
@@ -85,52 +139,8 @@ void Map::setLevel(int newLevel){
 
 void Map::draw(sf::RenderTarget& target){
 
-	//Texture for the wall
-	sf::Texture wallTexture;
-	if(!wallTexture.loadFromFile("images/wallbrick.png")){
-		std::cout << "Failed to load wall texture" << std::endl;
-	}
-	sf::Sprite wallSprite;
-	wallSprite.setTexture(wallTexture);
-
-	//Texture for the path
-	sf::Texture texturePath;
-	if(!texturePath.loadFromFile("images/pathtexture.png")){
-		std::cout << "Failed to load texturePath" << std::endl;
-	}
-	sf::Sprite pathSprite;
-	pathSprite.setTexture(texturePath);
-
-	//Texture for the background
-	sf::Texture textureBackground;
-	if(!textureBackground.loadFromFile("images/background.jpg")){
-		std::cout << "Failed to load background texture" << std::endl;
-	}
-	sf::Sprite backgroundI(textureBackground);
-
 	//Draw the map
 	target.draw(backgroundI);
-
-	//Texture for the key
-	sf::Texture textureKey;
-	if(!textureKey.loadFromFile("images/key.png")){
-		std::cout << "Failed to load key texture" << std::endl;
-	}
-	sf::Sprite keySprite(textureKey);
-
-	//Texture for the nextLevel icon
-	sf::Texture textureNextLevelIcon;
-	if(!textureNextLevelIcon.loadFromFile("images/nextlevel.png")){
-		std::cout << "Failed to load next level icon texture" << std::endl;
-	}
-	sf::Sprite nextLevelSprite(textureNextLevelIcon);
-
-	//Texture for the trophy icon
-	sf::Texture textureTrophyIcon;
-	if(!textureTrophyIcon.loadFromFile("images/trophy.png")){
-		std::cout << "Failed to load trophy icon texture" << std::endl;
-	}
-	sf::Sprite trophySprite(textureTrophyIcon);
 
 	//Draw maze
 	for(int row = 0; row < ROWS; row++){
@@ -167,25 +177,7 @@ void Map::draw(sf::RenderTarget& target){
 		}
 	}
 
-	sf::Text text;
-	//Select the font
-	sf::Font font;
-	if (!font.loadFromFile("fonts/arial.ttf")){
-		std::cout << "Failed to load font" << std::endl;
-	}
-	text.setFont(font);
-
-	//Set the string to display
-	text.setString("Level: " + std::to_string(levelNum) );
-
-	//Set the character size (in pixels, not points)
-	text.setCharacterSize(36);
-
-	//Set the text style
-	text.setStyle(sf::Text::Bold);
-
-	//Set the color
-	text.setFillColor(sf::Color::White);
+	//Draw the text
 	text.setPosition(10, 10);
 	target.draw(text);
 }
