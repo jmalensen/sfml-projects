@@ -1,9 +1,5 @@
 #include "../include/player.h"
 #include "../include/map.h"
-#include <iostream>
-#include <chrono>
-#include <thread>
-#include <array>
 
 Player::Player(Map& maze): maze(maze){
 	//Initialize the player
@@ -21,6 +17,7 @@ void Player::init(){
 		std::cout << "Fail to load sound file" << std::endl;
 	}
 	sound.setBuffer(buffer);
+	sound.setVolume(30);
 
 	//Unlock sound
 	if (!buffer2.loadFromFile("sounds/unlock-sound.wav")){
@@ -29,11 +26,18 @@ void Player::init(){
 	unlockSound.setBuffer(buffer2);
 	unlockSoundPlayed = false;
 
+	//Exit level sound
+	if (!buffer3.loadFromFile("sounds/exitlevel.wav")){
+		std::cout << "Fail to load exit level sound file" << std::endl;
+	}
+	exitLevelSound.setBuffer(buffer3);
+	nextLevelPlayed = false;
+
 	//Win sound
-	if (!buffer3.loadFromFile("sounds/win.wav")){
+	if (!buffer4.loadFromFile("sounds/win.wav")){
 		std::cout << "Fail to load win sound file" << std::endl;
 	}
-	winSound.setBuffer(buffer3);
+	winSound.setBuffer(buffer4);
 	exit = false;
 
 	//Texture for the player
@@ -49,7 +53,7 @@ void Player::init(){
 
 	player.setTexture(texturePlayer);
 	player.setTextureRect(rectSourceSpritePlayer);
-	player.setScale(0.33f, 0.33f);
+	player.setScale(0.5f, 0.5f);
 }
 
 //Getters
@@ -132,25 +136,36 @@ void Player::update(sf::Time dt){
 
 	//If case is a key
 	if(maze.operator()(playerY, playerX) == 'k' && unlockSoundPlayed != true){
+		//Key disappear
 		maze.operator()(playerY, playerX) = ' ';
+
+		//Open the path
 		maze.operator()(16, 3) = ' ';
 		unlockSound.play();
+
 		std::cout << "Change content:" << maze.operator()(playerY, playerX) << ":P" << std::endl;
 		unlockSoundPlayed = true;
 	}
 
-	std::cout << playerY << " " << playerX << std::endl;
+	//Next level phase
+	if(maze.operator()(playerY, playerX) == 'n' && nextLevelPlayed != true){
+		exitLevelSound.play();
+		std::cout << "Next level!!" << std::endl;
+		nextLevelPlayed = true;
+
+		maze.setLevel(maze.getLevel() + 1);
+
+		//Need to reset the sounds for the next level
+		resetSounds();
+
+		maze.setNewMaze( maze.getMazeByName("maze2") );
+	}
 
 	//Sound of the win for the exit
 	if(maze.operator()(playerY, playerX) == 'e' && exit != true){
 		winSound.play();
 		std::cout << "Exit!!" << std::endl;
-		//exit = true;
-
-		maze.setNewMaze( maze.getMaze2() );
-
-		//reset unlock sound
-		unlockSoundPlayed = false;
+		exit = true;
 	}
 
 
@@ -178,6 +193,14 @@ void Player::update(sf::Time dt){
 		//Set the rectangle so we see the movement
 		player.setTextureRect(rectSourceSpritePlayer);
 	}
+}
+
+void Player::resetSounds(){
+	//reset unlock sound
+	unlockSoundPlayed = false;
+
+	//reset nextlevel sound
+	nextLevelPlayed = false;
 }
 
 void Player::draw(sf::RenderTarget& target){

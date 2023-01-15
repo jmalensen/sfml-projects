@@ -3,6 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <array>
+#include <iostream>
+#include <unordered_map>
 
 class Map{
 	public:
@@ -25,7 +27,10 @@ class Map{
 	char& operator()(int row, int col);
 
 	void setNewMaze(std::array<std::array<char, 26>, 21> newMaze);
-	std::array<std::array<char, 26>, 21>& getMaze2();
+	std::array<std::array<char, 26>, 21>& getMazeByName(std::string name);
+
+	int getLevel();
+	void setLevel(int newLevel);
 
 	//Initialization
 	void init();
@@ -36,10 +41,15 @@ class Map{
 	private:
 	static constexpr int ROWS = 21;
 	static constexpr int COLS = 26;
-	static constexpr int BLOCK_SIZE = 40;
+	static constexpr int BLOCK_SIZE = 60;
 
 	std::array<std::array<char, COLS>, ROWS> maze;
 	std::array<std::array<char, COLS>, ROWS> maze2;
+
+	int levelNum;
+
+	//Store the multiple mazes (dynamic names aren't possible in c++)
+	std::unordered_map<std::string, std::array<std::array<char, COLS>, ROWS>> mazeList;
 };
 
 #endif // MAP_H

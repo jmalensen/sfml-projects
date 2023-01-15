@@ -1,5 +1,4 @@
 #include "../include/map.h"
-#include <iostream>
 
 Map::Map(){
 	//Initialize the map
@@ -23,7 +22,7 @@ void Map::init(){
 		"### ### ##### ### ###   #",
 		"#   #      #   #      ###",
 		"################# #######",
-		"#    e##        #    #  #",
+		"#    n##        #    #  #",
 		"### #### ########### ## #",
 		"#   #       #     ##    #",
 		"########### ## ## #### ##",
@@ -35,27 +34,30 @@ void Map::init(){
 
 	maze2 = {{
 		"#########################",
-		"#     ## ##       #     #",
-		"##### ## ################",
-		"# #        #    #   #   #",
-		"# # ### ####### # ### ###",
-		"# # #      #  # #####   #",
-		"# # # ### ## ## #   ## ##",
-		"#   # #   #     # #    ##",
-		"##### # ### ####### ### #",
-		"#     #     #     #   # #",
-		"### ### ##### ### ###   #",
+		"#  #### #  ####  #### ###",
+		"# #    # # #    # #    ##",
+		"# # #### #### # #### #  #",
+		"# # #    #    #    # #  #",
+		"# # # #### #### # # #####",
+		"# # # #    #    # # #   #",
+		"# # # # #### #### # # # #",
+		"##### # ### ## #### ### #",
+		"#     #     #         # #",
+		"###   #####    ######   #",
 		"#   #     e#   #      ###",
-		"################# #######",
-		"#     ##        #    #  #",
+		"################   ###  #",
+		"#     ##        #       #",
 		"### # ## ########### ## #",
 		"#   #       #     ##    #",
 		"########### ## ## #### ##",
-		"# #    #  #    #    #  k#",
-		"# ####   ## # ## ## ## ##",
-		"#   #  #    #     #    ##",
+		"#      #  #    #    #  k#",
+		"# ###   ##### ## ## ## ##",
+		"# # ### # # #           #",
 		"#########################",
 	}};
+
+	mazeList = {{"maze", maze}, {"maze2", maze2}};
+	levelNum = 1;
 }
 
 //Get the value of a block in the map
@@ -69,8 +71,16 @@ char& Map::operator()(int row, int col){
 void Map::setNewMaze(std::array<std::array<char, 26>, 21> newMaze){
 	maze = newMaze;
 }
-std::array<std::array<char, 26>, 21>& Map::getMaze2(){
-	return maze2;
+std::array<std::array<char, 26>, 21>& Map::getMazeByName(std::string name){
+	return mazeList[name];
+}
+
+int Map::getLevel(){
+	return levelNum;
+}
+
+void Map::setLevel(int newLevel){
+	levelNum = newLevel;
 }
 
 void Map::draw(sf::RenderTarget& target){
@@ -101,6 +111,27 @@ void Map::draw(sf::RenderTarget& target){
 	//Draw the map
 	target.draw(backgroundI);
 
+	//Texture for the key
+	sf::Texture textureKey;
+	if(!textureKey.loadFromFile("images/key.png")){
+		std::cout << "Failed to load key texture" << std::endl;
+	}
+	sf::Sprite keySprite(textureKey);
+
+	//Texture for the nextLevel icon
+	sf::Texture textureNextLevelIcon;
+	if(!textureNextLevelIcon.loadFromFile("images/nextlevel.png")){
+		std::cout << "Failed to load next level icon texture" << std::endl;
+	}
+	sf::Sprite nextLevelSprite(textureNextLevelIcon);
+
+	//Texture for the trophy icon
+	sf::Texture textureTrophyIcon;
+	if(!textureTrophyIcon.loadFromFile("images/trophy.png")){
+		std::cout << "Failed to load trophy icon texture" << std::endl;
+	}
+	sf::Sprite trophySprite(textureTrophyIcon);
+
 	//Draw maze
 	for(int row = 0; row < ROWS; row++){
 		for(int col = 0; col < COLS-1; col++){
@@ -120,14 +151,41 @@ void Map::draw(sf::RenderTarget& target){
 			}
 
 			if(maze[row][col] == 'k'){
-				block.setFillColor(sf::Color::Black);
-				target.draw(block);
+				keySprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				target.draw(keySprite);
+			}
+
+			if(maze[row][col] == 'n'){
+				nextLevelSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				target.draw(nextLevelSprite);
 			}
 
 			if(maze[row][col] == 'e'){
-				block.setFillColor(sf::Color::Green);
-				target.draw(block);
+				trophySprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				target.draw(trophySprite);
 			}
 		}
 	}
+
+	sf::Text text;
+	//Select the font
+	sf::Font font;
+	if (!font.loadFromFile("fonts/arial.ttf")){
+		std::cout << "Failed to load font" << std::endl;
+	}
+	text.setFont(font);
+
+	//Set the string to display
+	text.setString("Level: " + std::to_string(levelNum) );
+
+	//Set the character size (in pixels, not points)
+	text.setCharacterSize(36);
+
+	//Set the text style
+	text.setStyle(sf::Text::Bold);
+
+	//Set the color
+	text.setFillColor(sf::Color::White);
+	text.setPosition(10, 10);
+	target.draw(text);
 }

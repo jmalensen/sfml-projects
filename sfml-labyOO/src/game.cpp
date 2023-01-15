@@ -1,13 +1,10 @@
 #include "../include/game.h"
 #include "../include/map.h"
 #include "../include/player.h"
-#include <iostream>
-#include <chrono>
-#include <thread>
 
 Game::Game(): map(), player(map){
 	//Create the window
-	window.create(sf::VideoMode(1000, 840), "Laby OO");
+	window.create(sf::VideoMode(1500, 1260), "Laby OO");
 	window.setFramerateLimit(60);
 }
 

@@ -5,6 +5,10 @@
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>
 #include "map.h"
+#include <iostream>
+#include <chrono>
+#include <thread>
+#include <array>
 
 class Map;
 
@@ -30,6 +34,9 @@ class Player{
 	//Update position
 	void update(sf::Time dt);
 
+	//Reset sound memory for each level
+	void resetSounds();
+
 	//Draw
 	void draw(sf::RenderTarget& target);
 
@@ -47,6 +54,10 @@ class Player{
 	bool unlockSoundPlayed;
 
 	sf::SoundBuffer buffer3;
+	sf::Sound exitLevelSound;
+	bool nextLevelPlayed;
+
+	sf::SoundBuffer buffer4;
 	sf::Sound winSound;
 	bool exit;
 

@@ -6,6 +6,9 @@
 #include <SFML/System.hpp>
 #include "map.h"
 #include "player.h"
+#include <iostream>
+#include <chrono>
+#include <thread>
 
 class Map;
 class Player;
