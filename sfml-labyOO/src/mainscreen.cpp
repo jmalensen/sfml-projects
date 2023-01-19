@@ -30,9 +30,8 @@ void MainScreen::draw(sf::RenderWindow& target){
 	player.draw(target);
 
 	if(player.getExited()){
-		//Slow down program
-		std::this_thread::sleep_for(std::chrono::milliseconds(5000));
-
-		target.close();
+		// //Slow down program
+		// std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+		this->active = false;
 	}
 }

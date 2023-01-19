@@ -40,11 +40,11 @@ void Player::init(){
 	exitLevelSound.setBuffer(buffer3);
 	nextLevelPlayed = false;
 
-	//Win sound
-	if (!buffer4.loadFromFile("sounds/win.wav")){
-		std::cout << "Fail to load win sound file" << std::endl;
-	}
-	winSound.setBuffer(buffer4);
+	// //Win sound
+	// if (!buffer4.loadFromFile("sounds/win.wav")){
+	// 	std::cout << "Fail to load win sound file" << std::endl;
+	// }
+	// winSound.setBuffer(buffer4);
 	exit = false;
 
 	//Texture for the player
@@ -191,7 +191,6 @@ void Player::update(sf::Time dt){
 
 	//Sound of the win for the exit
 	if(maze.operator()(playerY, playerX) == 'e' && exit != true){
-		winSound.play();
 		std::cout << "Exit!!" << std::endl;
 		exit = true;
 	}

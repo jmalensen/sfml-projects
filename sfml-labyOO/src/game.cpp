@@ -72,6 +72,9 @@ void Game::update(sf::Time TimePerFrame){
 	else if(mainScreen.active){
 		mainScreen.update(TimePerFrame);
 	}
+	else{
+		endScreen.update(TimePerFrame);
+	}
 }
 
 void Game::draw(){
@@ -86,6 +89,9 @@ void Game::draw(){
 	else if(mainScreen.active){
 		// std::cout << "Load main screen" << std::endl;
 		mainScreen.draw(window);
+	}
+	else{
+		endScreen.draw(window);
 	}
 
 	//Display the window

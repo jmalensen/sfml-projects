@@ -1,11 +1,11 @@
-#include "../include/startscreen.h"
+#include "../include/endscreen.h"
 
-StartScreen::StartScreen(){
+EndScreen::EndScreen(){
 	init();
 }
 
 //Initialization
-void StartScreen::init(){
+void EndScreen::init(){
 	//Texture for the background
 	if(!textureBackgroundScreen.loadFromFile("images/startscreen.jpg")){
 		std::cout << "Failed to load background screen texture" << std::endl;
@@ -19,30 +19,30 @@ void StartScreen::init(){
 		std::cout << "Failed to load font" << std::endl;
 	}
 	titleScreen.setFont(font);
-	textPressEnter.setFont(font);
 
 	// Initialize title text
-	titleScreen.setString("Javla Labyrinth");
+	titleScreen.setString("Endgame");
 	titleScreen.setCharacterSize(70);
 	titleScreen.setPosition(400, 520);
 
-	// Initialize press enter text
-	textPressEnter.setString("Press Enter to start");
-	textPressEnter.setCharacterSize(50);
-	textPressEnter.setPosition(400, 640);
+	//Win sound
+	if (!buffer.loadFromFile("sounds/win.wav")){
+		std::cout << "Fail to load win sound file" << std::endl;
+	}
+	winSound.setBuffer(buffer);
 }
 
-//Update the start screen
-void StartScreen::update(sf::Time TimePerFrame){
-	
+//Update the end screen
+void EndScreen::update(sf::Time TimePerFrame){
+	winSound.play();
 }
 
 //Draw
-void StartScreen::draw(sf::RenderTarget& target){
+void EndScreen::draw(sf::RenderTarget& target){
+
 	//Draw the player
 	target.draw(screen);
 
 	//Draw texts
 	target.draw(titleScreen);
-	target.draw(textPressEnter);
 }

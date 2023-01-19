@@ -60,8 +60,8 @@ class Player{
 	sf::Sound exitLevelSound;
 	bool nextLevelPlayed;
 
-	sf::SoundBuffer buffer4;
-	sf::Sound winSound;
+	// sf::SoundBuffer buffer4;
+	// sf::Sound winSound;
 	bool exit;
 
 	//Texture for the player

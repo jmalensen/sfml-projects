@@ -6,12 +6,14 @@
 #include <SFML/System.hpp>
 #include "startscreen.h"
 #include "mainscreen.h"
+#include "endscreen.h"
 #include <iostream>
 #include <chrono>
 #include <thread>
 
 class StartScreen;
 class MainScreen;
+class EndScreen;
 
 class Game{
 	public:
@@ -37,6 +39,7 @@ class Game{
 	//The startscreen
 	StartScreen startScreen;
 	MainScreen mainScreen;
+	EndScreen endScreen;
 };
 
 #endif //GAME_H
