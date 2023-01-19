@@ -4,14 +4,14 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>
-#include "map.h"
-#include "player.h"
+#include "startscreen.h"
+#include "mainscreen.h"
 #include <iostream>
 #include <chrono>
 #include <thread>
 
-class Map;
-class Player;
+class StartScreen;
+class MainScreen;
 
 class Game{
 	public:
@@ -34,11 +34,9 @@ class Game{
 	//The windows for the render
 	sf::RenderWindow window;
 
-	//The map
-	Map map;
-
-	//The player
-	Player player;
+	//The startscreen
+	StartScreen startScreen;
+	MainScreen mainScreen;
 };
 
 #endif //GAME_H

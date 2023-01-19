@@ -66,7 +66,8 @@
 		"vector": "cpp",
 		"thread": "cpp",
 		"numeric": "cpp",
-		"random": "cpp"
+		"random": "cpp",
+		"__functional_03": "cpp"
 	},
 	"cmake.configureOnOpen": false,
 	"sonarlint.pathToCompileCommands": "${workspaceFolder}/build/compile_commands.json",

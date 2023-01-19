@@ -1,14 +1,17 @@
 #include "../include/game.h"
-#include "../include/map.h"
-#include "../include/player.h"
+#include "../include/startscreen.h"
+#include "../include/mainscreen.h"
 
-Game::Game(): map(), player(map){
+Game::Game(){
 	//Create the window
 	window.create(sf::VideoMode(1500, 1260), "Laby OO");
 	window.setFramerateLimit(60);
 }
 
 void Game::run(){
+	startScreen.active = true;
+	mainScreen.active = false;
+
 	//Background music
 	sf::Music music;
 	if (!music.openFromFile("sounds/musicloop.wav")){
@@ -50,36 +53,40 @@ void Game::handleEvents(){
 	//Handle events
 	sf::Event event;
 	while(window.pollEvent(event)){
-		if(event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
-			window.close();
+		//Handle enter key press
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+			startScreen.active = false;
+			mainScreen.active = true;
 		}
 
-		if(player.getExited()){
-			//Slow down program
-			std::this_thread::sleep_for(std::chrono::milliseconds(5000));
-
+		if(event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
 			window.close();
 		}
 	}
 }
 
 void Game::update(sf::Time TimePerFrame){
-	//Update the maze
-	map.update(TimePerFrame);
-
-	//Update the game
-	player.update(TimePerFrame);
+	if(startScreen.active){
+		startScreen.update(TimePerFrame);
+	}
+	else if(mainScreen.active){
+		mainScreen.update(TimePerFrame);
+	}
 }
 
 void Game::draw(){
-	//Clear the window
-	window.clear();
+	//Clear the window with black color
+	window.clear(sf::Color::Black);
 
-	//Draw map
-	map.draw(window);
-
-	//Draw player
-	player.draw(window);
+	//Draw screens
+	if(startScreen.active){
+		// std::cout << "Load splash screen" << std::endl;
+		startScreen.draw(window);
+	}
+	else if(mainScreen.active){
+		// std::cout << "Load main screen" << std::endl;
+		mainScreen.draw(window);
+	}
 
 	//Display the window
 	window.display();

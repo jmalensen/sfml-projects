@@ -5,6 +5,12 @@ Map::Map(){
 	init();
 }
 
+// Create traps which blocks areas (with resolution)
+// traps which kill!!
+// Create ennemies
+// Create 3 more levels
+// Multiplayer coop
+
 void Map::init(){
 	//Init map
 	//Create a 2D array to represent the maze
@@ -39,7 +45,7 @@ void Map::init(){
 		"# # #### #### # #### #  #",
 		"# # #         #    # #  #",
 		"# # ###### #### # # #####",
-		"# # # #    #    # # #   #",
+		"# # # #    #    # # #k  #",
 		"# # # # #### # ## # # # #",
 		"##### # ### ## #### ### #",
 		"#     # #   #         # #",
@@ -50,7 +56,7 @@ void Map::init(){
 		"### # ## ########### ## #",
 		"#   #       #     ##    #",
 		"########### ## ## #### ##",
-		"#      #  #    #    #  k#",
+		"#      #  #    #    #  t#",
 		"# ###   ##### ## ## ## ##",
 		"# # ### # # #           #",
 		"#########################",
@@ -246,6 +252,10 @@ void Map::draw(sf::RenderTarget& target){
 			} else{
 				pathSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
 				target.draw(pathSprite);
+			}
+
+			if(maze[row][col] == 't'){
+				target.draw(block);
 			}
 
 			if(maze[row][col] == 'k'){
