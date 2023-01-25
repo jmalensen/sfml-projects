@@ -6,6 +6,9 @@ Player::Player(Map& maze): maze(maze){
 	init();
 }
 
+Player::~Player(){
+}
+
 void Player::init(){
 	//Player position
 	playerX = 1;
@@ -90,7 +93,7 @@ void Player::update(sf::Time dt){
 	static const float speed = 40.f;
 
 	//Delay between 2 moves
-	static const sf::Time moveDelay = sf::seconds(10.f / speed);
+	static const sf::Time moveDelay = sf::seconds(5.f / speed);
 
 	//Last time player moved
 	static sf::Time lastMove = sf::Time::Zero;
@@ -101,7 +104,7 @@ void Player::update(sf::Time dt){
 		if(lastMove >= moveDelay){
 			if(maze.operator()(playerY-1, playerX) != '#'){
 				std::cout << "Going up" << std::endl;
-				sound.play();
+				//sound.play();
 				playerY--;
 				lastMove = sf::Time::Zero;
 			}
@@ -116,7 +119,7 @@ void Player::update(sf::Time dt){
 		if(lastMove >= moveDelay){
 			if(maze.operator()(playerY+1, playerX) != '#'){
 				std::cout << "Going down" << std::endl;
-				sound.play();
+				//sound.play();
 				playerY++;
 				lastMove = sf::Time::Zero;
 			}
@@ -131,7 +134,7 @@ void Player::update(sf::Time dt){
 		if(lastMove >= moveDelay){
 			if(maze.operator()(playerY, playerX-1) != '#'){
 				std::cout << "Going left" << std::endl;
-				sound.play();
+				//sound.play();
 				playerX--;
 				lastMove = sf::Time::Zero;
 			}
@@ -146,7 +149,7 @@ void Player::update(sf::Time dt){
 		if(lastMove >= moveDelay){
 			if(maze.operator()(playerY, playerX+1) != '#'){
 				std::cout << "Going right" << std::endl;
-				sound.play();
+				//sound.play();
 				playerX++;
 				lastMove = sf::Time::Zero;
 			}

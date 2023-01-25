@@ -8,6 +8,9 @@ Game::Game(){
 	window.setFramerateLimit(60);
 }
 
+Game::~Game(){
+}
+
 void Game::run(){
 	startScreen.active = true;
 	mainScreen.active = false;
@@ -59,7 +62,7 @@ void Game::handleEvents(){
 			mainScreen.active = true;
 		}
 
-		if(event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+		if(event.type == sf::Event::Closed){
 			window.close();
 		}
 	}
@@ -93,6 +96,12 @@ void Game::draw(){
 	else{
 		endScreen.draw(window);
 	}
+
+	//Display the menu
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+
+	}
+
 
 	//Display the window
 	window.display();

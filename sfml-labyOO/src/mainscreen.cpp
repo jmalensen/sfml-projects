@@ -2,13 +2,15 @@
 #include "../include/map.h"
 #include "../include/player.h"
 
-MainScreen::MainScreen(): map(), player(map){
+MainScreen::MainScreen(): map(assetsManager), player(map){
 	init();
+}
+
+MainScreen::~MainScreen(){
 }
 
 //Initialization
 void MainScreen::init(){
-	
 }
 
 //Update the main screen

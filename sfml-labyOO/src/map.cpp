@@ -1,8 +1,11 @@
 #include "../include/map.h"
 
-Map::Map(){
+Map::Map(AssetsManager &assets): assets(assets){
 	//Initialize the map
 	init();
+}
+
+Map::~Map(){
 }
 
 // Create traps which blocks areas (with resolution)
@@ -65,28 +68,45 @@ void Map::init(){
 	mazeList = {{"maze", maze}, {"maze2", maze2}};
 	levelNum = 1;
 
+	///Textures via AssetsManager
 	//Texture for the wall
-	if(!wallTexture.loadFromFile("images/wallbrick.png")){
-		std::cout << "Failed to load wall texture" << std::endl;
-	}
-	wallSprite.setTexture(wallTexture);
+	assets.loadTexture("wallbrick", "images/wallbrick.png");
+	wallSprite.setTexture(assets.getTexture("wallbrick"));
 
 	//Texture for the path
-	if(!texturePath.loadFromFile("images/pathtexture.png")){
-		std::cout << "Failed to load texturePath" << std::endl;
-	}
-	pathSprite.setTexture(texturePath);
+	assets.loadTexture("pathtexture", "images/pathtexture.png");
+	pathSprite.setTexture(assets.getTexture("pathtexture"));
 
 	//Texture for the background
-	if(!textureBackground.loadFromFile("images/background.jpg")){
-		std::cout << "Failed to load background texture" << std::endl;
-	}
-	backgroundI.setTexture(textureBackground);
+	assets.loadTexture("background", "images/background.jpg");
+	backgroundI.setTexture(assets.getTexture("background"));
+
+	// //Texture for the wall
+	// if(!wallTexture.loadFromFile("images/wallbrick.png")){
+	// 	std::cout << "Failed to load wall texture" << std::endl;
+	// }
+	// wallSprite.setTexture(wallTexture);
+
+	// //Texture for the path
+	// if(!texturePath.loadFromFile("images/pathtexture.png")){
+	// 	std::cout << "Failed to load texturePath" << std::endl;
+	// }
+	// pathSprite.setTexture(texturePath);
+
+	// //Texture for the background
+	// if(!textureBackground.loadFromFile("images/background.jpg")){
+	// 	std::cout << "Failed to load background texture" << std::endl;
+	// }
+	// backgroundI.setTexture(textureBackground);
+
+	// //Texture for the key
+	// if(!textureKey.loadFromFile("images/key.png")){
+	// 	std::cout << "Failed to load key texture" << std::endl;
+	// }
 
 	//Texture for the key
-	if(!textureKey.loadFromFile("images/key.png")){
-		std::cout << "Failed to load key texture" << std::endl;
-	}
+	assets.loadTexture("key", "images/key.png");
+	keySprite.setTexture(assets.getTexture("key"));
 
 	//Key animation
 	rectSourceSpriteKey.left = 0;
@@ -94,7 +114,6 @@ void Map::init(){
 	rectSourceSpriteKey.width = 60;
 	rectSourceSpriteKey.height = 60;
 
-	keySprite.setTexture(textureKey);
 	keySprite.setTextureRect(rectSourceSpriteKey);
 
 

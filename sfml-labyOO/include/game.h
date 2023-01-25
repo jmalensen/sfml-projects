@@ -17,8 +17,9 @@ class EndScreen;
 
 class Game{
 	public:
-	//Constructor
+	//Constructor and destructor
 	Game();
+	~Game();
 
 	//Run the game
 	void run();

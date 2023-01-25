@@ -5,11 +5,15 @@
 #include <array>
 #include <iostream>
 #include <unordered_map>
+#include "assetsmanager.h"
+
+class AssetsManager;
 
 class Map{
 	public:
-	//Constructor
-	Map();
+	//Constructor and destructor
+	Map(AssetsManager &assets);
+	~Map();
 
 	//Getters
 	int getRows() const{
@@ -42,6 +46,7 @@ class Map{
 	void draw(sf::RenderTarget& target);
 
 	private:
+	AssetsManager &assets;
 	static constexpr int ROWS = 21;
 	static constexpr int COLS = 26;
 	static constexpr int BLOCK_SIZE = 60;

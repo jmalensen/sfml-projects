@@ -4,6 +4,9 @@ EndScreen::EndScreen(){
 	init();
 }
 
+EndScreen::~EndScreen(){
+}
+
 //Initialization
 void EndScreen::init(){
 	//Texture for the background

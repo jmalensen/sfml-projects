@@ -4,6 +4,9 @@ StartScreen::StartScreen(){
 	init();
 }
 
+StartScreen::~StartScreen(){
+}
+
 //Initialization
 void StartScreen::init(){
 	//Texture for the background

@@ -11,7 +11,9 @@
 
 class StartScreen: public Screen{
 	public:
+	//Constructor and destructor
 	StartScreen();
+	~StartScreen();
 
 	//Initialization
 	void init();

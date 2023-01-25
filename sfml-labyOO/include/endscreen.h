@@ -11,7 +11,9 @@
 
 class EndScreen: public Screen{
 	public:
+	//Constructor and destructor
 	EndScreen();
+	~EndScreen();
 
 	//Initialization
 	void init();

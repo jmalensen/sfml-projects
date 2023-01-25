@@ -14,8 +14,9 @@ class Map;
 
 class Player{
 	public:
-	//Constructor
+	//Constructor and destructor
 	Player(Map& maze);
+	~Player();
 
 	//Initialization
 	void init();
