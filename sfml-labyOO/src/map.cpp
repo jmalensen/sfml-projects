@@ -81,29 +81,6 @@ void Map::init(){
 	assets.loadTexture("background", "images/background.jpg");
 	backgroundI.setTexture(assets.getTexture("background"));
 
-	// //Texture for the wall
-	// if(!wallTexture.loadFromFile("images/wallbrick.png")){
-	// 	std::cout << "Failed to load wall texture" << std::endl;
-	// }
-	// wallSprite.setTexture(wallTexture);
-
-	// //Texture for the path
-	// if(!texturePath.loadFromFile("images/pathtexture.png")){
-	// 	std::cout << "Failed to load texturePath" << std::endl;
-	// }
-	// pathSprite.setTexture(texturePath);
-
-	// //Texture for the background
-	// if(!textureBackground.loadFromFile("images/background.jpg")){
-	// 	std::cout << "Failed to load background texture" << std::endl;
-	// }
-	// backgroundI.setTexture(textureBackground);
-
-	// //Texture for the key
-	// if(!textureKey.loadFromFile("images/key.png")){
-	// 	std::cout << "Failed to load key texture" << std::endl;
-	// }
-
 	//Texture for the key
 	assets.loadTexture("key", "images/key.png");
 	keySprite.setTexture(assets.getTexture("key"));
