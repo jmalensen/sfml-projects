@@ -10,14 +10,14 @@ Game::~Game(){
 }
 
 void Game::run(){
-	startScreen.active = true;
-	mainScreen.active = false;
+	screensManager.showStartScreen();
 
 	//Background music
 	sf::Music music;
 	if (!music.openFromFile("sounds/musicloop.wav")){
 		std::cout << "Fail to load music file" << std::endl;
 	}
+
 	music.setVolume(20);
 	music.setLoop(true);
 	music.play();
@@ -54,10 +54,13 @@ void Game::handleEvents(){
 	//Handle events
 	sf::Event event;
 	while(window.pollEvent(event)){
+
 		//Handle enter key press
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
-			startScreen.active = false;
-			mainScreen.active = true;
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)
+		&& screensManager.getCurrentScreen() != ScreensManager::MAINSCREEN
+		&& screensManager.getCurrentScreen() != ScreensManager::ENDSCREEN ){
+			screensManager.showMainScreen();
+			screensManager.handleEvents(event);
 		}
 
 		if(event.type == sf::Event::Closed){
@@ -67,15 +70,7 @@ void Game::handleEvents(){
 }
 
 void Game::update(sf::Time TimePerFrame){
-	if(startScreen.active){
-		startScreen.update(TimePerFrame);
-	}
-	else if(mainScreen.active){
-		mainScreen.update(TimePerFrame);
-	}
-	else{
-		endScreen.update(TimePerFrame);
-	}
+	screensManager.update(TimePerFrame);
 }
 
 void Game::draw(){
@@ -83,23 +78,17 @@ void Game::draw(){
 	window.clear(sf::Color::Black);
 
 	//Draw screens
-	if(startScreen.active){
-		// std::cout << "Load startscreen screen" << std::endl;
-		startScreen.draw(window);
-	}
-	else if(mainScreen.active){
-		// std::cout << "Load main screen" << std::endl;
-		mainScreen.draw(window);
-	}
-	else{
-		endScreen.draw(window);
-	}
+	screensManager.draw(window);
 
 	//Display the menu
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
-
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)
+	&& screensManager.getCurrentScreen() != ScreensManager::MENUSCREEN){
+		screensManager.showMenuScreen();
 	}
-
+	else if( sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)
+	&& screensManager.getCurrentScreen() != ScreensManager::ENDSCREEN ){
+		screensManager.showMainScreen();
+	}
 
 	//Display the window
 	window.display();

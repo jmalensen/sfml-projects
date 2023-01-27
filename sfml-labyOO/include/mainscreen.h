@@ -7,6 +7,7 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <functional>
 #include "screen.h"
 #include "assetsmanager.h"
 #include "map.h"
@@ -19,11 +20,14 @@ class Player;
 class MainScreen: public Screen{
 	public:
 	//Constructor and destructor
-	MainScreen();
+	MainScreen(AssetsManager &assetsManager);
 	~MainScreen();
 
 	//Initialization
 	void init();
+
+	//Handling events
+	void handleEvents(sf::Event event);
 
 	//Update the main screen
 	void update(sf::Time TimePerFrame);
@@ -33,7 +37,7 @@ class MainScreen: public Screen{
 
 	private:
 	//The assets manager
-	AssetsManager assetsManager;
+	AssetsManager &assetsManager;
 
 	//The map
 	Map map;

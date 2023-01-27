@@ -1,6 +1,6 @@
 #include "../include/mainscreen.h"
 
-MainScreen::MainScreen(): map(assetsManager), player(map, assetsManager){
+MainScreen::MainScreen(AssetsManager &assetsManager): assetsManager(assetsManager), map(assetsManager), player(map, assetsManager){
 	init();
 }
 
@@ -9,6 +9,10 @@ MainScreen::~MainScreen(){
 
 //Initialization
 void MainScreen::init(){
+}
+
+//Handling events
+void MainScreen::handleEvents(sf::Event event){
 }
 
 //Update the main screen
@@ -29,7 +33,7 @@ void MainScreen::draw(sf::RenderWindow& target){
 	//Draw player
 	player.draw(target);
 
-	if(player.getExited()){
+	if(player.getHasExited()){
 		// //Slow down program
 		// std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 		this->active = false;

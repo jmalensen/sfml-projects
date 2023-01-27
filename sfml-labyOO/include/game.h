@@ -5,17 +5,13 @@
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>
 #include "assetsmanager.h"
-#include "startscreen.h"
-#include "mainscreen.h"
-#include "endscreen.h"
+#include "screensmanager.h"
 #include <iostream>
 #include <chrono>
 #include <thread>
 
 class AssetsManager;
-class StartScreen;
-class MainScreen;
-class EndScreen;
+class ScreensManager;
 
 class Game{
 	public:
@@ -41,10 +37,8 @@ class Game{
 	//The windows for the render
 	sf::RenderWindow window;
 
-	//The startscreen
-	StartScreen startScreen;
-	MainScreen mainScreen;
-	EndScreen endScreen;
+	//The screenmanager
+	ScreensManager screensManager = ScreensManager(assetsManager);
 };
 
 #endif //GAME_H

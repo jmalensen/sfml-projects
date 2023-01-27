@@ -8,15 +8,21 @@
 #include <chrono>
 #include <thread>
 #include "screen.h"
+#include "assetsmanager.h"
+
+class AssetsManager;
 
 class EndScreen: public Screen{
 	public:
 	//Constructor and destructor
-	EndScreen();
+	EndScreen(AssetsManager &assetsManager);
 	~EndScreen();
 
 	//Initialization
 	void init();
+
+	//Handling events
+	void handleEvents(sf::Event event);
 
 	//Update the end screen
 	void update(sf::Time TimePerFrame);
@@ -25,8 +31,10 @@ class EndScreen: public Screen{
 	void draw(sf::RenderTarget& target);
 
 	private:
+	//The assets manager
+	AssetsManager &assetsManager;
+
 	//Texture for the screen
-	sf::Texture textureBackgroundScreen;
 	sf::Sprite screen;
 
 	///Text to display the text
@@ -36,7 +44,6 @@ class EndScreen: public Screen{
 	sf::Text titleScreen;
 
 	//Victory sound
-	sf::SoundBuffer buffer;
 	sf::Sound winSound;
 };
 

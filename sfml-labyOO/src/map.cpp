@@ -73,6 +73,9 @@ void Map::init(){
 	assetsManager.loadTexture("wallbrick", "images/wallbrick.png");
 	wallSprite.setTexture(assetsManager.getTexture("wallbrick"));
 
+	assetsManager.loadTexture("wallbrick2", "images/wallbrick2.png");
+	wallSprite2.setTexture(assetsManager.getTexture("wallbrick2"));
+
 	//Texture for the path
 	assetsManager.loadTexture("pathtexture", "images/pathtexture.png");
 	pathSprite.setTexture(assetsManager.getTexture("pathtexture"));
@@ -239,8 +242,13 @@ void Map::draw(sf::RenderTarget& target){
 			block.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
 
 			if(maze[row][col] == '#'){
-				wallSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-				target.draw(wallSprite);
+				if(levelNum == 1){
+					wallSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					target.draw(wallSprite);
+				} else if(levelNum == 2){
+					wallSprite2.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					target.draw(wallSprite2);
+				}
 			} else{
 				pathSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
 				target.draw(pathSprite);

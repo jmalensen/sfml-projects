@@ -15,11 +15,14 @@ class AssetsManager;
 class StartScreen: public Screen{
 	public:
 	//Constructor and destructor
-	StartScreen();
+	StartScreen(AssetsManager &assetsManager);
 	~StartScreen();
 
 	//Initialization
 	void init();
+
+	//Handling events
+	void handleEvents(sf::Event event);
 
 	//Update the start screen
 	void update(sf::Time TimePerFrame);
@@ -28,7 +31,8 @@ class StartScreen: public Screen{
 	void draw(sf::RenderTarget& target);
 
 	private:
-	//AssetsManager &assetsManager;
+	//The assets manager
+	AssetsManager &assetsManager;
 
 	//Texture for the screen
 	sf::Texture textureBackgroundScreen;

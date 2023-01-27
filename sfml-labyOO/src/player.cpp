@@ -70,7 +70,7 @@ void Player::setPlayerY(int newY){
 	playerY = newY;
 }
 
-bool Player::getExited() const{
+bool Player::getHasExited() const{
 	return exit;
 }
 

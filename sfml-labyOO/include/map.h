@@ -63,6 +63,7 @@ class Map{
 	///Textures
 	//Texture for the wall
 	sf::Sprite wallSprite;
+	sf::Sprite wallSprite2;
 
 	//Texture for the path
 	sf::Sprite pathSprite;

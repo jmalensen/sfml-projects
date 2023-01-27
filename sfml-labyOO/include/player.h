@@ -32,7 +32,7 @@ class Player{
 	void setPlayerY(int newY);
 
 	//Getter exit
-	bool getExited() const;
+	bool getHasExited() const;
 
 	//Update position
 	void update(sf::Time dt);
@@ -52,9 +52,7 @@ class Player{
 
 	//Sounds
 	sf::Sound sound;
-
 	sf::Sound hurtSound;
-
 	sf::Sound unlockSound;
 	bool unlockSoundPlayed;
 

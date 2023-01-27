@@ -31,6 +31,19 @@ bool AssetsManager::loadSound(std::string name, std::string filepath) {
 	return true;
 }
 
+// bool AssetsManager::loadMusic(std::string name, std::string filepath) {
+// 	// check if the music has already been loaded
+// 	if (musics.count(name) == 0) {
+// 		sf::Music music;
+// 		if (!music.openFromFile(filepath)) {
+// 			std::cout << "Failed to load music: " << filepath << std::endl;
+// 			return false;
+// 		}
+// 		musics[name] = music;
+// 	}
+// 	return true;
+// }
+
 bool AssetsManager::loadFont(std::string name, std::string filepath) {
 	// check if the font has already been loaded
 	if (fonts.count(name) == 0) {
@@ -62,6 +75,13 @@ sf::Sound AssetsManager::getSound(std::string name){
 	sf::Sound sound(getSoundBuffer(name));
 	return sound;
 }
+
+// sf::Music& AssetsManager::getMusic(std::string name){
+// 	if(musics.count(name) == 0){
+// 		throw std::invalid_argument("Music not found : " + name);
+// 	}
+// 	return musics[name];
+// }
 
 sf::Font& AssetsManager::getFont(std::string name) {
 	if(fonts.count(name) == 0){

@@ -1,6 +1,6 @@
 #include "../include/endscreen.h"
 
-EndScreen::EndScreen(){
+EndScreen::EndScreen(AssetsManager &assetsManager) : assetsManager(assetsManager){
 	init();
 }
 
@@ -10,18 +10,13 @@ EndScreen::~EndScreen(){
 //Initialization
 void EndScreen::init(){
 	//Texture for the background
-	if(!textureBackgroundScreen.loadFromFile("images/startscreen.jpg")){
-		std::cout << "Failed to load background screen texture" << std::endl;
-	}
-
-	screen.setTexture(textureBackgroundScreen);
+	assetsManager.loadTexture("startscreen", "images/startscreen.jpg");
+	screen.setTexture(assetsManager.getTexture("startscreen"));
 	screen.setPosition(0,0);
 
 	//Text to display the text
-	if (!font.loadFromFile("fonts/arial.ttf")){
-		std::cout << "Failed to load font" << std::endl;
-	}
-	titleScreen.setFont(font);
+	assetsManager.loadFont("arial", "fonts/arial.ttf");
+	titleScreen.setFont(assetsManager.getFont("arial"));
 
 	// Initialize title text
 	titleScreen.setString("Endgame");
@@ -29,10 +24,12 @@ void EndScreen::init(){
 	titleScreen.setPosition(400, 520);
 
 	//Win sound
-	if (!buffer.loadFromFile("sounds/win.wav")){
-		std::cout << "Fail to load win sound file" << std::endl;
-	}
-	winSound.setBuffer(buffer);
+	assetsManager.loadSound("win", "sounds/win.wav");
+	winSound = (assetsManager.getSound("win"));
+}
+
+//Handling events
+void EndScreen::handleEvents(sf::Event event){
 }
 
 //Update the end screen
