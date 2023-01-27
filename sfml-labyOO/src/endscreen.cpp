@@ -24,7 +24,7 @@ void EndScreen::init(){
 	titleScreen.setPosition(400, 520);
 
 	//Win sound
-	assetsManager.loadSound("win", "sounds/win.wav");
+	assetsManager.loadSound("win", "sounds/win.ogg");
 	winSound = (assetsManager.getSound("win"));
 }
 

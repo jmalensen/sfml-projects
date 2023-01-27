@@ -14,7 +14,7 @@ void Game::run(){
 
 	//Background music
 	sf::Music music;
-	if (!music.openFromFile("sounds/musicloop.wav")){
+	if (!music.openFromFile("sounds/musicloop.ogg")){
 		std::cout << "Fail to load music file" << std::endl;
 	}
 

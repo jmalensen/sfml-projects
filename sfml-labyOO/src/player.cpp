@@ -15,27 +15,27 @@ void Player::init(){
 
 	///Sounds
 	//Movement sound
-	assetsManager.loadSound("jump", "sounds/jump.wav");
+	assetsManager.loadSound("jump", "sounds/jump.ogg");
 	sound = (assetsManager.getSound("jump"));
 	sound.setVolume(10);
 
 	//Hurt sound
-	assetsManager.loadSound("hitHurt", "sounds/hitHurt.wav");
+	assetsManager.loadSound("hitHurt", "sounds/hitHurt.ogg");
 	hurtSound = (assetsManager.getSound("hitHurt"));
 	hurtSound.setVolume(10);
 
 	//Unlock sound
-	assetsManager.loadSound("unlock", "sounds/unlock-sound.wav");
+	assetsManager.loadSound("unlock", "sounds/unlock-sound.ogg");
 	unlockSound = (assetsManager.getSound("unlock"));
 	unlockSoundPlayed = false;
 
 	//Exit level sound
-	assetsManager.loadSound("exitlevel", "sounds/exitlevel.wav");
+	assetsManager.loadSound("exitlevel", "sounds/exitlevel.ogg");
 	exitLevelSound = (assetsManager.getSound("exitlevel"));
 	nextLevelPlayed = false;
 
 	// //Win sound
-	// if (!buffer4.loadFromFile("sounds/win.wav")){
+	// if (!buffer4.loadFromFile("sounds/win.ogg")){
 	// 	std::cout << "Fail to load win sound file" << std::endl;
 	// }
 	// winSound.setBuffer(buffer4);
