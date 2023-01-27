@@ -31,6 +31,19 @@ bool AssetsManager::loadSound(std::string name, std::string filepath) {
 	return true;
 }
 
+bool AssetsManager::loadFont(std::string name, std::string filepath) {
+	// check if the font has already been loaded
+	if (fonts.count(name) == 0) {
+		sf::Font font;
+		if (!font.loadFromFile(filepath)) {
+			std::cout << "Failed to load font: " << filepath << std::endl;
+			return false;
+		}
+		fonts[name] = font;
+	}
+	return true;
+}
+
 sf::Texture& AssetsManager::getTexture(std::string name) {
 	if(textures.count(name) == 0){
 		throw std::invalid_argument("Texture not found : " + name);
@@ -48,6 +61,13 @@ sf::SoundBuffer& AssetsManager::getSoundBuffer(std::string name) {
 sf::Sound AssetsManager::getSound(std::string name){
 	sf::Sound sound(getSoundBuffer(name));
 	return sound;
+}
+
+sf::Font& AssetsManager::getFont(std::string name) {
+	if(fonts.count(name) == 0){
+		throw std::invalid_argument("Font not found : " + name);
+	}
+	return fonts[name];
 }
 
 bool AssetsManager::addAnimation(std::string name, std::vector<sf::IntRect> frames){

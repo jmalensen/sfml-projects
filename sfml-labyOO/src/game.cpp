@@ -1,6 +1,4 @@
 #include "../include/game.h"
-#include "../include/startscreen.h"
-#include "../include/mainscreen.h"
 
 Game::Game(){
 	//Create the window
@@ -86,7 +84,7 @@ void Game::draw(){
 
 	//Draw screens
 	if(startScreen.active){
-		// std::cout << "Load splash screen" << std::endl;
+		// std::cout << "Load startscreen screen" << std::endl;
 		startScreen.draw(window);
 	}
 	else if(mainScreen.active){

@@ -8,6 +8,9 @@
 #include <chrono>
 #include <thread>
 #include "screen.h"
+#include "assetsmanager.h"
+
+class AssetsManager;
 
 class StartScreen: public Screen{
 	public:
@@ -25,6 +28,8 @@ class StartScreen: public Screen{
 	void draw(sf::RenderTarget& target);
 
 	private:
+	//AssetsManager &assetsManager;
+
 	//Texture for the screen
 	sf::Texture textureBackgroundScreen;
 	sf::Sprite screen;

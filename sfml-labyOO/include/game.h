@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>
+#include "assetsmanager.h"
 #include "startscreen.h"
 #include "mainscreen.h"
 #include "endscreen.h"
@@ -11,6 +12,7 @@
 #include <chrono>
 #include <thread>
 
+class AssetsManager;
 class StartScreen;
 class MainScreen;
 class EndScreen;
@@ -25,6 +27,8 @@ class Game{
 	void run();
 
 	private:
+	AssetsManager assetsManager;
+
 	//Handle events
 	void handleEvents();
 

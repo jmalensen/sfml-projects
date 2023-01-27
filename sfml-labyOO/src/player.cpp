@@ -1,7 +1,6 @@
 #include "../include/player.h"
-#include "../include/map.h"
 
-Player::Player(Map& maze): maze(maze){
+Player::Player(Map& maze, AssetsManager &assetsManager): maze(maze), assetsManager(assetsManager){
 	//Initialize the player
 	init();
 }
@@ -16,31 +15,23 @@ void Player::init(){
 
 	///Sounds
 	//Movement sound
-	if (!buffer.loadFromFile("sounds/jump.wav")){
-		std::cout << "Fail to load sound file" << std::endl;
-	}
-	sound.setBuffer(buffer);
+	assetsManager.loadSound("jump", "sounds/jump.wav");
+	sound = (assetsManager.getSound("jump"));
 	sound.setVolume(10);
 
 	//Hurt sound
-	if (!bufferHurt.loadFromFile("sounds/hitHurt.wav")){
-		std::cout << "Fail to load hurt sound file" << std::endl;
-	}
-	hurtSound.setBuffer(bufferHurt);
+	assetsManager.loadSound("hitHurt", "sounds/hitHurt.wav");
+	hurtSound = (assetsManager.getSound("hitHurt"));
 	hurtSound.setVolume(10);
 
 	//Unlock sound
-	if (!buffer2.loadFromFile("sounds/unlock-sound.wav")){
-		std::cout << "Fail to load unlock sound file" << std::endl;
-	}
-	unlockSound.setBuffer(buffer2);
+	assetsManager.loadSound("unlock", "sounds/unlock-sound.wav");
+	unlockSound = (assetsManager.getSound("unlock"));
 	unlockSoundPlayed = false;
 
 	//Exit level sound
-	if (!buffer3.loadFromFile("sounds/exitlevel.wav")){
-		std::cout << "Fail to load exit level sound file" << std::endl;
-	}
-	exitLevelSound.setBuffer(buffer3);
+	assetsManager.loadSound("exitlevel", "sounds/exitlevel.wav");
+	exitLevelSound = (assetsManager.getSound("exitlevel"));
 	nextLevelPlayed = false;
 
 	// //Win sound
@@ -51,17 +42,14 @@ void Player::init(){
 	exit = false;
 
 	//Texture for the player
-	if(!texturePlayer.loadFromFile("images/dino.png")){
-		std::cout << "Failed to load dino texture" << std::endl;
-	}
+	assetsManager.loadTexture("dino", "images/dino.png");
+	player.setTexture(assetsManager.getTexture("dino"));
 
 	//Player animation
 	rectSourceSpritePlayer.left = 0;
 	rectSourceSpritePlayer.top = 0;
 	rectSourceSpritePlayer.width = 104;
 	rectSourceSpritePlayer.height = 113;
-
-	player.setTexture(texturePlayer);
 	player.setTextureRect(rectSourceSpritePlayer);
 	player.setScale(0.5f, 0.5f);
 }
@@ -104,7 +92,6 @@ void Player::update(sf::Time dt){
 		if(lastMove >= moveDelay){
 			if(maze.operator()(playerY-1, playerX) != '#'){
 				std::cout << "Going up" << std::endl;
-				//sound.play();
 				playerY--;
 				lastMove = sf::Time::Zero;
 			}
@@ -119,7 +106,6 @@ void Player::update(sf::Time dt){
 		if(lastMove >= moveDelay){
 			if(maze.operator()(playerY+1, playerX) != '#'){
 				std::cout << "Going down" << std::endl;
-				//sound.play();
 				playerY++;
 				lastMove = sf::Time::Zero;
 			}
@@ -134,7 +120,6 @@ void Player::update(sf::Time dt){
 		if(lastMove >= moveDelay){
 			if(maze.operator()(playerY, playerX-1) != '#'){
 				std::cout << "Going left" << std::endl;
-				//sound.play();
 				playerX--;
 				lastMove = sf::Time::Zero;
 			}
@@ -149,7 +134,6 @@ void Player::update(sf::Time dt){
 		if(lastMove >= moveDelay){
 			if(maze.operator()(playerY, playerX+1) != '#'){
 				std::cout << "Going right" << std::endl;
-				//sound.play();
 				playerX++;
 				lastMove = sf::Time::Zero;
 			}

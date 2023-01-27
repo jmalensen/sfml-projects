@@ -1,6 +1,6 @@
 #include "../include/map.h"
 
-Map::Map(AssetsManager &assets): assets(assets){
+Map::Map(AssetsManager &assetsManager): assetsManager(assetsManager){
 	//Initialize the map
 	init();
 }
@@ -22,7 +22,7 @@ void Map::init(){
 		"#   #     #       #     #",
 		"### ########### # # ### #",
 		"# #        #    #   #   #",
-		"# # ### ####### # ### ###",
+		"# # ###n####### # ### ###",
 		"# # #      # k# #####   #",
 		"# # # ### ## ## #   ## ##",
 		"#   # #   #     # #    ##",
@@ -70,63 +70,56 @@ void Map::init(){
 
 	///Textures via AssetsManager
 	//Texture for the wall
-	assets.loadTexture("wallbrick", "images/wallbrick.png");
-	wallSprite.setTexture(assets.getTexture("wallbrick"));
+	assetsManager.loadTexture("wallbrick", "images/wallbrick.png");
+	wallSprite.setTexture(assetsManager.getTexture("wallbrick"));
 
 	//Texture for the path
-	assets.loadTexture("pathtexture", "images/pathtexture.png");
-	pathSprite.setTexture(assets.getTexture("pathtexture"));
+	assetsManager.loadTexture("pathtexture", "images/pathtexture.png");
+	pathSprite.setTexture(assetsManager.getTexture("pathtexture"));
 
 	//Texture for the background
-	assets.loadTexture("background", "images/background.jpg");
-	backgroundI.setTexture(assets.getTexture("background"));
+	assetsManager.loadTexture("background", "images/background.jpg");
+	backgroundI.setTexture(assetsManager.getTexture("background"));
 
 	//Texture for the key
-	assets.loadTexture("key", "images/key.png");
-	keySprite.setTexture(assets.getTexture("key"));
+	assetsManager.loadTexture("key", "images/key.png");
+	keySprite.setTexture(assetsManager.getTexture("key"));
 
 	//Key animation
 	rectSourceSpriteKey.left = 0;
 	rectSourceSpriteKey.top = 0;
 	rectSourceSpriteKey.width = 60;
 	rectSourceSpriteKey.height = 60;
-
 	keySprite.setTextureRect(rectSourceSpriteKey);
 
 
 	//Texture for the nextLevel icon
-	if(!textureNextLevelIcon.loadFromFile("images/nextlevel.png")){
-		std::cout << "Failed to load next level icon texture" << std::endl;
-	}
+	assetsManager.loadTexture("nextlevel", "images/nextlevel.png");
+	nextLevelSprite.setTexture(assetsManager.getTexture("nextlevel"));
 
 	//NextLevel animation
 	rectSourceSpriteNextLevel.left = 0;
 	rectSourceSpriteNextLevel.top = 0;
 	rectSourceSpriteNextLevel.width = 60;
 	rectSourceSpriteNextLevel.height = 60;
-
-	nextLevelSprite.setTexture(textureNextLevelIcon);
 	nextLevelSprite.setTextureRect(rectSourceSpriteNextLevel);
 
+
 	//Texture for the trophy icon
-	if(!textureTrophyIcon.loadFromFile("images/trophy.png")){
-		std::cout << "Failed to load trophy icon texture" << std::endl;
-	}
+	assetsManager.loadTexture("trophy", "images/trophy.png");
+	trophySprite.setTexture(assetsManager.getTexture("trophy"));
 
 	//Trophy animation
 	rectSourceSpriteTrophy.left = 0;
 	rectSourceSpriteTrophy.top = 0;
 	rectSourceSpriteTrophy.width = 60;
 	rectSourceSpriteTrophy.height = 60;
-
-	trophySprite.setTexture(textureTrophyIcon);
 	trophySprite.setTextureRect(rectSourceSpriteTrophy);
 
+
 	//Text to display the level number
-	if (!font.loadFromFile("fonts/arial.ttf")){
-		std::cout << "Failed to load font" << std::endl;
-	}
-	text.setFont(font);
+	assetsManager.loadFont("arial", "fonts/arial.ttf");
+	text.setFont(assetsManager.getFont("arial"));
 
 	//Set the string to display
 	text.setString("Level: " + std::to_string(levelNum) );
@@ -162,6 +155,9 @@ int Map::getLevel(){
 
 void Map::setLevel(int newLevel){
 	levelNum = newLevel;
+
+	//Set the string to display when level change
+	text.setString("Level: " + std::to_string(levelNum) );
 }
 
 void Map::update(sf::Time dt){

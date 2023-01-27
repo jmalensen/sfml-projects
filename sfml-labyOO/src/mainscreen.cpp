@@ -1,8 +1,6 @@
 #include "../include/mainscreen.h"
-#include "../include/map.h"
-#include "../include/player.h"
 
-MainScreen::MainScreen(): map(assetsManager), player(map){
+MainScreen::MainScreen(): map(assetsManager), player(map, assetsManager){
 	init();
 }
 

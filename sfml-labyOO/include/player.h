@@ -5,17 +5,19 @@
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>
 #include "map.h"
+#include "assetsmanager.h"
 #include <iostream>
 #include <chrono>
 #include <thread>
 #include <array>
 
 class Map;
+class AssetsManager;
 
 class Player{
 	public:
 	//Constructor and destructor
-	Player(Map& maze);
+	Player(Map& maze, AssetsManager &assetsManager);
 	~Player();
 
 	//Initialization
@@ -42,22 +44,20 @@ class Player{
 	void draw(sf::RenderTarget& target);
 
 	private:
+	AssetsManager &assetsManager;
+	
 	//Player position
 	int playerX;
 	int playerY;
 
 	//Sounds
-	sf::SoundBuffer buffer;
 	sf::Sound sound;
 
-	sf::SoundBuffer bufferHurt;
 	sf::Sound hurtSound;
 
-	sf::SoundBuffer buffer2;
 	sf::Sound unlockSound;
 	bool unlockSoundPlayed;
 
-	sf::SoundBuffer buffer3;
 	sf::Sound exitLevelSound;
 	bool nextLevelPlayed;
 
@@ -66,7 +66,6 @@ class Player{
 	bool exit;
 
 	//Texture for the player
-	sf::Texture texturePlayer;
 	sf::IntRect rectSourceSpritePlayer;
 	sf::Sprite player;
 

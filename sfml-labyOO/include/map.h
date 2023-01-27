@@ -12,7 +12,7 @@ class AssetsManager;
 class Map{
 	public:
 	//Constructor and destructor
-	Map(AssetsManager &assets);
+	Map(AssetsManager &assetsManager);
 	~Map();
 
 	//Getters
@@ -46,7 +46,8 @@ class Map{
 	void draw(sf::RenderTarget& target);
 
 	private:
-	AssetsManager &assets;
+	AssetsManager &assetsManager;
+	
 	static constexpr int ROWS = 21;
 	static constexpr int COLS = 26;
 	static constexpr int BLOCK_SIZE = 60;
@@ -61,29 +62,23 @@ class Map{
 
 	///Textures
 	//Texture for the wall
-	sf::Texture wallTexture;
 	sf::Sprite wallSprite;
 
 	//Texture for the path
-	sf::Texture texturePath;
 	sf::Sprite pathSprite;
 
 	//Texture for the background
-	sf::Texture textureBackground;
 	sf::Sprite backgroundI;
 
 	//Texture for the key
-	sf::Texture textureKey;
 	sf::IntRect rectSourceSpriteKey;
 	sf::Sprite keySprite;
 
 	//Texture for the nextLevel icon
-	sf::Texture textureNextLevelIcon;
 	sf::IntRect rectSourceSpriteNextLevel;
 	sf::Sprite nextLevelSprite;
 
 	//Texture for the trophy icon
-	sf::Texture textureTrophyIcon;
 	sf::IntRect rectSourceSpriteTrophy;
 	sf::Sprite trophySprite;
 
