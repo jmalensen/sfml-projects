@@ -7,11 +7,13 @@
 #include <iostream>
 #include "assetsmanager.h"
 #include "startscreen.h"
+#include "menuscreen.h"
 #include "mainscreen.h"
 #include "endscreen.h"
 
 class AssetsManager;
 class StartScreen;
+class MenuScreen;
 class MainScreen;
 class EndScreen;
 
@@ -45,7 +47,7 @@ class ScreensManager {
 
 	std::unique_ptr<StartScreen> startScreen;
 	std::unique_ptr<MainScreen> mainScreen;
-	//std::unique_ptr<MenuScreen> menuScreen;
+	std::unique_ptr<MenuScreen> menuScreen;
 	std::unique_ptr<EndScreen> endScreen;
 };
 

@@ -5,7 +5,7 @@ ScreensManager::ScreensManager(AssetsManager &assetsManager): assetsManager(asse
 
 	startScreen = std::make_unique<StartScreen>(assetsManager);
 	mainScreen = std::make_unique<MainScreen>(assetsManager);
-	// menuScreen = std::make_unique<MenuScreen>();
+	menuScreen = std::make_unique<MenuScreen>(assetsManager);
 	endScreen = std::make_unique<EndScreen>(assetsManager);
 }
 
@@ -20,7 +20,7 @@ void ScreensManager::showMainScreen() {
 }
 
 void ScreensManager::showMenuScreen() {
-	//currentScreen = 2;
+	currentScreen = ScreensManager::MENUSCREEN;
 }
 
 void ScreensManager::showEndScreen() {
@@ -41,7 +41,9 @@ void ScreensManager::handleEvents(sf::Event event) {
 		mainScreen->handleEvents(event);
 		break;
 
-		//case 2: menuScreen->handleEvents(event); break;
+		case ScreensManager::MENUSCREEN :
+		menuScreen->handleEvents(event);
+		break;
 
 		case ScreensManager::ENDSCREEN :
 		endScreen->handleEvents(event);
@@ -59,7 +61,9 @@ void ScreensManager::update(sf::Time TimePerFrame) {
 		mainScreen->update(TimePerFrame);
 		break;
 
-		// case 2: menuScreen->update(); break;
+		case ScreensManager::MENUSCREEN :
+		menuScreen->update(TimePerFrame);
+		break;
 
 		case ScreensManager::ENDSCREEN :
 		endScreen->update(TimePerFrame);
@@ -83,7 +87,9 @@ void ScreensManager::draw(sf::RenderWindow &window) {
 		}
 		break;
 
-		// case 2: menuScreen->draw(window); break;
+		case ScreensManager::MENUSCREEN :
+		menuScreen->draw(window);
+		break;
 
 		case ScreensManager::ENDSCREEN :
 		endScreen->draw(window);

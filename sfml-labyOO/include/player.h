@@ -10,6 +10,7 @@
 #include <chrono>
 #include <thread>
 #include <array>
+#include <string>
 
 class Map;
 class AssetsManager;
@@ -58,6 +59,7 @@ class Player{
 
 	sf::Sound exitLevelSound;
 	bool nextLevelPlayed;
+	bool trapSoundPlayed;
 
 	// sf::SoundBuffer buffer4;
 	// sf::Sound winSound;

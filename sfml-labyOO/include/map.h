@@ -54,6 +54,7 @@ class Map{
 
 	std::array<std::array<char, COLS>, ROWS> maze;
 	std::array<std::array<char, COLS>, ROWS> maze2;
+	std::array<std::array<char, COLS>, ROWS> maze3;
 
 	int levelNum;
 
@@ -64,9 +65,12 @@ class Map{
 	//Texture for the wall
 	sf::Sprite wallSprite;
 	sf::Sprite wallSprite2;
+	sf::Sprite wallSprite3;
 
 	//Texture for the path
 	sf::Sprite pathSprite;
+	sf::Sprite pathSprite2;
+	sf::Sprite pathSprite3;
 
 	//Texture for the background
 	sf::Sprite backgroundI;

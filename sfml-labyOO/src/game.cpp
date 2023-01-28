@@ -63,7 +63,9 @@ void Game::handleEvents(){
 			screensManager.handleEvents(event);
 		}
 
-		if(event.type == sf::Event::Closed){
+		if(event.type == sf::Event::Closed
+		|| (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)
+				&& screensManager.getCurrentScreen() == ScreensManager::ENDSCREEN) ){
 			window.close();
 		}
 	}
@@ -85,7 +87,7 @@ void Game::draw(){
 	&& screensManager.getCurrentScreen() != ScreensManager::MENUSCREEN){
 		screensManager.showMenuScreen();
 	}
-	else if( sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)
+	else if( sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)
 	&& screensManager.getCurrentScreen() != ScreensManager::ENDSCREEN ){
 		screensManager.showMainScreen();
 	}

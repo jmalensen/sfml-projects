@@ -21,7 +21,7 @@ void Map::init(){
 		"#########################",
 		"#   #     #       #     #",
 		"### ########### # # ### #",
-		"# #        #    #   #   #",
+		"# #       t#    #   #   #",
 		"# # ###n####### # ### ###",
 		"# # #      # k# #####   #",
 		"# # # ### ## ## #   ## ##",
@@ -44,16 +44,16 @@ void Map::init(){
 	maze2 = {{
 		"#########################",
 		"#  #### #  ####  #### ###",
-		"# #    # # #    # #    ##",
+		"# #      # #    # #    ##",
 		"# # #### #### # #### #  #",
 		"# # #         #    # #  #",
 		"# # ###### #### # # #####",
 		"# # # #    #    # # #k  #",
-		"# # # # #### # ## # # # #",
+		"#   # # #### # ## # # # #",
 		"##### # ### ## #### ### #",
 		"#     # #   #         # #",
 		"###   #####    ######   #",
-		"#   #     e#   #      ###",
+		"#   #     n#   #      ###",
 		"################   ###  #",
 		"#     ##        #       #",
 		"### # ## ########### ## #",
@@ -65,7 +65,31 @@ void Map::init(){
 		"#########################",
 	}};
 
-	mazeList = {{"maze", maze}, {"maze2", maze2}};
+	maze3 = {{
+		"#########################",
+		"#  #### #  ####  #### #e#",
+		"# #    # # #    ##    ###",
+		"# # #### #### # ## # #  #",
+		"# #           #    # #  #",
+		"# # ###### #### # # #####",
+		"# #####    #    # # #k  #",
+		"#  t# # #### # ## # # # #",
+		"# ### # ### ## #### ### #",
+		"#     # #   #         # #",
+		"###   #####    ######   #",
+		"#   #      #   ###    ###",
+		"# #   #### #####   ###  #",
+		"########        #       #",
+		"### # ## ########### ## #",
+		"#   #       #     ##    #",
+		"##     #### ## ## #### ##",
+		"# ######       #    #  t#",
+		"# #    ###  ##   ## ## ##",
+		"# # ### # # #           #",
+		"#########################",
+	}};
+
+	mazeList = {{"maze", maze}, {"maze2", maze2}, {"maze3", maze3}};
 	levelNum = 1;
 
 	///Textures via AssetsManager
@@ -75,10 +99,19 @@ void Map::init(){
 
 	assetsManager.loadTexture("wallbrick2", "images/wallbrick2.png");
 	wallSprite2.setTexture(assetsManager.getTexture("wallbrick2"));
+	
+	assetsManager.loadTexture("wallbrick3", "images/wallbrick3.png");
+	wallSprite3.setTexture(assetsManager.getTexture("wallbrick3"));
 
 	//Texture for the path
 	assetsManager.loadTexture("pathtexture", "images/pathtexture.png");
 	pathSprite.setTexture(assetsManager.getTexture("pathtexture"));
+
+	assetsManager.loadTexture("pathtexture2", "images/pathtexture2.jpg");
+	pathSprite2.setTexture(assetsManager.getTexture("pathtexture2"));
+
+	assetsManager.loadTexture("pathtexture3", "images/pathtexture3.jpg");
+	pathSprite3.setTexture(assetsManager.getTexture("pathtexture3"));
 
 	//Texture for the background
 	assetsManager.loadTexture("background", "images/background.jpg");
@@ -248,10 +281,21 @@ void Map::draw(sf::RenderTarget& target){
 				} else if(levelNum == 2){
 					wallSprite2.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
 					target.draw(wallSprite2);
+				} else if(levelNum == 3){
+					wallSprite3.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					target.draw(wallSprite3);
 				}
 			} else{
-				pathSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-				target.draw(pathSprite);
+				if(levelNum == 1){
+					pathSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					target.draw(pathSprite);
+				} else if(levelNum == 2){
+					pathSprite2.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					target.draw(pathSprite2);
+				} else if(levelNum == 3){
+					pathSprite3.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					target.draw(pathSprite3);
+				}
 			}
 
 			if(maze[row][col] == 't'){

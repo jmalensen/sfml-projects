@@ -22,7 +22,8 @@ void Player::init(){
 	//Hurt sound
 	assetsManager.loadSound("hitHurt", "sounds/hitHurt.ogg");
 	hurtSound = (assetsManager.getSound("hitHurt"));
-	hurtSound.setVolume(10);
+	hurtSound.setVolume(100);
+	trapSoundPlayed = false;
 
 	//Unlock sound
 	assetsManager.loadSound("unlock", "sounds/unlock-sound.ogg");
@@ -97,7 +98,6 @@ void Player::update(sf::Time dt){
 			}
 			else{
 				std::cout << "Ouch" << std::endl;
-				hurtSound.play();
 			}
 		}
 	}
@@ -111,7 +111,6 @@ void Player::update(sf::Time dt){
 			}
 			else{
 				std::cout << "Ouch" << std::endl;
-				hurtSound.play();
 			}
 		}
 	}
@@ -125,7 +124,6 @@ void Player::update(sf::Time dt){
 			}
 			else{
 				std::cout << "Ouch" << std::endl;
-				hurtSound.play();
 			}
 		}
 	}
@@ -139,9 +137,19 @@ void Player::update(sf::Time dt){
 			}
 			else{
 				std::cout << "Ouch" << std::endl;
-				hurtSound.play();
 			}
 		}
+	}
+
+	if(maze.operator()(playerY, playerX) == 't' && trapSoundPlayed != true){
+		hurtSound.play();
+		if(maze.getLevel() == 2){
+			maze.operator()(5, 5) = '#';
+		}
+		else if(maze.getLevel() == 3){
+			maze.operator()(1, 22) = '#';
+		}
+		trapSoundPlayed = true;
 	}
 
 	//If case is a key
@@ -155,6 +163,9 @@ void Player::update(sf::Time dt){
 		}
 		else if(maze.getLevel() == 2){
 			maze.operator()(5, 5) = ' ';
+		}
+		else if(maze.getLevel() == 3){
+			maze.operator()(1, 22) = ' ';
 		}
 		unlockSound.play();
 
@@ -173,7 +184,15 @@ void Player::update(sf::Time dt){
 		//Need to reset the sounds for the next level
 		resetSounds();
 
-		maze.setNewMaze( maze.getMazeByName("maze2") );
+		//Name of the maze level
+		std::string name = "maze"+ std::to_string(maze.getLevel());
+
+		//Set new level
+		maze.setNewMaze( maze.getMazeByName(name) );
+
+		playerX = 1;
+		playerY = 1;
+		player.setPosition(playerX * maze.getBlockSize()+1, playerY * maze.getBlockSize()+1);
 	}
 
 	//Sound of the win for the exit
