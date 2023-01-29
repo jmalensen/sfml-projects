@@ -13,7 +13,6 @@ void Game::run(){
 	screensManager.showStartScreen();
 
 	//Background music
-	sf::Music music;
 	if (!music.openFromFile("sounds/musicloop.ogg")){
 		std::cout << "Fail to load music file" << std::endl;
 	}

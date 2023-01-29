@@ -146,13 +146,14 @@ void Player::update(sf::Time dt){
 
 		if(maze.getLevel() == 2){
 			maze.operator()(8, 5) = '#';
-			maze.operator()(playerY, playerX) = ' ';
 			maze.operator()(13, 15) = 'k';
-			unlockEnabled = false;
 		}
 		else if(maze.getLevel() == 3){
 			maze.operator()(1, 22) = '#';
+			maze.operator()(13, 15) = 'k';
 		}
+		maze.operator()(playerY, playerX) = ' ';
+		unlockEnabled = false;
 		trapEnabled = true;
 	}
 

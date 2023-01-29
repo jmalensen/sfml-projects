@@ -24,6 +24,7 @@ class Game{
 
 	private:
 	AssetsManager assetsManager;
+	sf::Music music;
 
 	//Handle events
 	void handleEvents();
