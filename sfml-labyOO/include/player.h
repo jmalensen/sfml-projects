@@ -55,11 +55,11 @@ class Player{
 	sf::Sound sound;
 	sf::Sound hurtSound;
 	sf::Sound unlockSound;
-	bool unlockSoundPlayed;
+	bool unlockEnabled;
 
 	sf::Sound exitLevelSound;
-	bool nextLevelPlayed;
-	bool trapSoundPlayed;
+	bool nextLevelEnabled;
+	bool trapEnabled;
 
 	// sf::SoundBuffer buffer4;
 	// sf::Sound winSound;

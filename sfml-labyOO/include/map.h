@@ -70,7 +70,9 @@ class Map{
 	//Texture for the path
 	sf::Sprite pathSprite;
 	sf::Sprite pathSprite2;
+	sf::Sprite pathSprite2Trap;
 	sf::Sprite pathSprite3;
+	sf::Sprite pathSprite3Trap;
 
 	//Texture for the background
 	sf::Sprite backgroundI;

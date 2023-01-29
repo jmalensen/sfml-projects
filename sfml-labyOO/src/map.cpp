@@ -48,7 +48,7 @@ void Map::init(){
 		"# # #### #### # #### #  #",
 		"# # #         #    # #  #",
 		"# # ###### #### # # #####",
-		"# # # #    #    # # #k  #",
+		"# # #t#    #    # # #k  #",
 		"#   # # #### # ## # # # #",
 		"##### # ### ## #### ### #",
 		"#     # #   #         # #",
@@ -59,7 +59,7 @@ void Map::init(){
 		"### # ## ########### ## #",
 		"#   #       #     ##    #",
 		"########### ## ## #### ##",
-		"#      #  #    #    #  t#",
+		"#      #  #    #    #   #",
 		"# ###   ##### ## ## ## ##",
 		"# # ### # # #           #",
 		"#########################",
@@ -70,10 +70,10 @@ void Map::init(){
 		"#  #### #  ####  #### #e#",
 		"# #    # # #    ##    ###",
 		"# # #### #### # ## # #  #",
-		"# #           #    # #  #",
+		"# #           #   t# #  #",
 		"# # ###### #### # # #####",
 		"# #####    #    # # #k  #",
-		"#  t# # #### # ## # # # #",
+		"#   # # #### # ## # # # #",
 		"# ### # ### ## #### ### #",
 		"#     # #   #         # #",
 		"###   #####    ######   #",
@@ -83,7 +83,7 @@ void Map::init(){
 		"### # ## ########### ## #",
 		"#   #       #     ##    #",
 		"##     #### ## ## #### ##",
-		"# ######       #    #  t#",
+		"# ######       #    #   #",
 		"# #    ###  ##   ## ## ##",
 		"# # ### # # #           #",
 		"#########################",
@@ -104,14 +104,18 @@ void Map::init(){
 	wallSprite3.setTexture(assetsManager.getTexture("wallbrick3"));
 
 	//Texture for the path
-	assetsManager.loadTexture("pathtexture", "images/pathtexture.png");
+	assetsManager.loadTexture("pathtexture", "images/pathtexture.jpg");
 	pathSprite.setTexture(assetsManager.getTexture("pathtexture"));
 
 	assetsManager.loadTexture("pathtexture2", "images/pathtexture2.jpg");
 	pathSprite2.setTexture(assetsManager.getTexture("pathtexture2"));
+	assetsManager.loadTexture("pathtexture2trap", "images/pathtexture2t.jpg");
+	pathSprite2Trap.setTexture(assetsManager.getTexture("pathtexture2trap"));
 
 	assetsManager.loadTexture("pathtexture3", "images/pathtexture3.jpg");
 	pathSprite3.setTexture(assetsManager.getTexture("pathtexture3"));
+	assetsManager.loadTexture("pathtexture3trap", "images/pathtexture3t.jpg");
+	pathSprite3Trap.setTexture(assetsManager.getTexture("pathtexture3trap"));
 
 	//Texture for the background
 	assetsManager.loadTexture("background", "images/background.jpg");
@@ -299,7 +303,13 @@ void Map::draw(sf::RenderTarget& target){
 			}
 
 			if(maze[row][col] == 't'){
-				target.draw(block);
+				if(levelNum == 2){
+					pathSprite2Trap.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					target.draw(pathSprite2Trap);
+				} else if(levelNum == 3){
+					pathSprite3Trap.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					target.draw(pathSprite3Trap);
+				}
 			}
 
 			if(maze[row][col] == 'k'){

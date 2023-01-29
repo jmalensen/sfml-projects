@@ -23,17 +23,17 @@ void Player::init(){
 	assetsManager.loadSound("hitHurt", "sounds/hitHurt.ogg");
 	hurtSound = (assetsManager.getSound("hitHurt"));
 	hurtSound.setVolume(100);
-	trapSoundPlayed = false;
+	trapEnabled = false;
 
 	//Unlock sound
 	assetsManager.loadSound("unlock", "sounds/unlock-sound.ogg");
 	unlockSound = (assetsManager.getSound("unlock"));
-	unlockSoundPlayed = false;
+	unlockEnabled = false;
 
 	//Exit level sound
 	assetsManager.loadSound("exitlevel", "sounds/exitlevel.ogg");
 	exitLevelSound = (assetsManager.getSound("exitlevel"));
-	nextLevelPlayed = false;
+	nextLevelEnabled = false;
 
 	// //Win sound
 	// if (!buffer4.loadFromFile("sounds/win.ogg")){
@@ -141,19 +141,23 @@ void Player::update(sf::Time dt){
 		}
 	}
 
-	if(maze.operator()(playerY, playerX) == 't' && trapSoundPlayed != true){
+	if(maze.operator()(playerY, playerX) == 't' && trapEnabled != true){
 		hurtSound.play();
+
 		if(maze.getLevel() == 2){
-			maze.operator()(5, 5) = '#';
+			maze.operator()(8, 5) = '#';
+			maze.operator()(playerY, playerX) = ' ';
+			maze.operator()(13, 15) = 'k';
+			unlockEnabled = false;
 		}
 		else if(maze.getLevel() == 3){
 			maze.operator()(1, 22) = '#';
 		}
-		trapSoundPlayed = true;
+		trapEnabled = true;
 	}
 
 	//If case is a key
-	if(maze.operator()(playerY, playerX) == 'k' && unlockSoundPlayed != true){
+	if(maze.operator()(playerY, playerX) == 'k' && unlockEnabled != true){
 		//Key disappear
 		maze.operator()(playerY, playerX) = ' ';
 
@@ -163,21 +167,22 @@ void Player::update(sf::Time dt){
 		}
 		else if(maze.getLevel() == 2){
 			maze.operator()(5, 5) = ' ';
+			maze.operator()(8, 5) = ' ';
 		}
 		else if(maze.getLevel() == 3){
 			maze.operator()(1, 22) = ' ';
 		}
 		unlockSound.play();
 
-		std::cout << "Change content:" << maze.operator()(playerY, playerX) << ":P" << std::endl;
-		unlockSoundPlayed = true;
+		std::cout << "Change content:" << maze.operator()(playerY, playerX) << playerY << playerX << ":P" << std::endl;
+		unlockEnabled = true;
 	}
 
 	//Next level phase
-	if(maze.operator()(playerY, playerX) == 'n' && nextLevelPlayed != true){
+	if(maze.operator()(playerY, playerX) == 'n' && nextLevelEnabled != true){
 		exitLevelSound.play();
 		std::cout << "Next level!!" << std::endl;
-		nextLevelPlayed = true;
+		nextLevelEnabled = true;
 
 		maze.setLevel(maze.getLevel() + 1);
 
@@ -229,11 +234,14 @@ void Player::update(sf::Time dt){
 }
 
 void Player::resetSounds(){
-	//reset unlock sound
-	unlockSoundPlayed = false;
+	//Reset unlock sound
+	unlockEnabled = false;
 
-	//reset nextlevel sound
-	nextLevelPlayed = false;
+	//Reset nextlevel sound
+	nextLevelEnabled = false;
+
+	//Reset trap sound
+	trapEnabled = false;
 }
 
 void Player::draw(sf::RenderTarget& target){
