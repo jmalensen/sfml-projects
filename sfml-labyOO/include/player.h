@@ -6,6 +6,7 @@
 #include <SFML/System.hpp>
 #include "map.h"
 #include "assetsmanager.h"
+#include "entity.h"
 #include <iostream>
 #include <chrono>
 #include <thread>
@@ -15,41 +16,28 @@
 class Map;
 class AssetsManager;
 
-class Player{
+class Player: public Entity{
 	public:
 	//Constructor and destructor
 	Player(Map& maze, AssetsManager &assetsManager);
 	~Player();
 
 	//Initialization
-	void init();
-
-	//Getters
-	int getPlayerX() const;
-	int getPlayerY() const;
-
-	//Setters
-	void setPlayerX(int newX);
-	void setPlayerY(int newY);
+	virtual void init();
 
 	//Getter exit
 	bool getHasExited() const;
 
 	//Update position
-	void update(sf::Time dt);
+	virtual void update(sf::Time dt);
 
 	//Reset sound memory for each level
 	void resetSounds();
 
 	//Draw
-	void draw(sf::RenderTarget& target);
+	virtual void draw(sf::RenderTarget& target);
 
 	private:
-	AssetsManager &assetsManager;
-	
-	//Player position
-	int playerX;
-	int playerY;
 
 	//Sounds
 	sf::Sound sound;
@@ -61,16 +49,7 @@ class Player{
 	bool nextLevelEnabled;
 	bool trapEnabled;
 
-	// sf::SoundBuffer buffer4;
-	// sf::Sound winSound;
 	bool exit;
-
-	//Texture for the player
-	sf::IntRect rectSourceSpritePlayer;
-	sf::Sprite player;
-
-	//Map
-	Map& maze;
 };
 
 #endif //PLAYER_H

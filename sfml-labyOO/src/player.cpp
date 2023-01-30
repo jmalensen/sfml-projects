@@ -1,6 +1,6 @@
 #include "../include/player.h"
 
-Player::Player(Map& maze, AssetsManager &assetsManager): maze(maze), assetsManager(assetsManager){
+Player::Player(Map& maze, AssetsManager &assetsManager): Entity(maze, assetsManager){
 	//Initialize the player
 	init();
 }
@@ -10,8 +10,8 @@ Player::~Player(){
 
 void Player::init(){
 	//Player position
-	playerX = 1;
-	playerY = 1;
+	positionX = 1;
+	positionY = 1;
 
 	///Sounds
 	//Movement sound
@@ -35,40 +35,19 @@ void Player::init(){
 	exitLevelSound = (assetsManager.getSound("exitlevel"));
 	nextLevelEnabled = false;
 
-	// //Win sound
-	// if (!buffer4.loadFromFile("sounds/win.ogg")){
-	// 	std::cout << "Fail to load win sound file" << std::endl;
-	// }
-	// winSound.setBuffer(buffer4);
 	exit = false;
 
 	//Texture for the player
 	assetsManager.loadTexture("dino", "images/dino.png");
-	player.setTexture(assetsManager.getTexture("dino"));
+	entity.setTexture(assetsManager.getTexture("dino"));
 
 	//Player animation
-	rectSourceSpritePlayer.left = 0;
-	rectSourceSpritePlayer.top = 0;
-	rectSourceSpritePlayer.width = 104;
-	rectSourceSpritePlayer.height = 113;
-	player.setTextureRect(rectSourceSpritePlayer);
-	player.setScale(0.5f, 0.5f);
-}
-
-//Getters
-int Player::getPlayerX() const{
-	return playerX;
-}
-int Player::getPlayerY() const{
-	return playerY;
-}
-
-//Setters
-void Player::setPlayerX(int newX){
-	playerX = newX;
-}
-void Player::setPlayerY(int newY){
-	playerY = newY;
+	rectSourceSpriteEntity.left = 0;
+	rectSourceSpriteEntity.top = 0;
+	rectSourceSpriteEntity.width = 104;
+	rectSourceSpriteEntity.height = 113;
+	entity.setTextureRect(rectSourceSpriteEntity);
+	entity.setScale(0.5f, 0.5f);
 }
 
 bool Player::getHasExited() const{
@@ -91,9 +70,9 @@ void Player::update(sf::Time dt){
 	//Handle movement of player
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
 		if(lastMove >= moveDelay){
-			if(maze.operator()(playerY-1, playerX) != '#'){
+			if(maze.operator()(positionY-1, positionX) != '#'){
 				std::cout << "Going up" << std::endl;
-				playerY--;
+				positionY--;
 				lastMove = sf::Time::Zero;
 			}
 			else{
@@ -104,9 +83,9 @@ void Player::update(sf::Time dt){
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
 		if(lastMove >= moveDelay){
-			if(maze.operator()(playerY+1, playerX) != '#'){
+			if(maze.operator()(positionY+1, positionX) != '#'){
 				std::cout << "Going down" << std::endl;
-				playerY++;
+				positionY++;
 				lastMove = sf::Time::Zero;
 			}
 			else{
@@ -117,9 +96,9 @@ void Player::update(sf::Time dt){
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
 		if(lastMove >= moveDelay){
-			if(maze.operator()(playerY, playerX-1) != '#'){
+			if(maze.operator()(positionY, positionX-1) != '#'){
 				std::cout << "Going left" << std::endl;
-				playerX--;
+				positionX--;
 				lastMove = sf::Time::Zero;
 			}
 			else{
@@ -130,9 +109,9 @@ void Player::update(sf::Time dt){
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 		if(lastMove >= moveDelay){
-			if(maze.operator()(playerY, playerX+1) != '#'){
+			if(maze.operator()(positionY, positionX+1) != '#'){
 				std::cout << "Going right" << std::endl;
-				playerX++;
+				positionX++;
 				lastMove = sf::Time::Zero;
 			}
 			else{
@@ -141,7 +120,7 @@ void Player::update(sf::Time dt){
 		}
 	}
 
-	if(maze.operator()(playerY, playerX) == 't' && trapEnabled != true){
+	if(maze.operator()(positionY, positionX) == 't' && trapEnabled != true){
 		hurtSound.play();
 
 		if(maze.getLevel() == 2){
@@ -152,15 +131,15 @@ void Player::update(sf::Time dt){
 			maze.operator()(1, 22) = '#';
 			maze.operator()(13, 15) = 'k';
 		}
-		maze.operator()(playerY, playerX) = ' ';
+		maze.operator()(positionY, positionX) = ' ';
 		unlockEnabled = false;
 		trapEnabled = true;
 	}
 
 	//If case is a key
-	if(maze.operator()(playerY, playerX) == 'k' && unlockEnabled != true){
+	if(maze.operator()(positionY, positionX) == 'k' && unlockEnabled != true){
 		//Key disappear
-		maze.operator()(playerY, playerX) = ' ';
+		maze.operator()(positionY, positionX) = ' ';
 
 		//Open the path
 		if(maze.getLevel() == 1){
@@ -175,12 +154,12 @@ void Player::update(sf::Time dt){
 		}
 		unlockSound.play();
 
-		std::cout << "Change content:" << maze.operator()(playerY, playerX) << playerY << playerX << ":P" << std::endl;
+		std::cout << "Change content:" << maze.operator()(positionY, positionX) << positionY << positionX << ":P" << std::endl;
 		unlockEnabled = true;
 	}
 
 	//Next level phase
-	if(maze.operator()(playerY, playerX) == 'n' && nextLevelEnabled != true){
+	if(maze.operator()(positionY, positionX) == 'n' && nextLevelEnabled != true){
 		exitLevelSound.play();
 		std::cout << "Next level!!" << std::endl;
 		nextLevelEnabled = true;
@@ -196,13 +175,13 @@ void Player::update(sf::Time dt){
 		//Set new level
 		maze.setNewMaze( maze.getMazeByName(name) );
 
-		playerX = 1;
-		playerY = 1;
-		player.setPosition(playerX * maze.getBlockSize()+1, playerY * maze.getBlockSize()+1);
+		positionX = 1;
+		positionY = 1;
+		entity.setPosition(positionX * maze.getBlockSize()+1, positionY * maze.getBlockSize()+1);
 	}
 
 	//Sound of the win for the exit
-	if(maze.operator()(playerY, playerX) == 'e' && exit != true){
+	if(maze.operator()(positionY, positionX) == 'e' && exit != true){
 		std::cout << "Exit!!" << std::endl;
 		exit = true;
 	}
@@ -218,19 +197,19 @@ void Player::update(sf::Time dt){
 	
 	if(currentTime >= frameDuration){
 		//Set rectangle left position
-		if (rectSourceSpritePlayer.left == 228){
-			rectSourceSpritePlayer.left = 0;
+		if (rectSourceSpriteEntity.left == 228){
+			rectSourceSpriteEntity.left = 0;
 		}
 		else{
-			rectSourceSpritePlayer.left += 114;
+			rectSourceSpriteEntity.left += 114;
 		}
 
 		currentTime = 0;
 
-		std::cout << rectSourceSpritePlayer.left << std::endl;
+		std::cout << rectSourceSpriteEntity.left << std::endl;
 
 		//Set the rectangle so we see the movement
-		player.setTextureRect(rectSourceSpritePlayer);
+		entity.setTextureRect(rectSourceSpriteEntity);
 	}
 }
 
@@ -247,8 +226,8 @@ void Player::resetSounds(){
 
 void Player::draw(sf::RenderTarget& target){
 
-	player.setPosition(playerX * maze.getBlockSize()+1, playerY * maze.getBlockSize()+1);
+	entity.setPosition(positionX * maze.getBlockSize()+1, positionY * maze.getBlockSize()+1);
 
 	//Draw the player
-	target.draw(player);
+	target.draw(entity);
 }
