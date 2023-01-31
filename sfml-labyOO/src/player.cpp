@@ -13,6 +13,8 @@ void Player::init(){
 	positionX = 1;
 	positionY = 1;
 
+	dead = false;
+
 	///Sounds
 	//Movement sound
 	assetsManager.loadSound("jump", "sounds/jump.ogg");
@@ -52,6 +54,14 @@ void Player::init(){
 
 bool Player::getHasExited() const{
 	return exit;
+}
+
+void Player::justDie(bool newStatus){
+	dead = newStatus;
+}
+
+bool Player::isDead() const{
+	return dead;
 }
 
 void Player::update(sf::Time dt){

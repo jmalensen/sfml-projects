@@ -28,6 +28,12 @@ class Player: public Entity{
 	//Getter exit
 	bool getHasExited() const;
 
+	//Set death status
+	void justDie(bool newStatus);
+
+	//Check if player is dead
+	bool isDead() const;
+
 	//Update position
 	void update(sf::Time dt) override;
 
@@ -49,6 +55,7 @@ class Player: public Entity{
 	bool nextLevelEnabled;
 	bool trapEnabled;
 
+	bool dead;
 	bool exit;
 };
 

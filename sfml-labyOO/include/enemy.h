@@ -34,8 +34,21 @@ class Enemy: public Entity{
 	//Draw
 	void draw(sf::RenderTarget& target) override;
 
+	//Set direction of enemy
+	void setBehaviour(int directionMovement, int min, int max);
+
+	static constexpr int HORIZONTAL = 1;
+	static constexpr int VERTICAL = 2;
+
 	private:
+	bool isMovingHorizontal;
 	bool goingRight;
+	bool goingDown;
+	int minVal;
+	int maxVal;
+
+	//Sounds
+	sf::Sound hurtSound;
 };
 
 #endif //ENEMY_H

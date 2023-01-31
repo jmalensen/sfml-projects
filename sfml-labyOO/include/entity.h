@@ -9,6 +9,7 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <string>
 
 class Map;
 class AssetsManager;

@@ -47,6 +47,7 @@ class MainScreen: public Screen{
 	//The player
 	Player player;
 	Enemy enemy;
+	Enemy enemy2;
 };
 
 #endif //MAINSCREEN_H

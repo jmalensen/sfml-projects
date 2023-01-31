@@ -26,6 +26,23 @@ void Enemy::init(){
 	rectSourceSpriteEntity.width = 60;
 	rectSourceSpriteEntity.height = 60;
 	entity.setTextureRect(rectSourceSpriteEntity);
+
+	//Hurt sound
+	assetsManager.loadSound("dead", "sounds/dead.ogg");
+	hurtSound = (assetsManager.getSound("dead"));
+	hurtSound.setVolume(10);
+}
+
+void Enemy::setBehaviour(int directionMovement, int min, int max){
+	if(directionMovement == Enemy::HORIZONTAL){
+		isMovingHorizontal = true;
+	}
+	else{
+		isMovingHorizontal = false;
+	}
+
+	minVal = min;
+	maxVal = max;
 }
 
 //Update position
@@ -44,21 +61,45 @@ void Enemy::update(sf::Time dt, Player& player){
 	lastMove += dt;
 
 	if(lastMove >= moveDelay){
-		if(positionX <= 11 && goingRight){
-			positionX++;
+
+		if(isMovingHorizontal){
+			if(positionX <= maxVal && goingRight){
+				positionX++;
+				if(positionX == maxVal){
+					goingRight = false;
+				}
+			}
+			if(positionX >= minVal && !goingRight){
+				positionX--;
+				if(positionX == minVal){
+					goingRight = true;
+				}
+			}
 		}
-		if(positionX == 11){
-			goingRight = false;
-		}
-		if(positionX >= 3 && !goingRight){
-			positionX--;
-		}
-		if(positionX == 3){
-			goingRight = true;
+		else{
+			std::cout << "Going down!! " << std::to_string(goingDown) << std::to_string(positionY) << std::to_string(minVal) << std::to_string(maxVal) << std::endl;
+			if(positionY <= maxVal && goingDown){
+				positionY++;
+				if(positionY == maxVal){
+					goingDown = false;
+				}
+			}
+			if(positionY >= minVal && !goingDown){
+				positionY--;
+				if(positionY == minVal){
+					goingDown = true;
+				}
+			}
 		}
 
-		if( getHitBox().intersects(player.getHitBox()) ){
-			std::cout << "DINO DIEEEDDD!!" << getHitBox().height << player.getHitBox().height << std::endl;
+		// if( getHitBox().intersects(player.getHitBox()) ){
+		// 	std::cout << "DINO DIEEEDDD!!" << std::to_string(getHitBox().left) << "=" << std::to_string(getHitBox().top) << " - " << std::to_string(player.getHitBox().left) << "=" << std::to_string(player.getHitBox().top) << std::endl;
+		// }
+
+		if( getHitBox().left == player.getHitBox().left && getHitBox().top == player.getHitBox().top ){
+			std::cout << "DINO DIEEEDDD!!" << std::endl;
+			hurtSound.play();
+			player.justDie(true);
 		}
 
 		lastMove = sf::Time::Zero;
