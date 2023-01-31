@@ -1,6 +1,6 @@
 #include "../include/mainscreen.h"
 
-MainScreen::MainScreen(AssetsManager &assetsManager): assetsManager(assetsManager), map(assetsManager), player(map, assetsManager){
+MainScreen::MainScreen(AssetsManager &assetsManager): assetsManager(assetsManager), map(assetsManager), player(map, assetsManager), enemy(map, assetsManager){
 	init();
 }
 
@@ -22,6 +22,7 @@ void MainScreen::update(sf::Time TimePerFrame){
 
 	//Update the game
 	player.update(TimePerFrame);
+	enemy.update(TimePerFrame, player);
 }
 
 //Draw
@@ -32,6 +33,7 @@ void MainScreen::draw(sf::RenderWindow& target){
 
 	//Draw player
 	player.draw(target);
+	enemy.draw(target);
 
 	if(player.getHasExited()){
 		this->active = false;

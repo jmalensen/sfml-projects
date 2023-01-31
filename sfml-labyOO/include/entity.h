@@ -36,6 +36,8 @@ class Entity{
 	//Draw
 	virtual void draw(sf::RenderTarget& target) = 0;
 
+	sf::FloatRect getHitBox() const;
+
 	protected:
 	AssetsManager &assetsManager;
 

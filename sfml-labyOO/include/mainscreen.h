@@ -12,10 +12,12 @@
 #include "assetsmanager.h"
 #include "map.h"
 #include "player.h"
+#include "enemy.h"
 
 class AssetsManager;
 class Map;
 class Player;
+class Enemy;
 
 class MainScreen: public Screen{
 	public:
@@ -44,6 +46,7 @@ class MainScreen: public Screen{
 
 	//The player
 	Player player;
+	Enemy enemy;
 };
 
 #endif //MAINSCREEN_H

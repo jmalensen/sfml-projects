@@ -67,6 +67,8 @@ void Player::update(sf::Time dt){
 	static sf::Time lastMove = sf::Time::Zero;
 	lastMove += dt;
 
+	//getHitBox().intersects(enemy.getHitBox());
+
 	//Handle movement of player
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
 		if(lastMove >= moveDelay){

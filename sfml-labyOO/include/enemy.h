@@ -1,5 +1,5 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef ENEMY_H
+#define ENEMY_H
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -7,6 +7,7 @@
 #include "map.h"
 #include "assetsmanager.h"
 #include "entity.h"
+#include "player.h"
 #include <iostream>
 #include <chrono>
 #include <thread>
@@ -15,41 +16,26 @@
 
 class Map;
 class AssetsManager;
+class Player;
 
-class Player: public Entity{
+class Enemy: public Entity{
 	public:
 	//Constructor and destructor
-	Player(Map& maze, AssetsManager &assetsManager);
-	~Player() final;
+	Enemy(Map& maze, AssetsManager &assetsManager);
+	~Enemy() final;
 
 	//Initialization
 	void init() override;
 
-	//Getter exit
-	bool getHasExited() const;
-
 	//Update position
 	void update(sf::Time dt) override;
-
-	//Reset sound memory for each level
-	void resetSounds();
+	void update(sf::Time dt, Player& player);
 
 	//Draw
 	void draw(sf::RenderTarget& target) override;
 
 	private:
-
-	//Sounds
-	sf::Sound sound;
-	sf::Sound hurtSound;
-	sf::Sound unlockSound;
-	bool unlockEnabled;
-
-	sf::Sound exitLevelSound;
-	bool nextLevelEnabled;
-	bool trapEnabled;
-
-	bool exit;
+	bool goingRight;
 };
 
-#endif //PLAYER_H
+#endif //ENEMY_H

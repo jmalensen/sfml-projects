@@ -19,3 +19,7 @@ void Entity::setPositionX(int newX){
 void Entity::setPositionY(int newY){
 	positionY = newY;
 }
+
+sf::FloatRect Entity::getHitBox() const{
+	return sf::FloatRect(positionX, positionY, 60, 60);
+}
