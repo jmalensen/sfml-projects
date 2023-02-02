@@ -9,15 +9,13 @@ MainScreen::~MainScreen(){
 
 //Initialization
 void MainScreen::init(){
-	if(map.getLevel() == 1){
-		enemy.setPositionX(3);
-		enemy.setPositionY(3);
-		enemy.setBehaviour(Enemy::HORIZONTAL, 3, 11);
+	enemy.setPositionX(5);
+	enemy.setPositionY(4);
+	enemy.setBehaviour(Enemy::HORIZONTAL, 5, 14);
 
-		enemy2.setPositionX(8);
-		enemy2.setPositionY(8);
-		enemy2.setBehaviour(Enemy::VERTICAL, 7, 13);
-	}
+	enemy2.setPositionX(8);
+	enemy2.setPositionY(8);
+	enemy2.setBehaviour(Enemy::VERTICAL, 7, 13);
 }
 
 //Handling events
@@ -32,7 +30,7 @@ void MainScreen::update(sf::Time TimePerFrame){
 	//Update the game
 	player.update(TimePerFrame);
 
-	if(map.getLevel() == 1){
+	if(map.getLevel() == 2){
 		enemy.update(TimePerFrame, player);
 		enemy2.update(TimePerFrame, player);
 	}
@@ -47,7 +45,7 @@ void MainScreen::draw(sf::RenderWindow& target){
 	//Draw player
 	player.draw(target);
 
-	if(map.getLevel() == 1){
+	if(map.getLevel() == 2){
 		enemy.draw(target);
 		enemy2.draw(target);
 	}

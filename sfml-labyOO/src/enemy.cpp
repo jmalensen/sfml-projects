@@ -63,6 +63,8 @@ void Enemy::update(sf::Time dt, Player& player){
 	if(lastMove >= moveDelay){
 
 		if(isMovingHorizontal){
+			// std::cout << "Enemy going horizontal!! " << std::to_string(goingRight) << "-" << std::to_string(positionX) << "-" << std::to_string(minVal) << "-" << std::to_string(maxVal) << std::endl;
+
 			if(positionX <= maxVal && goingRight){
 				positionX++;
 				if(positionX == maxVal){
@@ -77,7 +79,8 @@ void Enemy::update(sf::Time dt, Player& player){
 			}
 		}
 		else{
-			std::cout << "Going down!! " << std::to_string(goingDown) << std::to_string(positionY) << std::to_string(minVal) << std::to_string(maxVal) << std::endl;
+			// std::cout << "Enemy going vertical!! " << std::to_string(goingDown) << "-" << std::to_string(positionY) << "-" << std::to_string(minVal) << "-" << std::to_string(maxVal) << std::endl;
+
 			if(positionY <= maxVal && goingDown){
 				positionY++;
 				if(positionY == maxVal){
@@ -123,8 +126,6 @@ void Enemy::update(sf::Time dt, Player& player){
 		}
 
 		currentTime = 0;
-
-		std::cout << rectSourceSpriteEntity.left << std::endl;
 
 		//Set the rectangle so we see the movement
 		entity.setTextureRect(rectSourceSpriteEntity);

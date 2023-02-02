@@ -83,12 +83,12 @@ void Player::update(sf::Time dt){
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
 		if(lastMove >= moveDelay){
 			if(maze.operator()(positionY-1, positionX) != '#'){
-				std::cout << "Going up" << std::endl;
+				// std::cout << "Going up" << std::endl;
 				positionY--;
 				lastMove = sf::Time::Zero;
 			}
 			else{
-				std::cout << "Ouch" << std::endl;
+				// std::cout << "Ouch" << std::endl;
 			}
 		}
 	}
@@ -96,12 +96,12 @@ void Player::update(sf::Time dt){
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
 		if(lastMove >= moveDelay){
 			if(maze.operator()(positionY+1, positionX) != '#'){
-				std::cout << "Going down" << std::endl;
+				// std::cout << "Going down" << std::endl;
 				positionY++;
 				lastMove = sf::Time::Zero;
 			}
 			else{
-				std::cout << "Ouch" << std::endl;
+				// std::cout << "Ouch" << std::endl;
 			}
 		}
 	}
@@ -109,12 +109,12 @@ void Player::update(sf::Time dt){
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
 		if(lastMove >= moveDelay){
 			if(maze.operator()(positionY, positionX-1) != '#'){
-				std::cout << "Going left" << std::endl;
+				// std::cout << "Going left" << std::endl;
 				positionX--;
 				lastMove = sf::Time::Zero;
 			}
 			else{
-				std::cout << "Ouch" << std::endl;
+				// std::cout << "Ouch" << std::endl;
 			}
 		}
 	}
@@ -122,12 +122,12 @@ void Player::update(sf::Time dt){
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 		if(lastMove >= moveDelay){
 			if(maze.operator()(positionY, positionX+1) != '#'){
-				std::cout << "Going right" << std::endl;
+				// std::cout << "Going right" << std::endl;
 				positionX++;
 				lastMove = sf::Time::Zero;
 			}
 			else{
-				std::cout << "Ouch" << std::endl;
+				// std::cout << "Ouch" << std::endl;
 			}
 		}
 	}
@@ -218,7 +218,7 @@ void Player::update(sf::Time dt){
 
 		currentTime = 0;
 
-		std::cout << rectSourceSpriteEntity.left << std::endl;
+		// std::cout << rectSourceSpriteEntity.left << std::endl;
 
 		//Set the rectangle so we see the movement
 		entity.setTextureRect(rectSourceSpriteEntity);
