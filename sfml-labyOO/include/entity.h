@@ -35,7 +35,7 @@ class Entity{
 	virtual void update(sf::Time dt) = 0;
 
 	//Draw
-	virtual void draw(sf::RenderTarget& target) = 0;
+	virtual void draw(sf::RenderWindow& window) = 0;
 
 	sf::FloatRect getHitBox() const;
 

@@ -1,6 +1,6 @@
 #include "../include/player.h"
 
-Player::Player(Map& maze, AssetsManager &assetsManager): Entity(maze, assetsManager){
+Player::Player(Map& maze, AssetsManager &assetsManager): Entity(maze, assetsManager), walkAnimation(60, "images/perso.png", 4){
 	//Initialize the player
 	init();
 }
@@ -39,17 +39,9 @@ void Player::init(){
 
 	exit = false;
 
-	//Texture for the player
-	assetsManager.loadTexture("dino", "images/dino.png");
-	entity.setTexture(assetsManager.getTexture("dino"));
-
-	//Player animation
-	rectSourceSpriteEntity.left = 0;
-	rectSourceSpriteEntity.top = 0;
-	rectSourceSpriteEntity.width = 104;
-	rectSourceSpriteEntity.height = 113;
-	entity.setTextureRect(rectSourceSpriteEntity);
-	entity.setScale(0.5f, 0.5f);
+	// //Texture for the player
+	// assetsManager.loadTexture("perso", "images/perso.png");
+	// entity.setTexture(assetsManager.getTexture("perso"));
 }
 
 bool Player::getHasExited() const{
@@ -78,9 +70,12 @@ void Player::update(sf::Time dt){
 	lastMove += dt;
 
 	//getHitBox().intersects(enemy.getHitBox());
+	walkAnimation.update(dt);
 
 	//Handle movement of player
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+		walkAnimation.setDirection(Animation::UP);
+
 		if(lastMove >= moveDelay){
 			if(maze.operator()(positionY-1, positionX) != '#'){
 				// std::cout << "Going up" << std::endl;
@@ -94,6 +89,8 @@ void Player::update(sf::Time dt){
 	}
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+		walkAnimation.setDirection(Animation::DOWN);
+
 		if(lastMove >= moveDelay){
 			if(maze.operator()(positionY+1, positionX) != '#'){
 				// std::cout << "Going down" << std::endl;
@@ -107,6 +104,8 @@ void Player::update(sf::Time dt){
 	}
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+		walkAnimation.setDirection(Animation::LEFT);
+
 		if(lastMove >= moveDelay){
 			if(maze.operator()(positionY, positionX-1) != '#'){
 				// std::cout << "Going left" << std::endl;
@@ -120,6 +119,8 @@ void Player::update(sf::Time dt){
 	}
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+		walkAnimation.setDirection(Animation::RIGHT);
+
 		if(lastMove >= moveDelay){
 			if(maze.operator()(positionY, positionX+1) != '#'){
 				// std::cout << "Going right" << std::endl;
@@ -197,32 +198,6 @@ void Player::update(sf::Time dt){
 		std::cout << "Exit!!" << std::endl;
 		exit = true;
 	}
-
-
-	///Small animation of dino
-	//Duration of the frame
-	static float frameDuration = 0.4f;
-
-	//Current time needed for the delta time
-	static float currentTime = 0.0f;
-	currentTime += dt.asSeconds();
-	
-	if(currentTime >= frameDuration){
-		//Set rectangle left position
-		if (rectSourceSpriteEntity.left == 228){
-			rectSourceSpriteEntity.left = 0;
-		}
-		else{
-			rectSourceSpriteEntity.left += 114;
-		}
-
-		currentTime = 0;
-
-		// std::cout << rectSourceSpriteEntity.left << std::endl;
-
-		//Set the rectangle so we see the movement
-		entity.setTextureRect(rectSourceSpriteEntity);
-	}
 }
 
 void Player::resetSounds(){
@@ -236,10 +211,13 @@ void Player::resetSounds(){
 	trapEnabled = false;
 }
 
-void Player::draw(sf::RenderTarget& target){
+void Player::draw(sf::RenderWindow& window){
 
-	entity.setPosition(positionX * maze.getBlockSize()+1, positionY * maze.getBlockSize()+1);
+	// entity.setPosition(positionX * maze.getBlockSize()+1, positionY * maze.getBlockSize()+1);
+
+	walkAnimation.setPosition(positionX * maze.getBlockSize()+1, positionY * maze.getBlockSize()+1);
+	walkAnimation.draw(window);
 
 	//Draw the player
-	target.draw(entity);
+	//window.draw(entity);
 }

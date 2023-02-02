@@ -6,6 +6,7 @@
 #include <SFML/System.hpp>
 #include "map.h"
 #include "assetsmanager.h"
+#include "animation.h"
 #include "entity.h"
 #include <iostream>
 #include <chrono>
@@ -15,6 +16,7 @@
 
 class Map;
 class AssetsManager;
+class Animation;
 
 class Player: public Entity{
 	public:
@@ -41,7 +43,7 @@ class Player: public Entity{
 	void resetSounds();
 
 	//Draw
-	void draw(sf::RenderTarget& target) override;
+	void draw(sf::RenderWindow& window) override;
 
 	private:
 
@@ -57,6 +59,8 @@ class Player: public Entity{
 
 	bool dead;
 	bool exit;
+
+	Animation walkAnimation;
 };
 
 #endif //PLAYER_H

@@ -35,7 +35,7 @@ class MainScreen: public Screen{
 	void update(sf::Time TimePerFrame);
 
 	//Draw
-	void draw(sf::RenderWindow& target);
+	void draw(sf::RenderWindow& window);
 
 	private:
 	//The assets manager

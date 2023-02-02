@@ -32,7 +32,7 @@ class Enemy: public Entity{
 	void update(sf::Time dt, Player& player);
 
 	//Draw
-	void draw(sf::RenderTarget& target) override;
+	void draw(sf::RenderWindow& window) override;
 
 	//Set direction of enemy
 	void setBehaviour(int directionMovement, int min, int max);

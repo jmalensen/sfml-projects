@@ -133,9 +133,9 @@ void Enemy::update(sf::Time dt, Player& player){
 }
 
 //Draw
-void Enemy::draw(sf::RenderTarget& target){
+void Enemy::draw(sf::RenderWindow& window){
 	entity.setPosition(positionX * maze.getBlockSize()+1, positionY * maze.getBlockSize()+1);
 
 	//Draw the enemy
-	target.draw(entity);
+	window.draw(entity);
 }

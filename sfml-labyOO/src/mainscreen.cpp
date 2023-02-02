@@ -37,17 +37,17 @@ void MainScreen::update(sf::Time TimePerFrame){
 }
 
 //Draw
-void MainScreen::draw(sf::RenderWindow& target){
+void MainScreen::draw(sf::RenderWindow& window){
 
 	//Draw map
-	map.draw(target);
+	map.draw(window);
 
 	//Draw player
-	player.draw(target);
+	player.draw(window);
 
 	if(map.getLevel() == 2){
-		enemy.draw(target);
-		enemy2.draw(target);
+		enemy.draw(window);
+		enemy2.draw(window);
 	}
 
 	if(player.getHasExited() || player.isDead() ){
