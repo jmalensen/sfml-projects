@@ -57,7 +57,6 @@ void Enemy::update(sf::Time dt, Player& player){
 	if(lastMove >= moveDelay){
 
 		if(directionEnemy == Enemy::HORIZONTAL){
-			// std::cout << "Enemy going horizontal!! " << std::to_string(goingRight) << "-" << std::to_string(positionX) << "-" << std::to_string(minVal) << "-" << std::to_string(maxVal) << std::endl;
 
 			if(positionX <= maxVal && goingRight){
 				positionX++;
@@ -73,7 +72,6 @@ void Enemy::update(sf::Time dt, Player& player){
 			}
 		}
 		else if(directionEnemy == Enemy::VERTICAL){
-			// std::cout << "Enemy going vertical!! " << std::to_string(goingDown) << "-" << std::to_string(positionY) << "-" << std::to_string(minVal) << "-" << std::to_string(maxVal) << std::endl;
 
 			if(positionY <= maxVal && goingDown){
 				positionY++;
@@ -93,6 +91,7 @@ void Enemy::update(sf::Time dt, Player& player){
 		// 	std::cout << "DINO DIEEEDDD!!" << std::to_string(getHitBox().left) << "=" << std::to_string(getHitBox().top) << " - " << std::to_string(player.getHitBox().left) << "=" << std::to_string(player.getHitBox().top) << std::endl;
 		// }
 
+		//Enemy hit player
 		if( getHitBox().left == player.getHitBox().left && getHitBox().top == player.getHitBox().top ){
 			std::cout << "You DIEEEDDD!!" << std::endl;
 			hurtSound.play();

@@ -9,6 +9,8 @@ EndScreen::~EndScreen(){
 
 //Initialization
 void EndScreen::init(){
+	playedWinSound = false;
+
 	//Texture for the background
 	assetsManager.loadTexture("startscreen", "images/startscreen.jpg");
 	screen.setTexture(assetsManager.getTexture("startscreen"));
@@ -26,6 +28,7 @@ void EndScreen::init(){
 	//Win sound
 	assetsManager.loadSound("win", "sounds/win.ogg");
 	winSound = (assetsManager.getSound("win"));
+	winSound.setVolume(15);
 }
 
 //Handling events
@@ -33,8 +36,23 @@ void EndScreen::handleEvents(sf::Event event){
 }
 
 //Update the end screen
-void EndScreen::update(sf::Time TimePerFrame){
-	winSound.play();
+void EndScreen::update(sf::Time dt){
+	//This part is needed otherwise sound might not be played
+	static const float speed = 40.f;
+
+	//Delay between 2 moves
+	static const sf::Time moveDelay = sf::seconds(5.f / speed);
+
+	//Last time player moved
+	static sf::Time lastMove = sf::Time::Zero;
+	lastMove += dt;
+
+	if(lastMove >= moveDelay && !playedWinSound){
+		winSound.play();
+		lastMove = sf::Time::Zero;
+		playedWinSound = true;
+	}
+
 }
 
 //Draw

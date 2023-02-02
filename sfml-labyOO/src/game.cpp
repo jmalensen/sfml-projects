@@ -61,7 +61,7 @@ void Game::handleEvents(){
 
 		//Handle enter key press
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)
-		&& screensManager.getCurrentScreen() != ScreensManager::MENUSCREEN){
+		&& screensManager.getCurrentScreen() != ScreensManager::STARTSCREEN){
 			screensManager.showMainScreen();
 			screensManager.handleEvents(event);
 		}
@@ -70,6 +70,12 @@ void Game::handleEvents(){
 		|| (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)
 				&& screensManager.getCurrentScreen() == ScreensManager::ENDSCREEN) ){
 			window.close();
+		}
+
+		//Display the menu
+		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)
+		&& screensManager.getCurrentScreen() != ScreensManager::MENUSCREEN){
+			screensManager.showMenuScreen();
 		}
 	}
 }
@@ -84,16 +90,6 @@ void Game::draw(){
 
 	//Draw screens
 	screensManager.draw(window);
-
-	//Display the menu
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)
-	&& screensManager.getCurrentScreen() != ScreensManager::MENUSCREEN){
-		screensManager.showMenuScreen();
-	}
-	else if( sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)
-	&& screensManager.getCurrentScreen() != ScreensManager::ENDSCREEN ){
-		screensManager.showMainScreen();
-	}
 
 	//Display the window
 	window.display();

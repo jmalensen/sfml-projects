@@ -45,6 +45,7 @@ class EndScreen: public Screen{
 
 	//Victory sound
 	sf::Sound winSound;
+	bool playedWinSound;
 };
 
 #endif //ENDSCREEN_H

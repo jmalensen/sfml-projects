@@ -53,7 +53,7 @@ void Animation::setTextureLocation(const std::string& textureLocation){
 
 void Animation::update(sf::Time dt){
 
-	//Player speed (pixels/s)
+	//Entity speed (pixels/s)
 	static const float speed = 40.f;
 
 	//Delay between 2 moves
