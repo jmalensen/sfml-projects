@@ -20,6 +20,10 @@ void Entity::setPositionY(int newY){
 	positionY = newY;
 }
 
+void Entity::setSpeed(float newSpeed){
+	entitySpeed = newSpeed;
+}
+
 sf::FloatRect Entity::getHitBox() const{
 	return sf::FloatRect(positionX, positionY, 60, 60);
 }

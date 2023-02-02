@@ -25,7 +25,7 @@ void StartScreen::init(){
 	titleScreen.setPosition(400, 520);
 
 	// Initialize press enter text
-	textPressEnter.setString("Press Enter to start");
+	textPressEnter.setString("Press Space to start");
 	textPressEnter.setCharacterSize(50);
 	textPressEnter.setPosition(400, 640);
 }

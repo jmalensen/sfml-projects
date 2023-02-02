@@ -21,7 +21,7 @@ class Player;
 class Enemy: public Entity{
 	public:
 	//Constructor and destructor
-	Enemy(Map& maze, AssetsManager &assetsManager);
+	Enemy(int id, Map& maze, AssetsManager &assetsManager, int posx, int posy, int direction, int min, int max, float speed);
 	~Enemy() final;
 
 	//Initialization
@@ -41,7 +41,8 @@ class Enemy: public Entity{
 	static constexpr int VERTICAL = 2;
 
 	private:
-	bool isMovingHorizontal;
+	int idEnemy;
+	int directionEnemy;
 	bool goingRight;
 	bool goingDown;
 	int minVal;

@@ -46,8 +46,7 @@ class MainScreen: public Screen{
 
 	//The player
 	Player player;
-	Enemy enemy;
-	Enemy enemy2;
+	std::vector< std::shared_ptr<Enemy>> enemies;
 };
 
 #endif //MAINSCREEN_H

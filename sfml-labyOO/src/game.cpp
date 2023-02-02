@@ -54,15 +54,19 @@ void Game::handleEvents(){
 	sf::Event event;
 	while(window.pollEvent(event)){
 
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)
+		&& screensManager.getCurrentScreen() == ScreensManager::STARTSCREEN){
+			screensManager.showMenuScreen();
+		}
+
 		//Handle enter key press
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)
-		&& screensManager.getCurrentScreen() != ScreensManager::MAINSCREEN
-		&& screensManager.getCurrentScreen() != ScreensManager::ENDSCREEN ){
+		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)
+		&& screensManager.getCurrentScreen() != ScreensManager::MENUSCREEN){
 			screensManager.showMainScreen();
 			screensManager.handleEvents(event);
 		}
 
-		if(event.type == sf::Event::Closed
+		else if(event.type == sf::Event::Closed
 		|| (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)
 				&& screensManager.getCurrentScreen() == ScreensManager::ENDSCREEN) ){
 			window.close();
