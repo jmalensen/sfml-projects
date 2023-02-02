@@ -7,6 +7,7 @@ ScreensManager::ScreensManager(AssetsManager &assetsManager): assetsManager(asse
 	mainScreen = std::make_unique<MainScreen>(assetsManager);
 	menuScreen = std::make_unique<MenuScreen>(assetsManager);
 	endScreen = std::make_unique<EndScreen>(assetsManager);
+	gameoverScreen = std::make_unique<EndScreen>(assetsManager);
 }
 
 ScreensManager::~ScreensManager() {}
@@ -25,6 +26,10 @@ void ScreensManager::showMenuScreen() {
 
 void ScreensManager::showEndScreen() {
 	currentScreen = ScreensManager::ENDSCREEN;
+}
+
+void ScreensManager::showGameoverScreen() {
+	currentScreen = ScreensManager::GAMEOVERSCREEN;
 }
 
 int ScreensManager::getCurrentScreen() {
@@ -48,6 +53,10 @@ void ScreensManager::handleEvents(sf::Event event) {
 		case ScreensManager::ENDSCREEN :
 		endScreen->handleEvents(event);
 		break;
+
+		case ScreensManager::GAMEOVERSCREEN :
+		gameoverScreen->handleEvents(event);
+		break;
 	}
 }
 
@@ -67,6 +76,10 @@ void ScreensManager::update(sf::Time TimePerFrame) {
 
 		case ScreensManager::ENDSCREEN :
 		endScreen->update(TimePerFrame);
+		break;
+
+		case ScreensManager::GAMEOVERSCREEN :
+		gameoverScreen->update(TimePerFrame);
 		break;
 	}
 }
@@ -93,6 +106,10 @@ void ScreensManager::draw(sf::RenderWindow &window) {
 
 		case ScreensManager::ENDSCREEN :
 		endScreen->draw(window);
+		break;
+
+		case ScreensManager::GAMEOVERSCREEN :
+		gameoverScreen->draw(window);
 		break;
 	}
 }

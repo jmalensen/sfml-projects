@@ -12,8 +12,8 @@ void EndScreen::init(){
 	playedWinSound = false;
 
 	//Texture for the background
-	assetsManager.loadTexture("startscreen", "images/startscreen.jpg");
-	screen.setTexture(assetsManager.getTexture("startscreen"));
+	assetsManager.loadTexture("screen", "images/screen.jpg");
+	screen.setTexture(assetsManager.getTexture("screen"));
 	screen.setPosition(0,0);
 
 	//Text to display the text

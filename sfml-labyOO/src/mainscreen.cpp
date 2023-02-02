@@ -64,9 +64,11 @@ void MainScreen::draw(sf::RenderWindow& window){
 		enemies[5]->draw(window);
 	}
 
-	if(player.getHasExited() || player.isDead() ){
+	if(player.getHasExited()){
 		this->active = false;
 		// //Slow down program
 		// std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+	} else if(player.isDead()){
+
 	}
 }
