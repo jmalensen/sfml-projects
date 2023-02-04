@@ -87,18 +87,18 @@ class Map{
 
 	//Texture for the key
 	Animation animKey;
-	// sf::IntRect rectSourceSpriteKey;
-	// sf::Sprite keySprite;
+	sf::IntRect rectSourceSpriteKey;
+	sf::Sprite keySprite;
 
 	//Texture for the nextLevel icon
 	Animation animNextLevel;
-	// sf::IntRect rectSourceSpriteNextLevel;
-	// sf::Sprite nextLevelSprite;
+	sf::IntRect rectSourceSpriteNextLevel;
+	sf::Sprite nextLevelSprite;
 
 	//Texture for the trophy icon
 	Animation animTrophy;
-	// sf::IntRect rectSourceSpriteTrophy;
-	// sf::Sprite trophySprite;
+	sf::IntRect rectSourceSpriteTrophy;
+	sf::Sprite trophySprite;
 
 	///Text to display the level number
 	sf::Text text;

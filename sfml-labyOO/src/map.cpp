@@ -179,6 +179,42 @@ void Map::init(){
 	backgroundI.setTexture(assetsManager.getTexture("background"));
 
 
+	//Texture for the key
+	assetsManager.loadTexture("key", "images/key.png");
+	keySprite.setTexture(assetsManager.getTexture("key"));
+
+	//Key animation
+	rectSourceSpriteKey.left = 0;
+	rectSourceSpriteKey.top = 0;
+	rectSourceSpriteKey.width = 60;
+	rectSourceSpriteKey.height = 60;
+	keySprite.setTextureRect(rectSourceSpriteKey);
+
+
+	//Texture for the nextLevel icon
+	assetsManager.loadTexture("nextlevel", "images/nextlevel.png");
+	nextLevelSprite.setTexture(assetsManager.getTexture("nextlevel"));
+
+	//NextLevel animation
+	rectSourceSpriteNextLevel.left = 0;
+	rectSourceSpriteNextLevel.top = 0;
+	rectSourceSpriteNextLevel.width = 60;
+	rectSourceSpriteNextLevel.height = 60;
+	nextLevelSprite.setTextureRect(rectSourceSpriteNextLevel);
+
+
+	//Texture for the trophy icon
+	assetsManager.loadTexture("trophy", "images/trophy.png");
+	trophySprite.setTexture(assetsManager.getTexture("trophy"));
+
+	//Trophy animation
+	rectSourceSpriteTrophy.left = 0;
+	rectSourceSpriteTrophy.top = 0;
+	rectSourceSpriteTrophy.width = 60;
+	rectSourceSpriteTrophy.height = 60;
+	trophySprite.setTextureRect(rectSourceSpriteTrophy);
+
+
 	//Text to display the level number
 	assetsManager.loadFont("arial", "fonts/arial.ttf");
 	text.setFont(assetsManager.getFont("arial"));
@@ -225,19 +261,63 @@ void Map::setLevel(int newLevel){
 void Map::update(sf::Time dt){
 
 	///Small animation of key
-	//Delay between 2 moves
-	static const sf::Time moveDelay = sf::seconds(5.f / 240);
+	//Duration of the frame
+	static float frameDuration = 0.2f;
+	static float frameDurationNL = 0.1f;
 
-	//Last time player moved
-	static sf::Time lastMove = sf::Time::Zero;
-	lastMove += dt;
+	//Current time needed for the delta time
+	static float currentTime = 0.0f;
+	currentTime += dt.asSeconds();
 
-	if(lastMove >= moveDelay){
-		animKey.update(dt);
-		animNextLevel.update(dt);
-		animTrophy.update(dt);
+	static float currentTimeNL = 0.0f;
+	currentTimeNL += dt.asSeconds();
 
-		lastMove = sf::Time::Zero;
+	static float currentTimeE = 0.0f;
+	currentTimeE += dt.asSeconds();
+	
+	if(currentTime >= frameDuration){
+		//Set rectangle left position
+		if (rectSourceSpriteKey.left == 120){
+			rectSourceSpriteKey.left = 0;
+		}
+		else{
+			rectSourceSpriteKey.left += 60;
+		}
+
+		currentTime = 0;
+
+		//Set the rectangle so we see the movement
+		keySprite.setTextureRect(rectSourceSpriteKey);
+	}
+
+	if(currentTimeNL >= frameDurationNL){
+		//Set rectangle left position
+		if (rectSourceSpriteNextLevel.left == 240){
+			rectSourceSpriteNextLevel.left = 0;
+		}
+		else{
+			rectSourceSpriteNextLevel.left += 60;
+		}
+
+		currentTimeNL = 0;
+
+		//Set the rectangle so we see the movement
+		nextLevelSprite.setTextureRect(rectSourceSpriteNextLevel);
+	}
+
+	if(currentTimeE >= frameDurationNL){
+		//Set rectangle left position
+		if (rectSourceSpriteTrophy.left == 300){
+			rectSourceSpriteTrophy.left = 0;
+		}
+		else{
+			rectSourceSpriteTrophy.left += 60;
+		}
+
+		currentTimeE = 0;
+
+		//Set the rectangle so we see the movement
+		trophySprite.setTextureRect(rectSourceSpriteTrophy);
 	}
 }
 
@@ -300,18 +380,18 @@ void Map::draw(sf::RenderWindow& window){
 			}
 
 			if(maze[row][col] == 'k'){
-				animKey.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-				animKey.draw(window);
+				keySprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				window.draw(keySprite);
 			}
 
 			if(maze[row][col] == 'n'){
-				animNextLevel.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-				animNextLevel.draw(window);
+				nextLevelSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				window.draw(nextLevelSprite);
 			}
 
 			if(maze[row][col] == 'e'){
-				animTrophy.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-				animTrophy.draw(window);
+				trophySprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				window.draw(trophySprite);
 			}
 		}
 	}

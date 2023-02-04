@@ -17,8 +17,6 @@ void Animation::init(){
 void Animation::draw(sf::RenderWindow& window){
 	sprite.setTexture(texture);
 
-	std::cout << direction << " " << paramsMovement.topSpriteMoveRight << std::endl;
-
 	int top;
 	if(direction == NODIRECTION){
 		top = 0;
