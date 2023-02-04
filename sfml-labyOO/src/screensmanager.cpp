@@ -7,7 +7,7 @@ ScreensManager::ScreensManager(AssetsManager &assetsManager): assetsManager(asse
 	mainScreen = std::make_unique<MainScreen>(assetsManager);
 	menuScreen = std::make_unique<MenuScreen>(assetsManager);
 	endScreen = std::make_unique<EndScreen>(assetsManager);
-	gameoverScreen = std::make_unique<EndScreen>(assetsManager);
+	gameoverScreen = std::make_unique<GameoverScreen>(assetsManager);
 }
 
 ScreensManager::~ScreensManager() {}
@@ -91,7 +91,11 @@ void ScreensManager::draw(sf::RenderWindow &window) {
 		break;
 
 		case ScreensManager::MAINSCREEN :
-		if(mainScreen->active){
+		if(!mainScreen->active && mainScreen->getIsPlayerDead()){
+			showGameoverScreen();
+			gameoverScreen->draw(window);
+		}
+		else if(mainScreen->active){
 			mainScreen->draw(window);
 		}
 		else{

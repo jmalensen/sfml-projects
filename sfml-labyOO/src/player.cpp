@@ -72,63 +72,65 @@ void Player::update(sf::Time dt){
 	//getHitBox().intersects(enemy.getHitBox());
 	walkAnimation.update(dt);
 
-	//Handle movement of player
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-		walkAnimation.setDirection(Animation::UP);
+	if(!dead){
+		//Handle movement of player
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+			walkAnimation.setDirection(Animation::UP);
 
-		if(lastMove >= moveDelay){
-			if(maze.operator()(positionY-1, positionX) != '#'){
-				// std::cout << "Going up" << std::endl;
-				positionY--;
-				lastMove = sf::Time::Zero;
-			}
-			else{
-				// std::cout << "Ouch" << std::endl;
-			}
-		}
-	}
-
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-		walkAnimation.setDirection(Animation::DOWN);
-
-		if(lastMove >= moveDelay){
-			if(maze.operator()(positionY+1, positionX) != '#'){
-				// std::cout << "Going down" << std::endl;
-				positionY++;
-				lastMove = sf::Time::Zero;
-			}
-			else{
-				// std::cout << "Ouch" << std::endl;
+			if(lastMove >= moveDelay){
+				if(maze.operator()(positionY-1, positionX) != '#'){
+					// std::cout << "Going up" << std::endl;
+					positionY--;
+					lastMove = sf::Time::Zero;
+				}
+				else{
+					// std::cout << "Ouch" << std::endl;
+				}
 			}
 		}
-	}
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-		walkAnimation.setDirection(Animation::LEFT);
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+			walkAnimation.setDirection(Animation::DOWN);
 
-		if(lastMove >= moveDelay){
-			if(maze.operator()(positionY, positionX-1) != '#'){
-				// std::cout << "Going left" << std::endl;
-				positionX--;
-				lastMove = sf::Time::Zero;
-			}
-			else{
-				// std::cout << "Ouch" << std::endl;
+			if(lastMove >= moveDelay){
+				if(maze.operator()(positionY+1, positionX) != '#'){
+					// std::cout << "Going down" << std::endl;
+					positionY++;
+					lastMove = sf::Time::Zero;
+				}
+				else{
+					// std::cout << "Ouch" << std::endl;
+				}
 			}
 		}
-	}
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-		walkAnimation.setDirection(Animation::RIGHT);
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+			walkAnimation.setDirection(Animation::LEFT);
 
-		if(lastMove >= moveDelay){
-			if(maze.operator()(positionY, positionX+1) != '#'){
-				// std::cout << "Going right" << std::endl;
-				positionX++;
-				lastMove = sf::Time::Zero;
+			if(lastMove >= moveDelay){
+				if(maze.operator()(positionY, positionX-1) != '#'){
+					// std::cout << "Going left" << std::endl;
+					positionX--;
+					lastMove = sf::Time::Zero;
+				}
+				else{
+					// std::cout << "Ouch" << std::endl;
+				}
 			}
-			else{
-				// std::cout << "Ouch" << std::endl;
+		}
+
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+			walkAnimation.setDirection(Animation::RIGHT);
+
+			if(lastMove >= moveDelay){
+				if(maze.operator()(positionY, positionX+1) != '#'){
+					// std::cout << "Going right" << std::endl;
+					positionX++;
+					lastMove = sf::Time::Zero;
+				}
+				else{
+					// std::cout << "Ouch" << std::endl;
+				}
 			}
 		}
 	}

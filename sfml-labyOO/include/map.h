@@ -15,6 +15,10 @@ class Map{
 	Map(AssetsManager &assetsManager);
 	~Map();
 
+	static constexpr int ROWS = 21;
+	static constexpr int COLS = 26;
+	static constexpr int BLOCK_SIZE = 60;
+
 	//Getters
 	int getRows() const{
 		return ROWS;
@@ -30,8 +34,8 @@ class Map{
 	char operator()(int row, int col) const;
 	char& operator()(int row, int col);
 
-	void setNewMaze(std::array<std::array<char, 26>, 21> newMaze);
-	std::array<std::array<char, 26>, 21>& getMazeByName(std::string name);
+	void setNewMaze(std::array<std::array<char, COLS>, ROWS> newMaze);
+	std::array<std::array<char, COLS>, ROWS>& getMazeByName(std::string name);
 
 	int getLevel();
 	void setLevel(int newLevel);
@@ -47,14 +51,12 @@ class Map{
 
 	private:
 	AssetsManager &assetsManager;
-	
-	static constexpr int ROWS = 21;
-	static constexpr int COLS = 26;
-	static constexpr int BLOCK_SIZE = 60;
 
 	std::array<std::array<char, COLS>, ROWS> maze;
 	std::array<std::array<char, COLS>, ROWS> maze2;
 	std::array<std::array<char, COLS>, ROWS> maze3;
+	std::array<std::array<char, COLS>, ROWS> maze4;
+	std::array<std::array<char, COLS>, ROWS> maze5;
 
 	int levelNum;
 
@@ -66,6 +68,8 @@ class Map{
 	sf::Sprite wallSprite;
 	sf::Sprite wallSprite2;
 	sf::Sprite wallSprite3;
+	sf::Sprite wallSprite4;
+	sf::Sprite wallSprite5;
 
 	//Texture for the path
 	sf::Sprite pathSprite;

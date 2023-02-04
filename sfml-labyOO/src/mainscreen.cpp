@@ -9,6 +9,7 @@ MainScreen::~MainScreen(){
 
 //Initialization
 void MainScreen::init(){
+	isPlayerDead = false;
 
 	enemies.push_back(std::make_shared<Enemy>(1, map, assetsManager, 5,4, Enemy::HORIZONTAL, 5,14, 30.f));
 	enemies.push_back(std::make_shared<Enemy>(2, map, assetsManager, 8,9, Enemy::VERTICAL, 8,13, 35.f));
@@ -64,11 +65,17 @@ void MainScreen::draw(sf::RenderWindow& window){
 		enemies[5]->draw(window);
 	}
 
-	if(player.getHasExited()){
+	if(player.isDead()){
+		this->active = false;
+		this->isPlayerDead = true;
+	}
+	else if(player.getHasExited()){
 		this->active = false;
 		// //Slow down program
 		// std::this_thread::sleep_for(std::chrono::milliseconds(5000));
-	} else if(player.isDead()){
-
 	}
+}
+
+bool MainScreen::getIsPlayerDead() const{
+	return isPlayerDead;
 }

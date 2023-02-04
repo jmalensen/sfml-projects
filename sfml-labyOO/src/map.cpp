@@ -22,7 +22,7 @@ void Map::init(){
 		"#   #     #       #     #",
 		"### ########### # # ### #",
 		"# #        #    #   #   #",
-		"# # ###n####### # ### ###",
+		"# #n### ####### # ### ###",
 		"# # #      # k# #####   #",
 		"# # # ### ## ## #   ## ##",
 		"#   # #   #     # #    ##",
@@ -49,11 +49,11 @@ void Map::init(){
 		"# # #         #    # #  #",
 		"# # ###### #### # # #####",
 		"# # #t#    #    # # #k  #",
-		"#  n# # #### # ## # # # #",
+		"#   # # #### # ## # # # #",
 		"##### # ### ## #### ### #",
-		"#     # #   #         # #",
-		"###   #####    ######   #",
-		"#   #     n#   #      ###",
+		"#     # #    #        # #",
+		"###   ######   ######   #",
+		"#   #      n#  #      ###",
 		"################   ###  #",
 		"#     ##        #       #",
 		"### # ## ########### ## #",
@@ -67,7 +67,7 @@ void Map::init(){
 
 	maze3 = {{
 		"#########################",
-		"#  #### #  ####  #### #e#",
+		"#  #### #  ####  #### #n#",
 		"# #    # # #    ##    ###",
 		"# # #### #### # ## # #  #",
 		"# #           #   t# #  #",
@@ -89,7 +89,55 @@ void Map::init(){
 		"#########################",
 	}};
 
-	mazeList = {{"maze", maze}, {"maze2", maze2}, {"maze3", maze3}};
+	maze4 = {{
+		"#########################",
+		"#      #### ###     ###k#",
+		"###### ##       ### ### #",
+		"#      #### #######     #",
+		"### ###   # ###     #####",
+		"#   ### ### #   ###   ###",
+		"# ##    ##  ##         ##",
+		"# ## ##### ######### # ##",
+		"#     #    ###       #  #",
+		"# # #### ##  # ##########",
+		"# ####   ## ## ##       #",
+		"#      ###     #  ##### #",
+		"### ###### ###### #  #  #",
+		"###        ###    #    ##",
+		"#   #######    #### #####",
+		"## #      # ###       ###",
+		"## # #### #  ## #########",
+		"## #    # ## ## ##   #  #",
+		"#  #### #    #  ### #####",
+		"##      ######      #  n#",
+		"#########################",
+	}};
+
+	maze5 = {{
+		"#########################",
+		"# #     ##     #     #  #",
+		"# # # # ## ## ## ### # ##",
+		"#   ##  #  #     #   #  #",
+		"####   ### ####### #### #",
+		"#    ##    ##    #      #",
+		"#       ###   ## ## #####",
+		"########### ####    #####",
+		"#k ####     #############",
+		"##      ######     ######",
+		"## ######   ## ### #    #",
+		"#  #      # #  #   # ## #",
+		"# #  ###### # ## ### ## #",
+		"#   ####    # ##     ## #",
+		"######## #### ######### #",
+		"##   ###      ####      #",
+		"## #    # ########## ####",
+		"## ####  ###            #",
+		"##    ##     ## ### # ###",
+		"#e#############     # ###",
+		"#########################",
+	}};
+
+	mazeList = {{"maze", maze}, {"maze2", maze2}, {"maze3", maze3}, {"maze4", maze4}, {"maze5", maze5}};
 	levelNum = 1;
 
 	///Textures via AssetsManager
@@ -102,6 +150,12 @@ void Map::init(){
 	
 	assetsManager.loadTexture("wallbrick3", "images/wallbrick3.png");
 	wallSprite3.setTexture(assetsManager.getTexture("wallbrick3"));
+	
+	assetsManager.loadTexture("wallbrick4", "images/wallbrick4.png");
+	wallSprite4.setTexture(assetsManager.getTexture("wallbrick4"));
+	
+	assetsManager.loadTexture("wallbrick5", "images/wallbrick5.png");
+	wallSprite5.setTexture(assetsManager.getTexture("wallbrick5"));
 
 	//Texture for the path
 	assetsManager.loadTexture("pathtexture", "images/pathtexture.jpg");
@@ -182,10 +236,10 @@ char& Map::operator()(int row, int col){
 	return maze[row][col];
 }
 
-void Map::setNewMaze(std::array<std::array<char, 26>, 21> newMaze){
+void Map::setNewMaze(std::array<std::array<char, COLS>, ROWS> newMaze){
 	maze = newMaze;
 }
-std::array<std::array<char, 26>, 21>& Map::getMazeByName(std::string name){
+std::array<std::array<char, Map::COLS>, Map::ROWS>& Map::getMazeByName(std::string name){
 	return mazeList[name];
 }
 
@@ -288,25 +342,31 @@ void Map::draw(sf::RenderTarget& target){
 				} else if(levelNum == 3){
 					wallSprite3.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
 					target.draw(wallSprite3);
+				} else if(levelNum == 4){
+					wallSprite4.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					target.draw(wallSprite4);
+				} else if(levelNum == 5){
+					wallSprite5.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					target.draw(wallSprite5);
 				}
 			} else{
 				if(levelNum == 1){
 					pathSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
 					target.draw(pathSprite);
-				} else if(levelNum == 2){
+				} else if(levelNum == 2 || levelNum == 4){
 					pathSprite2.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
 					target.draw(pathSprite2);
-				} else if(levelNum == 3){
+				} else if(levelNum == 3 || levelNum == 5){
 					pathSprite3.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
 					target.draw(pathSprite3);
 				}
 			}
 
 			if(maze[row][col] == 't'){
-				if(levelNum == 2){
+				if(levelNum == 2 || levelNum == 4){
 					pathSprite2Trap.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
 					target.draw(pathSprite2Trap);
-				} else if(levelNum == 3){
+				} else if(levelNum == 3 || levelNum == 5){
 					pathSprite3Trap.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
 					target.draw(pathSprite3Trap);
 				}

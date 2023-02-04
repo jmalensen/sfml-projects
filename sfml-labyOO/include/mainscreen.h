@@ -37,9 +37,13 @@ class MainScreen: public Screen{
 	//Draw
 	void draw(sf::RenderWindow& window);
 
+	bool getIsPlayerDead() const;
+
 	private:
 	//The assets manager
 	AssetsManager &assetsManager;
+
+	bool isPlayerDead;
 
 	//The map
 	Map map;
