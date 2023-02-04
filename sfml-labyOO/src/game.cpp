@@ -68,7 +68,9 @@ void Game::handleEvents(){
 
 		else if(event.type == sf::Event::Closed
 		|| (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)
-				&& screensManager.getCurrentScreen() == ScreensManager::ENDSCREEN) ){
+				&& screensManager.getCurrentScreen() == ScreensManager::ENDSCREEN)
+		|| (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)
+				&& screensManager.getCurrentScreen() == ScreensManager::GAMEOVERSCREEN) ){
 			window.close();
 		}
 

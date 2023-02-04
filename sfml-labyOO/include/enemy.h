@@ -6,8 +6,10 @@
 #include <SFML/System.hpp>
 #include "map.h"
 #include "assetsmanager.h"
+#include "animation.h"
 #include "entity.h"
 #include "player.h"
+#include "customStructures.h"
 #include <iostream>
 #include <chrono>
 #include <thread>
@@ -17,6 +19,7 @@
 class Map;
 class AssetsManager;
 class Player;
+class Animation;
 
 class Enemy: public Entity{
 	public:
@@ -50,6 +53,19 @@ class Enemy: public Entity{
 
 	//Sounds
 	sf::Sound hurtSound;
+
+	Animation moveAnimation;
+
+	//0-60 down
+	//60-120 left
+	//120-180 right
+	//180-240 up
+	ParamsMovement paramsMovement {
+		0,//Right
+		0,//Left
+		0,//Up
+		0//Down
+	};
 };
 
 #endif //ENEMY_H

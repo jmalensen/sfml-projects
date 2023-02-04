@@ -6,8 +6,10 @@
 #include <iostream>
 #include <unordered_map>
 #include "assetsmanager.h"
+#include "animation.h"
 
 class AssetsManager;
+class Animation;
 
 class Map{
 	public:
@@ -47,7 +49,7 @@ class Map{
 	void update(sf::Time dt);
 
 	//Draw the map
-	void draw(sf::RenderTarget& target);
+	void draw(sf::RenderWindow& window);
 
 	private:
 	AssetsManager &assetsManager;
@@ -77,21 +79,26 @@ class Map{
 	sf::Sprite pathSprite2Trap;
 	sf::Sprite pathSprite3;
 	sf::Sprite pathSprite3Trap;
+	sf::Sprite pathSprite4Trap;
+	sf::Sprite pathSprite5Trap;
 
 	//Texture for the background
 	sf::Sprite backgroundI;
 
 	//Texture for the key
-	sf::IntRect rectSourceSpriteKey;
-	sf::Sprite keySprite;
+	Animation animKey;
+	// sf::IntRect rectSourceSpriteKey;
+	// sf::Sprite keySprite;
 
 	//Texture for the nextLevel icon
-	sf::IntRect rectSourceSpriteNextLevel;
-	sf::Sprite nextLevelSprite;
+	Animation animNextLevel;
+	// sf::IntRect rectSourceSpriteNextLevel;
+	// sf::Sprite nextLevelSprite;
 
 	//Texture for the trophy icon
-	sf::IntRect rectSourceSpriteTrophy;
-	sf::Sprite trophySprite;
+	Animation animTrophy;
+	// sf::IntRect rectSourceSpriteTrophy;
+	// sf::Sprite trophySprite;
 
 	///Text to display the level number
 	sf::Text text;

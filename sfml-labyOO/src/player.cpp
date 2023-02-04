@@ -1,6 +1,6 @@
 #include "../include/player.h"
 
-Player::Player(Map& maze, AssetsManager &assetsManager): Entity(maze, assetsManager), walkAnimation(60, "images/perso.png", 4){
+Player::Player(Map& maze, AssetsManager &assetsManager): Entity(maze, assetsManager), walkAnimation(60, "images/perso.png", 4, Animation::RIGHT, 4){
 	//Initialize the player
 	init();
 }
@@ -39,9 +39,7 @@ void Player::init(){
 
 	exit = false;
 
-	// //Texture for the player
-	// assetsManager.loadTexture("perso", "images/perso.png");
-	// entity.setTexture(assetsManager.getTexture("perso"));
+	walkAnimation.setParamsMovements(paramsMovement);
 }
 
 bool Player::getHasExited() const{
@@ -146,6 +144,10 @@ void Player::update(sf::Time dt){
 			maze.operator()(1, 22) = '#';
 			maze.operator()(13, 15) = 'k';
 		}
+		else if(maze.getLevel() == 4){
+			maze.operator()(19, 20) = '#';
+			maze.operator()(10, 10) = 'k';
+		}
 		maze.operator()(positionY, positionX) = ' ';
 		unlockEnabled = false;
 		trapEnabled = true;
@@ -166,6 +168,9 @@ void Player::update(sf::Time dt){
 		}
 		else if(maze.getLevel() == 3){
 			maze.operator()(1, 22) = ' ';
+		}
+		else if(maze.getLevel() == 4){
+			maze.operator()(19, 20) = ' ';
 		}
 		unlockSound.play();
 
@@ -215,11 +220,7 @@ void Player::resetSounds(){
 
 void Player::draw(sf::RenderWindow& window){
 
-	// entity.setPosition(positionX * maze.getBlockSize()+1, positionY * maze.getBlockSize()+1);
-
+	//Draw the player
 	walkAnimation.setPosition(positionX * maze.getBlockSize()+1, positionY * maze.getBlockSize()+1);
 	walkAnimation.draw(window);
-
-	//Draw the player
-	//window.draw(entity);
 }

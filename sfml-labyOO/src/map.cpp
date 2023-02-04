@@ -1,6 +1,6 @@
 #include "../include/map.h"
 
-Map::Map(AssetsManager &assetsManager): assetsManager(assetsManager){
+Map::Map(AssetsManager &assetsManager): assetsManager(assetsManager), animKey(60, "images/key.png", 4, Animation::RIGHT, 1), animNextLevel(60, "images/nextlevel.png", 4, Animation::RIGHT, 1), animTrophy(60, "images/trophy.png", 4, Animation::RIGHT, 1){
 	//Initialize the map
 	init();
 }
@@ -8,10 +8,10 @@ Map::Map(AssetsManager &assetsManager): assetsManager(assetsManager){
 Map::~Map(){
 }
 
-// Create traps which blocks areas (with resolution)
+// Done - Create traps which blocks areas (with resolution)
 // traps which kill!!
-// Create ennemies
-// Create 3 more levels
+// Done - Create ennemies
+// Done - Create 3 more levels
 // Multiplayer coop
 
 void Map::init(){
@@ -49,7 +49,7 @@ void Map::init(){
 		"# # #         #    # #  #",
 		"# # ###### #### # # #####",
 		"# # #t#    #    # # #k  #",
-		"#   # # #### # ## # # # #",
+		"#  n# # #### # ## # # # #",
 		"##### # ### ## #### ### #",
 		"#     # #    #        # #",
 		"###   ######   ######   #",
@@ -69,7 +69,7 @@ void Map::init(){
 		"#########################",
 		"#  #### #  ####  #### #n#",
 		"# #    # # #    ##    ###",
-		"# # #### #### # ## # #  #",
+		"#n# #### #### # ## # #  #",
 		"# #           #   t# #  #",
 		"# # ###### #### # # #####",
 		"# #####    #    # # #k  #",
@@ -104,7 +104,7 @@ void Map::init(){
 		"#      ###     #  ##### #",
 		"### ###### ###### #  #  #",
 		"###        ###    #    ##",
-		"#   #######    #### #####",
+		"#   #######    #### t####",
 		"## #      # ###       ###",
 		"## # #### #  ## #########",
 		"## #    # ## ## ##   #  #",
@@ -171,44 +171,12 @@ void Map::init(){
 	assetsManager.loadTexture("pathtexture3trap", "images/pathtexture3t.jpg");
 	pathSprite3Trap.setTexture(assetsManager.getTexture("pathtexture3trap"));
 
+	assetsManager.loadTexture("pathtexture4trap", "images/pathtexture4t.jpg");
+	pathSprite4Trap.setTexture(assetsManager.getTexture("pathtexture4trap"));
+
 	//Texture for the background
 	assetsManager.loadTexture("background", "images/background.jpg");
 	backgroundI.setTexture(assetsManager.getTexture("background"));
-
-	//Texture for the key
-	assetsManager.loadTexture("key", "images/key.png");
-	keySprite.setTexture(assetsManager.getTexture("key"));
-
-	//Key animation
-	rectSourceSpriteKey.left = 0;
-	rectSourceSpriteKey.top = 0;
-	rectSourceSpriteKey.width = 60;
-	rectSourceSpriteKey.height = 60;
-	keySprite.setTextureRect(rectSourceSpriteKey);
-
-
-	//Texture for the nextLevel icon
-	assetsManager.loadTexture("nextlevel", "images/nextlevel.png");
-	nextLevelSprite.setTexture(assetsManager.getTexture("nextlevel"));
-
-	//NextLevel animation
-	rectSourceSpriteNextLevel.left = 0;
-	rectSourceSpriteNextLevel.top = 0;
-	rectSourceSpriteNextLevel.width = 60;
-	rectSourceSpriteNextLevel.height = 60;
-	nextLevelSprite.setTextureRect(rectSourceSpriteNextLevel);
-
-
-	//Texture for the trophy icon
-	assetsManager.loadTexture("trophy", "images/trophy.png");
-	trophySprite.setTexture(assetsManager.getTexture("trophy"));
-
-	//Trophy animation
-	rectSourceSpriteTrophy.left = 0;
-	rectSourceSpriteTrophy.top = 0;
-	rectSourceSpriteTrophy.width = 60;
-	rectSourceSpriteTrophy.height = 60;
-	trophySprite.setTextureRect(rectSourceSpriteTrophy);
 
 
 	//Text to display the level number
@@ -257,70 +225,26 @@ void Map::setLevel(int newLevel){
 void Map::update(sf::Time dt){
 
 	///Small animation of key
-	//Duration of the frame
-	static float frameDuration = 0.2f;
-	static float frameDurationNL = 0.1f;
+	//Delay between 2 moves
+	static const sf::Time moveDelay = sf::seconds(5.f / 240);
 
-	//Current time needed for the delta time
-	static float currentTime = 0.0f;
-	currentTime += dt.asSeconds();
+	//Last time player moved
+	static sf::Time lastMove = sf::Time::Zero;
+	lastMove += dt;
 
-	static float currentTimeNL = 0.0f;
-	currentTimeNL += dt.asSeconds();
+	if(lastMove >= moveDelay){
+		animKey.update(dt);
+		animNextLevel.update(dt);
+		animTrophy.update(dt);
 
-	static float currentTimeE = 0.0f;
-	currentTimeE += dt.asSeconds();
-	
-	if(currentTime >= frameDuration){
-		//Set rectangle left position
-		if (rectSourceSpriteKey.left == 120){
-			rectSourceSpriteKey.left = 0;
-		}
-		else{
-			rectSourceSpriteKey.left += 60;
-		}
-
-		currentTime = 0;
-
-		//Set the rectangle so we see the movement
-		keySprite.setTextureRect(rectSourceSpriteKey);
-	}
-
-	if(currentTimeNL >= frameDurationNL){
-		//Set rectangle left position
-		if (rectSourceSpriteNextLevel.left == 240){
-			rectSourceSpriteNextLevel.left = 0;
-		}
-		else{
-			rectSourceSpriteNextLevel.left += 60;
-		}
-
-		currentTimeNL = 0;
-
-		//Set the rectangle so we see the movement
-		nextLevelSprite.setTextureRect(rectSourceSpriteNextLevel);
-	}
-
-	if(currentTimeE >= frameDurationNL){
-		//Set rectangle left position
-		if (rectSourceSpriteTrophy.left == 300){
-			rectSourceSpriteTrophy.left = 0;
-		}
-		else{
-			rectSourceSpriteTrophy.left += 60;
-		}
-
-		currentTimeE = 0;
-
-		//Set the rectangle so we see the movement
-		trophySprite.setTextureRect(rectSourceSpriteTrophy);
+		lastMove = sf::Time::Zero;
 	}
 }
 
-void Map::draw(sf::RenderTarget& target){
+void Map::draw(sf::RenderWindow& window){
 
 	//Draw the map
-	target.draw(backgroundI);
+	window.draw(backgroundI);
 
 	//Draw maze
 	for(int row = 0; row < ROWS; row++){
@@ -335,61 +259,64 @@ void Map::draw(sf::RenderTarget& target){
 			if(maze[row][col] == '#'){
 				if(levelNum == 1){
 					wallSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					target.draw(wallSprite);
+					window.draw(wallSprite);
 				} else if(levelNum == 2){
 					wallSprite2.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					target.draw(wallSprite2);
+					window.draw(wallSprite2);
 				} else if(levelNum == 3){
 					wallSprite3.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					target.draw(wallSprite3);
+					window.draw(wallSprite3);
 				} else if(levelNum == 4){
 					wallSprite4.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					target.draw(wallSprite4);
+					window.draw(wallSprite4);
 				} else if(levelNum == 5){
 					wallSprite5.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					target.draw(wallSprite5);
+					window.draw(wallSprite5);
 				}
 			} else{
 				if(levelNum == 1){
 					pathSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					target.draw(pathSprite);
+					window.draw(pathSprite);
 				} else if(levelNum == 2 || levelNum == 4){
 					pathSprite2.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					target.draw(pathSprite2);
+					window.draw(pathSprite2);
 				} else if(levelNum == 3 || levelNum == 5){
 					pathSprite3.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					target.draw(pathSprite3);
+					window.draw(pathSprite3);
 				}
 			}
 
 			if(maze[row][col] == 't'){
-				if(levelNum == 2 || levelNum == 4){
+				if(levelNum == 2){
 					pathSprite2Trap.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					target.draw(pathSprite2Trap);
-				} else if(levelNum == 3 || levelNum == 5){
+					window.draw(pathSprite2Trap);
+				} else if(levelNum == 3){
 					pathSprite3Trap.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					target.draw(pathSprite3Trap);
+					window.draw(pathSprite3Trap);
+				} else if(levelNum == 4){
+					pathSprite4Trap.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					window.draw(pathSprite4Trap);
 				}
 			}
 
 			if(maze[row][col] == 'k'){
-				keySprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-				target.draw(keySprite);
+				animKey.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				animKey.draw(window);
 			}
 
 			if(maze[row][col] == 'n'){
-				nextLevelSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-				target.draw(nextLevelSprite);
+				animNextLevel.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				animNextLevel.draw(window);
 			}
 
 			if(maze[row][col] == 'e'){
-				trophySprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-				target.draw(trophySprite);
+				animTrophy.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				animTrophy.draw(window);
 			}
 		}
 	}
 
 	//Draw the text
 	text.setPosition(10, 10);
-	target.draw(text);
+	window.draw(text);
 }

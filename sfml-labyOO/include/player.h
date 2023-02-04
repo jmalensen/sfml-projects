@@ -8,6 +8,7 @@
 #include "assetsmanager.h"
 #include "animation.h"
 #include "entity.h"
+#include "customStructures.h"
 #include <iostream>
 #include <chrono>
 #include <thread>
@@ -61,6 +62,17 @@ class Player: public Entity{
 	bool exit;
 
 	Animation walkAnimation;
+
+	//0-60 down
+	//60-120 left
+	//120-180 right
+	//180-240 up
+	ParamsMovement paramsMovement {
+		120,//Right
+		60,//Left
+		180,//Up
+		0//Down
+	};
 };
 
 #endif //PLAYER_H

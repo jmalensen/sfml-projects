@@ -7,16 +7,19 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include "customStructures.h"
 
 class Animation{
 	public:
-	static constexpr int RIGHT = 1;
-	static constexpr int LEFT = 2;
-	static constexpr int DOWN = 3;
-	static constexpr int UP = 4;
+
+	static constexpr short RIGHT = 1;
+	static constexpr short LEFT = 2;
+	static constexpr short DOWN = 3;
+	static constexpr short UP = 4;
+	static constexpr short NODIRECTION = 0;
 
 	//Constructor and destructor
-	Animation(short frameWidth, const std::string& textureLocation, short animationSpeed = 1, short direction = RIGHT);
+	Animation(short frameWidth, const std::string& textureLocation, short animationSpeed = 1, short direction = NODIRECTION, short i_nbMovements = 1, ParamsMovement params = {0,0,0,0});
 	~Animation();
 
 	void init();
@@ -28,6 +31,9 @@ class Animation{
 	void setPosition(short x, short y);
 	void setTextureLocation(const std::string& textureLocation);
 
+	void setNbMovements(short nNbMovements);
+	void setParamsMovements(ParamsMovement nParamMovements);
+
 	private:
 	short direction;
 
@@ -38,9 +44,13 @@ class Animation{
 	short frameWidth;
 	short totalFrames;
 
+	short nbMovements;
+
 	sf::Sprite sprite;
 
 	sf::Texture texture;
+
+	ParamsMovement paramsMovement;
 };
 
 #endif //ANIMATION_H

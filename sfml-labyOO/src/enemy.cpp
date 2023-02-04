@@ -1,6 +1,6 @@
 #include "../include/enemy.h"
 
-Enemy::Enemy(int id, Map& maze, AssetsManager &assetsManager, int posx, int posy, int direction, int min, int max, float speed): Entity(maze, assetsManager), idEnemy(id), directionEnemy(direction), minVal(min), maxVal(max){
+Enemy::Enemy(int id, Map& maze, AssetsManager &assetsManager, int posx, int posy, int direction, int min, int max, float speed): Entity(maze, assetsManager), idEnemy(id), directionEnemy(direction), minVal(min), maxVal(max), moveAnimation(60, "images/enemy.png", 4, Animation::RIGHT, 1){
 	//Initialize the enemy
 	init();
 	setPositionX(posx);
@@ -15,17 +15,6 @@ Enemy::~Enemy(){
 void Enemy::init(){
 
 	goingRight = true;
-
-	//Texture for the enemy
-	assetsManager.loadTexture("enemy", "images/enemy.png");
-	entity.setTexture(assetsManager.getTexture("enemy"));
-
-	//Enemy animation
-	rectSourceSpriteEntity.left = 0;
-	rectSourceSpriteEntity.top = 0;
-	rectSourceSpriteEntity.width = 60;
-	rectSourceSpriteEntity.height = 60;
-	entity.setTextureRect(rectSourceSpriteEntity);
 
 	//Hurt sound
 	assetsManager.loadSound("dead", "sounds/dead.ogg");
@@ -59,12 +48,14 @@ void Enemy::update(sf::Time dt, Player& player){
 		if(directionEnemy == Enemy::HORIZONTAL){
 
 			if(positionX <= maxVal && goingRight){
+				moveAnimation.setDirection(Animation::RIGHT);
 				positionX++;
 				if(positionX == maxVal){
 					goingRight = false;
 				}
 			}
 			if(positionX >= minVal && !goingRight){
+				moveAnimation.setDirection(Animation::LEFT);
 				positionX--;
 				if(positionX == minVal){
 					goingRight = true;
@@ -74,12 +65,14 @@ void Enemy::update(sf::Time dt, Player& player){
 		else if(directionEnemy == Enemy::VERTICAL){
 
 			if(positionY <= maxVal && goingDown){
+				moveAnimation.setDirection(Animation::DOWN);
 				positionY++;
 				if(positionY == maxVal){
 					goingDown = false;
 				}
 			}
 			if(positionY >= minVal && !goingDown){
+				moveAnimation.setDirection(Animation::UP);
 				positionY--;
 				if(positionY == minVal){
 					goingDown = true;
@@ -98,37 +91,16 @@ void Enemy::update(sf::Time dt, Player& player){
 			player.justDie(true);
 		}
 
+		moveAnimation.update(dt);
+
 		lastMove = sf::Time::Zero;
-	}
-
-	///Small animation of entity
-	//Duration of the frame
-	static float frameDuration = 0.4f;
-
-	//Current time needed for the delta time
-	static float currentTime = 0.0f;
-	currentTime += dt.asSeconds();
-	
-	if(currentTime >= frameDuration){
-		//Set rectangle left position
-		if (rectSourceSpriteEntity.left == 60){
-			rectSourceSpriteEntity.left = 0;
-		}
-		else{
-			rectSourceSpriteEntity.left += 60;
-		}
-
-		currentTime = 0;
-
-		//Set the rectangle so we see the movement
-		entity.setTextureRect(rectSourceSpriteEntity);
 	}
 }
 
 //Draw
 void Enemy::draw(sf::RenderWindow& window){
-	entity.setPosition(positionX * maze.getBlockSize()+1, positionY * maze.getBlockSize()+1);
 
-	//Draw the enemy
-	window.draw(entity);
+	// //Draw the enemy
+	moveAnimation.setPosition(positionX * maze.getBlockSize()+1, positionY * maze.getBlockSize()+1);
+	moveAnimation.draw(window);
 }
