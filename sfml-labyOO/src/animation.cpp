@@ -30,6 +30,8 @@ void Animation::draw(sf::RenderWindow& window){
 		top = paramsMovement.topSpriteMoveUp;
 	}
 
+	// std::cout << "Change direction:" << direction << " " << top << std::endl;
+
 	//Params for top sprite depending on direction for the player
 	//- Number of possible moves (or line on the sprite)
 

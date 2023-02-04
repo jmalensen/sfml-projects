@@ -1,6 +1,6 @@
 #include "../include/enemy.h"
 
-Enemy::Enemy(int id, Map& maze, AssetsManager &assetsManager, int posx, int posy, int direction, int min, int max, float speed): Entity(maze, assetsManager), idEnemy(id), directionEnemy(direction), minVal(min), maxVal(max), moveAnimation(60, "images/enemy.png", 4, Animation::RIGHT, 1){
+Enemy::Enemy(int id, Map& maze, AssetsManager &assetsManager, int posx, int posy, int direction, int min, int max, float speed): Entity(maze, assetsManager), idEnemy(id), directionEnemy(direction), minVal(min), maxVal(max), moveAnimation(60, "images/enemy.png", 4, Animation::RIGHT, 4){
 	//Initialize the enemy
 	init();
 	setPositionX(posx);
@@ -20,6 +20,8 @@ void Enemy::init(){
 	assetsManager.loadSound("dead", "sounds/dead.ogg");
 	hurtSound = (assetsManager.getSound("dead"));
 	hurtSound.setVolume(10);
+
+	moveAnimation.setParamsMovements(paramsMovement);
 }
 
 void Enemy::setBehaviour(int directionMovement, int min, int max){

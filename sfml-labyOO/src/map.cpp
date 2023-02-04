@@ -1,6 +1,6 @@
 #include "../include/map.h"
 
-Map::Map(AssetsManager &assetsManager): assetsManager(assetsManager), animKey(60, "images/key.png", 4, Animation::RIGHT, 1), animNextLevel(60, "images/nextlevel.png", 4, Animation::RIGHT, 1), animTrophy(60, "images/trophy.png", 4, Animation::RIGHT, 1){
+Map::Map(AssetsManager &assetsManager): assetsManager(assetsManager), animKey(60, "images/key.png", 4, Animation::NODIRECTION, 1), animNextLevel(60, "images/nextlevel.png", 4, Animation::NODIRECTION, 1), animTrophy(60, "images/trophy.png", 4, Animation::NODIRECTION, 1){
 	//Initialize the map
 	init();
 }
@@ -92,7 +92,7 @@ void Map::init(){
 	maze4 = {{
 		"#########################",
 		"#      #### ###     ###k#",
-		"###### ##       ### ### #",
+		"######n##       ### ### #",
 		"#      #### #######     #",
 		"### ###   # ###     #####",
 		"#   ### ### #   ###   ###",
@@ -260,6 +260,10 @@ void Map::setLevel(int newLevel){
 
 void Map::update(sf::Time dt){
 
+	// animKey.update(dt);
+	// animNextLevel.update(dt);
+	// animTrophy.update(dt);
+
 	///Small animation of key
 	//Duration of the frame
 	static float frameDuration = 0.2f;
@@ -382,16 +386,22 @@ void Map::draw(sf::RenderWindow& window){
 			if(maze[row][col] == 'k'){
 				keySprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
 				window.draw(keySprite);
+				// animKey.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				// animKey.draw(window);
 			}
 
 			if(maze[row][col] == 'n'){
 				nextLevelSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
 				window.draw(nextLevelSprite);
+				// animNextLevel.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				// animNextLevel.draw(window);
 			}
 
 			if(maze[row][col] == 'e'){
 				trophySprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
 				window.draw(trophySprite);
+				// animTrophy.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				// animTrophy.draw(window);
 			}
 		}
 	}

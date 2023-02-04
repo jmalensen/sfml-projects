@@ -24,6 +24,12 @@ void MainScreen::init(){
 	enemies.push_back(std::make_shared<Enemy>(9, map, assetsManager, 9,10, Enemy::HORIZONTAL, 9,19, 60.f));
 	enemies.push_back(std::make_shared<Enemy>(10, map, assetsManager, 16,20, Enemy::VERTICAL, 16,20, 70.f));
 	enemies.push_back(std::make_shared<Enemy>(11, map, assetsManager, 5,10, Enemy::HORIZONTAL, 5,20, 80.f));
+
+	enemies.push_back(std::make_shared<Enemy>(12, map, assetsManager, 5,6, Enemy::HORIZONTAL, 5,13, 60.f));
+	enemies.push_back(std::make_shared<Enemy>(13, map, assetsManager, 8,16, Enemy::VERTICAL, 8,18, 70.f));
+	enemies.push_back(std::make_shared<Enemy>(14, map, assetsManager, 9,10, Enemy::HORIZONTAL, 9,19, 80.f));
+	enemies.push_back(std::make_shared<Enemy>(15, map, assetsManager, 16,20, Enemy::VERTICAL, 16,20, 70.f));
+	enemies.push_back(std::make_shared<Enemy>(16, map, assetsManager, 5,10, Enemy::HORIZONTAL, 5,20, 90.f));
 }
 
 //Handling events
@@ -43,6 +49,7 @@ void MainScreen::update(sf::Time TimePerFrame){
 		enemies[1]->update(TimePerFrame, player);
 	}
 	if(map.getLevel() == 3){
+		//enemies.erase(0 + enemies.begin());
 		enemies[2]->update(TimePerFrame, player);
 		enemies[3]->update(TimePerFrame, player);
 		enemies[4]->update(TimePerFrame, player);
@@ -54,6 +61,13 @@ void MainScreen::update(sf::Time TimePerFrame){
 		enemies[8]->update(TimePerFrame, player);
 		enemies[9]->update(TimePerFrame, player);
 		enemies[10]->update(TimePerFrame, player);
+	}
+	if(map.getLevel() == 5){
+		enemies[11]->update(TimePerFrame, player);
+		enemies[12]->update(TimePerFrame, player);
+		enemies[13]->update(TimePerFrame, player);
+		enemies[14]->update(TimePerFrame, player);
+		enemies[15]->update(TimePerFrame, player);
 	}
 }
 
@@ -84,6 +98,14 @@ void MainScreen::draw(sf::RenderWindow& window){
 		enemies[8]->draw(window);
 		enemies[9]->draw(window);//
 		enemies[10]->draw(window);
+	}
+
+	if(map.getLevel() == 5){
+		enemies[11]->draw(window);
+		enemies[12]->draw(window);
+		enemies[13]->draw(window);
+		enemies[14]->draw(window);//
+		enemies[15]->draw(window);
 	}
 
 	if(player.isDead()){

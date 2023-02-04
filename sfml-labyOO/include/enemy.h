@@ -61,9 +61,9 @@ class Enemy: public Entity{
 	//120-180 right
 	//180-240 up
 	ParamsMovement paramsMovement {
-		0,//Right
-		0,//Left
-		0,//Up
+		120,//Right
+		60,//Left
+		180,//Up
 		0//Down
 	};
 };

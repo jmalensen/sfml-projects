@@ -172,6 +172,10 @@ void Player::update(sf::Time dt){
 		else if(maze.getLevel() == 4){
 			maze.operator()(19, 20) = ' ';
 		}
+		else if(maze.getLevel() == 5){
+			maze.operator()(19, 2) = ' ';// access trophy
+			maze.operator()(19, 20) = ' ';
+		}
 		unlockSound.play();
 
 		std::cout << "Change content:" << maze.operator()(positionY, positionX) << positionY << positionX << ":P" << std::endl;
