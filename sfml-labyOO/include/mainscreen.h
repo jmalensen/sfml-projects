@@ -13,6 +13,7 @@
 #include "map.h"
 #include "player.h"
 #include "enemy.h"
+#include <memory>
 
 class AssetsManager;
 class Map;

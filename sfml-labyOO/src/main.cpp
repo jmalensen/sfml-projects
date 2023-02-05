@@ -1,6 +1,6 @@
-#include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <array>
 
