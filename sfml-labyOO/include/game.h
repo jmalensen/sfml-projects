@@ -38,6 +38,8 @@ class Game{
 	//The windows for the render
 	sf::RenderWindow window;
 
+	sf::VideoMode vm;
+
 	//The screenmanager
 	ScreensManager screensManager = ScreensManager(assetsManager);
 };

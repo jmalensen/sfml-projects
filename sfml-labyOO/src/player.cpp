@@ -30,11 +30,13 @@ void Player::init(){
 	//Unlock sound
 	assetsManager.loadSound("unlock", "sounds/unlock-sound.ogg");
 	unlockSound = (assetsManager.getSound("unlock"));
+	unlockSound.setVolume(50);
 	unlockEnabled = false;
 
 	//Exit level sound
 	assetsManager.loadSound("exitlevel", "sounds/exitlevel.ogg");
 	exitLevelSound = (assetsManager.getSound("exitlevel"));
+	exitLevelSound.setVolume(30);
 	nextLevelEnabled = false;
 
 	exit = false;

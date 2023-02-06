@@ -20,7 +20,7 @@ void Map::init(){
 	maze = {{
 		"#########################",
 		"#   #     #       #     #",
-		"### ########### # # ### #",
+		"###n########### # # ### #",
 		"# #        #    #   #   #",
 		"# # ### ####### # ### ###",
 		"# # #      # k# #####   #",
@@ -46,7 +46,7 @@ void Map::init(){
 		"#  #### #  ####  #### ###",
 		"# #      # #    # #    ##",
 		"# # #### #### # #### #  #",
-		"# # #         #    # #  #",
+		"#n# #         #    # #  #",
 		"# # ###### #### # # #####",
 		"# # #t#    #    # # #k  #",
 		"#   # # #### # ## # # # #",
@@ -69,7 +69,7 @@ void Map::init(){
 		"#########################",
 		"#  #### #  ####  #### #n#",
 		"# #    # # #    ##    ###",
-		"# # #### #### # ## # #  #",
+		"#n# #### #### # ## # #  #",
 		"# #           #   t# #  #",
 		"# # ###### #### # # #####",
 		"# #####    #    # # #k  #",
@@ -91,7 +91,7 @@ void Map::init(){
 
 	maze4 = {{
 		"#########################",
-		"#      #### ###     ###k#",
+		"#    n #### ###     ###k#",
 		"###### ##       ### ### #",
 		"#      #### #######     #",
 		"### ###   # ###     #####",
@@ -174,9 +174,9 @@ void Map::init(){
 	assetsManager.loadTexture("pathtexture4trap", "images/pathtexture4t.jpg");
 	pathSprite4Trap.setTexture(assetsManager.getTexture("pathtexture4trap"));
 
-	//Texture for the background
-	assetsManager.loadTexture("background", "images/background.jpg");
-	backgroundI.setTexture(assetsManager.getTexture("background"));
+	// //Texture for the background
+	// assetsManager.loadTexture("background", "images/background.jpg");
+	// backgroundI.setTexture(assetsManager.getTexture("background"));
 
 
 	//Texture for the key

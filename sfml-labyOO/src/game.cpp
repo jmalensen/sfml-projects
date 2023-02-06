@@ -2,7 +2,20 @@
 
 Game::Game(){
 	//Create the window
-	window.create(sf::VideoMode(1500, 1260), "Laby OO");
+	// window.create(sf::VideoMode(1500, 1260), "Laby OO");
+	// window.setFramerateLimit(60);
+
+	vm = sf::VideoMode::getFullscreenModes()[0];
+	// vm = sf::VideoMode::getDesktopMode();
+	window.create(vm, "Resizable Window laby");
+	std::cout << "Window size: " << vm.width << " " << vm.height << std::endl;
+	
+	sf::View view(sf::FloatRect(0.f, 0.f, window.getSize().x * 2.f, window.getSize().y * 2.f));
+	
+	// view.setSize(vm.width * 2, vm.height * 2);
+	// view.setCenter(vm.width, vm.height);
+	// view.zoom(2.f);
+	window.setView(view);
 	window.setFramerateLimit(60);
 }
 
@@ -79,6 +92,13 @@ void Game::handleEvents(){
 		&& screensManager.getCurrentScreen() != ScreensManager::MENUSCREEN){
 			screensManager.showMenuScreen();
 		}
+
+		// else if (event.type == sf::Event::Resized)
+		// {
+		// 		view.setSize(event.size.width, event.size.height);
+		// 		view.setCenter(event.size.width / 2, event.size.height / 2);
+		// 		window.setView(view);
+		// }
 	}
 }
 
