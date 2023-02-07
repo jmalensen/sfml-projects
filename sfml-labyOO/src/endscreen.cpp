@@ -9,26 +9,26 @@ EndScreen::~EndScreen(){
 
 //Initialization
 void EndScreen::init(){
-	playedWinSound = false;
+	this->playedWinSound = false;
 
 	//Texture for the background
-	assetsManager.loadTexture("screen", "images/screen.jpg");
-	screen.setTexture(assetsManager.getTexture("screen"));
-	screen.setPosition(0,0);
+	this->assetsManager.loadTexture("screen", "images/screen.jpg");
+	this->screen.setTexture(this->assetsManager.getTexture("screen"));
+	this->screen.setPosition(0,0);
 
 	//Text to display the text
-	assetsManager.loadFont("arial", "fonts/arial.ttf");
-	titleScreen.setFont(assetsManager.getFont("arial"));
+	this->assetsManager.loadFont("arial", "fonts/arial.ttf");
+	this->titleScreen.setFont(this->assetsManager.getFont("arial"));
 
 	// Initialize title text
-	titleScreen.setString("Endgame");
-	titleScreen.setCharacterSize(70);
-	titleScreen.setPosition(400, 520);
+	this->titleScreen.setString("Endgame");
+	this->titleScreen.setCharacterSize(70);
+	this->titleScreen.setPosition(400, 520);
 
 	//Win sound
-	assetsManager.loadSound("win", "sounds/win.ogg");
-	winSound = (assetsManager.getSound("win"));
-	winSound.setVolume(15);
+	this->assetsManager.loadSound("win", "sounds/win.ogg");
+	this->winSound = (this->assetsManager.getSound("win"));
+	this->winSound.setVolume(15);
 }
 
 //Handling events
@@ -47,10 +47,10 @@ void EndScreen::update(sf::Time dt){
 	static sf::Time lastMove = sf::Time::Zero;
 	lastMove += dt;
 
-	if(lastMove >= moveDelay && !playedWinSound){
-		winSound.play();
+	if(lastMove >= moveDelay && !this->playedWinSound){
+		this->winSound.play();
 		lastMove = sf::Time::Zero;
-		playedWinSound = true;
+		this->playedWinSound = true;
 	}
 
 }
@@ -59,8 +59,8 @@ void EndScreen::update(sf::Time dt){
 void EndScreen::draw(sf::RenderTarget& target){
 
 	//Draw the player
-	target.draw(screen);
+	target.draw(this->screen);
 
 	//Draw texts
-	target.draw(titleScreen);
+	target.draw(this->titleScreen);
 }

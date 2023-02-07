@@ -11,18 +11,18 @@ GameoverScreen::~GameoverScreen(){
 void GameoverScreen::init(){
 
 	//Texture for the background
-	assetsManager.loadTexture("screen", "images/screen.jpg");
-	screen.setTexture(assetsManager.getTexture("screen"));
-	screen.setPosition(0,0);
+	this->assetsManager.loadTexture("screen", "images/screen.jpg");
+	this->screen.setTexture(this->assetsManager.getTexture("screen"));
+	this->screen.setPosition(0,0);
 
 	//Text to display the text
-	assetsManager.loadFont("arial", "fonts/arial.ttf");
-	titleScreen.setFont(assetsManager.getFont("arial"));
+	this->assetsManager.loadFont("arial", "fonts/arial.ttf");
+	this->titleScreen.setFont(this->assetsManager.getFont("arial"));
 
 	// Initialize title text
-	titleScreen.setString("Game Over");
-	titleScreen.setCharacterSize(70);
-	titleScreen.setPosition(400, 520);
+	this->titleScreen.setString("Game Over");
+	this->titleScreen.setCharacterSize(70);
+	this->titleScreen.setPosition(400, 520);
 }
 
 //Handling events
@@ -37,8 +37,8 @@ void GameoverScreen::update(sf::Time dt){
 void GameoverScreen::draw(sf::RenderTarget& target){
 
 	//Draw the screen
-	target.draw(screen);
+	target.draw(this->screen);
 
 	//Draw text
-	target.draw(titleScreen);
+	target.draw(this->titleScreen);
 }

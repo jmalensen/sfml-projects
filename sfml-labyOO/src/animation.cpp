@@ -2,10 +2,10 @@
 
 Animation::Animation(short frameWidth, const std::string& textureLocation, short animationSpeed, short direction, short i_nbMovements, ParamsMovement params): animationIterator(0), currentFrame(0), frameWidth(frameWidth), animationSpeed(std::max<short>(1, animationSpeed)){
 	init();
-	texture.loadFromFile(textureLocation);
-	totalFrames = texture.getSize().x / frameWidth;
-	nbMovements = i_nbMovements;
-	paramsMovement = params;
+	this->texture.loadFromFile(textureLocation);
+	this->totalFrames = this->texture.getSize().x / this->frameWidth;
+	this->nbMovements = i_nbMovements;
+	this->paramsMovement = params;
 }
 
 Animation::~Animation(){
@@ -15,19 +15,19 @@ void Animation::init(){
 }
 
 void Animation::draw(sf::RenderWindow& window){
-	sprite.setTexture(texture);
+	this->sprite.setTexture(texture);
 
 	int top;
-	if(direction == NODIRECTION){
+	if(this->direction == NODIRECTION){
 		top = 0;
-	} else if(direction == RIGHT){
-		top = paramsMovement.topSpriteMoveRight;
-	} else if(direction == LEFT){
-		top = paramsMovement.topSpriteMoveLeft;
-	} else if(direction == DOWN){
-		top = paramsMovement.topSpriteMoveDown;
-	} else if(direction == UP){
-		top = paramsMovement.topSpriteMoveUp;
+	} else if(this->direction == RIGHT){
+		top = this->paramsMovement.topSpriteMoveRight;
+	} else if(this->direction == LEFT){
+		top = this->paramsMovement.topSpriteMoveLeft;
+	} else if(this->direction == DOWN){
+		top = this->paramsMovement.topSpriteMoveDown;
+	} else if(this->direction == UP){
+		top = this->paramsMovement.topSpriteMoveUp;
 	}
 
 	// std::cout << "Change direction:" << direction << " " << top << std::endl;
@@ -35,9 +35,9 @@ void Animation::draw(sf::RenderWindow& window){
 	//Params for top sprite depending on direction for the player
 	//- Number of possible moves (or line on the sprite)
 
-	sprite.setTextureRect(sf::IntRect(currentFrame * frameWidth, top, frameWidth, texture.getSize().y / nbMovements));
+	this->sprite.setTextureRect(sf::IntRect(this->currentFrame * this->frameWidth, top, this->frameWidth, this->texture.getSize().y / this->nbMovements));
 
-	window.draw(sprite);
+	window.draw(this->sprite);
 }
 
 void Animation::setDirection(short ndirection){
@@ -49,19 +49,19 @@ void Animation::setAnimationSpeed(short nanimationSpeed){
 }
 
 void Animation::setPosition( short x, short y){
-	sprite.setPosition(x, y);
+	this->sprite.setPosition(x, y);
 }
 
 void Animation::setTextureLocation(const std::string& textureLocation){
-	texture.loadFromFile(textureLocation);
+	this->texture.loadFromFile(textureLocation);
 }
 
 void Animation::setNbMovements(short nNbMovements){
-	nbMovements = nNbMovements;
+	this->nbMovements = nNbMovements;
 }
 
 void Animation::setParamsMovements(ParamsMovement nParamMovements){
-	paramsMovement = nParamMovements;
+	this->paramsMovement = nParamMovements;
 }
 
 void Animation::update(sf::Time dt){
@@ -77,8 +77,8 @@ void Animation::update(sf::Time dt){
 	lastMove += dt;
 
 	if(lastMove >= moveDelay){
-		animationIterator -= animationSpeed;
-		currentFrame = (currentFrame + 1) % totalFrames;
+		this->animationIterator -= this->animationSpeed;
+		this->currentFrame = (this->currentFrame + 1) % this->totalFrames;
 		
 		lastMove = sf::Time::Zero;
 	}

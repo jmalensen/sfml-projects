@@ -6,24 +6,24 @@ Entity::~Entity() {}
 
 //Getters
 int Entity::getPositionX() const{
-	return positionX;
+	return this->positionX;
 }
 int Entity::getPositionY() const{
-	return positionY;
+	return this->positionY;
 }
 
 //Setters
 void Entity::setPositionX(int newX){
-	positionX = newX;
+	this->positionX = newX;
 }
 void Entity::setPositionY(int newY){
-	positionY = newY;
+	this->positionY = newY;
 }
 
 void Entity::setSpeed(float newSpeed){
-	entitySpeed = newSpeed;
+	this->entitySpeed = newSpeed;
 }
 
 sf::FloatRect Entity::getHitBox() const{
-	return sf::FloatRect(positionX, positionY, 60, 60);
+	return sf::FloatRect(this->positionX, this->positionY, 60, 60);
 }

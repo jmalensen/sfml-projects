@@ -6,13 +6,13 @@ AssetsManager::~AssetsManager() {}
 
 bool AssetsManager::loadTexture(std::string name, std::string filepath){
 	// Check if the texture has already been loaded
-	if (textures.count(name) == 0) {
+	if (this->textures.count(name) == 0) {
 		sf::Texture texture;
 		if (!texture.loadFromFile(filepath)) {
 			std::cout << "Failed to load sprite: " << filepath << std::endl;
 			return false;
 		}
-		textures[name] = texture;
+		this->textures[name] = texture;
 		std::cout << "Load sprite: " << name << " " << filepath  << std::endl;
 	}
 	return true;
@@ -20,13 +20,13 @@ bool AssetsManager::loadTexture(std::string name, std::string filepath){
 
 bool AssetsManager::loadSound(std::string name, std::string filepath) {
 	// check if the sound has already been loaded
-	if (soundBuffers.count(name) == 0) {
+	if (this->soundBuffers.count(name) == 0) {
 		sf::SoundBuffer soundBuffer;
 		if (!soundBuffer.loadFromFile(filepath)) {
 			std::cout << "Failed to load sound: " << filepath << std::endl;
 			return false;
 		}
-		soundBuffers[name] = soundBuffer;
+		this->soundBuffers[name] = soundBuffer;
 	}
 	return true;
 }
@@ -46,29 +46,29 @@ bool AssetsManager::loadSound(std::string name, std::string filepath) {
 
 bool AssetsManager::loadFont(std::string name, std::string filepath) {
 	// check if the font has already been loaded
-	if (fonts.count(name) == 0) {
+	if (this->fonts.count(name) == 0) {
 		sf::Font font;
 		if (!font.loadFromFile(filepath)) {
 			std::cout << "Failed to load font: " << filepath << std::endl;
 			return false;
 		}
-		fonts[name] = font;
+		this->fonts[name] = font;
 	}
 	return true;
 }
 
 sf::Texture& AssetsManager::getTexture(std::string name) {
-	if(textures.count(name) == 0){
+	if(this->textures.count(name) == 0){
 		throw std::invalid_argument("Texture not found : " + name);
 	}
-	return textures[name];
+	return this->textures[name];
 }
 
 sf::SoundBuffer& AssetsManager::getSoundBuffer(std::string name) {
-	if(soundBuffers.count(name) == 0){
+	if(this->soundBuffers.count(name) == 0){
 		throw std::invalid_argument("Sound not found : " + name);
 	}
-	return soundBuffers[name];
+	return this->soundBuffers[name];
 }
 
 sf::Sound AssetsManager::getSound(std::string name){
@@ -84,31 +84,31 @@ sf::Sound AssetsManager::getSound(std::string name){
 // }
 
 sf::Font& AssetsManager::getFont(std::string name) {
-	if(fonts.count(name) == 0){
+	if(this->fonts.count(name) == 0){
 		throw std::invalid_argument("Font not found : " + name);
 	}
-	return fonts[name];
+	return this->fonts[name];
 }
 
 bool AssetsManager::addAnimation(std::string name, std::vector<sf::IntRect> frames){
-	if(animations.count(name) != 0){
+	if(this->animations.count(name) != 0){
 		std::cout << "Animation already exists : " << name << std::endl;
 		return false;
 	}
-	animations[name] = frames;
+	this->animations[name] = frames;
 	return true;
 }
 
 sf::IntRect AssetsManager::getAnimationFrame(std::string animationName,int frame){
-	if(animations.count(animationName) == 0){
+	if(this->animations.count(animationName) == 0){
 		throw std::invalid_argument("Animation not found : " + animationName);
 	}
-	return animations[animationName][frame];
+	return this->animations[animationName][frame];
 }
 
 int AssetsManager::getNumberOfFrames(std::string animationName){
-	if(animations.count(animationName) == 0){
+	if(this->animations.count(animationName) == 0){
 		throw std::invalid_argument("Animation not found : " + animationName);
 	}
-	return animations[animationName].size();
+	return this->animations[animationName].size();
 }

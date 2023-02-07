@@ -17,7 +17,7 @@ Map::~Map(){
 void Map::init(){
 	//Init map
 	//Create a 2D array to represent the maze
-	maze = {{
+	this->maze = {{
 		"#########################",
 		"#   #     #       #     #",
 		"###n########### # # ### #",
@@ -41,7 +41,7 @@ void Map::init(){
 		"#########################",
 	}};
 
-	maze2 = {{
+	this->maze2 = {{
 		"#########################",
 		"#  #### #  ####  #### ###",
 		"# #      # #    # #    ##",
@@ -65,7 +65,7 @@ void Map::init(){
 		"#########################",
 	}};
 
-	maze3 = {{
+	this->maze3 = {{
 		"#########################",
 		"#  #### #  ####  #### #n#",
 		"# #    # # #    ##    ###",
@@ -89,7 +89,7 @@ void Map::init(){
 		"#########################",
 	}};
 
-	maze4 = {{
+	this->maze4 = {{
 		"#########################",
 		"#      #### ###     ###k#",
 		"###### ##       ### ### #",
@@ -113,7 +113,7 @@ void Map::init(){
 		"#########################",
 	}};
 
-	maze5 = {{
+	this->maze5 = {{
 		"#########################",
 		"# #     ##     #     #  #",
 		"# # # # ## ## ## ### # ##",
@@ -137,125 +137,125 @@ void Map::init(){
 		"#########################",
 	}};
 
-	mazeList = {{"maze", maze}, {"maze2", maze2}, {"maze3", maze3}, {"maze4", maze4}, {"maze5", maze5}};
-	levelNum = 1;
+	this->mazeList = {{"maze", this->maze}, {"maze2", this->maze2}, {"maze3", this->maze3}, {"maze4", this->maze4}, {"maze5", this->maze5}};
+	this->levelNum = 1;
 
 	///Textures via AssetsManager
 	//Texture for the wall
-	assetsManager.loadTexture("wallbrick", "images/wallbrick.png");
-	wallSprite.setTexture(assetsManager.getTexture("wallbrick"));
+	this->assetsManager.loadTexture("wallbrick", "images/wallbrick.png");
+	this->wallSprite.setTexture(this->assetsManager.getTexture("wallbrick"));
 
-	assetsManager.loadTexture("wallbrick2", "images/wallbrick2.png");
-	wallSprite2.setTexture(assetsManager.getTexture("wallbrick2"));
+	this->assetsManager.loadTexture("wallbrick2", "images/wallbrick2.png");
+	this->wallSprite2.setTexture(this->assetsManager.getTexture("wallbrick2"));
 	
-	assetsManager.loadTexture("wallbrick3", "images/wallbrick3.png");
-	wallSprite3.setTexture(assetsManager.getTexture("wallbrick3"));
+	this->assetsManager.loadTexture("wallbrick3", "images/wallbrick3.png");
+	this->wallSprite3.setTexture(this->assetsManager.getTexture("wallbrick3"));
 	
-	assetsManager.loadTexture("wallbrick4", "images/wallbrick4.png");
-	wallSprite4.setTexture(assetsManager.getTexture("wallbrick4"));
+	this->assetsManager.loadTexture("wallbrick4", "images/wallbrick4.png");
+	this->wallSprite4.setTexture(this->assetsManager.getTexture("wallbrick4"));
 	
-	assetsManager.loadTexture("wallbrick5", "images/wallbrick5.png");
-	wallSprite5.setTexture(assetsManager.getTexture("wallbrick5"));
+	this->assetsManager.loadTexture("wallbrick5", "images/wallbrick5.png");
+	this->wallSprite5.setTexture(this->assetsManager.getTexture("wallbrick5"));
 
 	//Texture for the path
-	assetsManager.loadTexture("pathtexture", "images/pathtexture.jpg");
-	pathSprite.setTexture(assetsManager.getTexture("pathtexture"));
+	this->assetsManager.loadTexture("pathtexture", "images/pathtexture.jpg");
+	this->pathSprite.setTexture(this->assetsManager.getTexture("pathtexture"));
 
-	assetsManager.loadTexture("pathtexture2", "images/pathtexture2.jpg");
-	pathSprite2.setTexture(assetsManager.getTexture("pathtexture2"));
-	assetsManager.loadTexture("pathtexture2trap", "images/pathtexture2t.jpg");
-	pathSprite2Trap.setTexture(assetsManager.getTexture("pathtexture2trap"));
+	this->assetsManager.loadTexture("pathtexture2", "images/pathtexture2.jpg");
+	this->pathSprite2.setTexture(this->assetsManager.getTexture("pathtexture2"));
+	this->assetsManager.loadTexture("pathtexture2trap", "images/pathtexture2t.jpg");
+	this->pathSprite2Trap.setTexture(this->assetsManager.getTexture("pathtexture2trap"));
 
-	assetsManager.loadTexture("pathtexture3", "images/pathtexture3.jpg");
-	pathSprite3.setTexture(assetsManager.getTexture("pathtexture3"));
-	assetsManager.loadTexture("pathtexture3trap", "images/pathtexture3t.jpg");
-	pathSprite3Trap.setTexture(assetsManager.getTexture("pathtexture3trap"));
+	this->assetsManager.loadTexture("pathtexture3", "images/pathtexture3.jpg");
+	this->pathSprite3.setTexture(this->assetsManager.getTexture("pathtexture3"));
+	this->assetsManager.loadTexture("pathtexture3trap", "images/pathtexture3t.jpg");
+	this->pathSprite3Trap.setTexture(this->assetsManager.getTexture("pathtexture3trap"));
 
-	assetsManager.loadTexture("pathtexture4trap", "images/pathtexture4t.jpg");
-	pathSprite4Trap.setTexture(assetsManager.getTexture("pathtexture4trap"));
+	this->assetsManager.loadTexture("pathtexture4trap", "images/pathtexture4t.jpg");
+	this->pathSprite4Trap.setTexture(this->assetsManager.getTexture("pathtexture4trap"));
 
 	// //Texture for the background
-	// assetsManager.loadTexture("background", "images/background.jpg");
-	// backgroundI.setTexture(assetsManager.getTexture("background"));
+	// this->assetsManager.loadTexture("background", "images/background.jpg");
+	// this->backgroundI.setTexture(this->assetsManager.getTexture("background"));
 
 
 	//Texture for the key
-	assetsManager.loadTexture("key", "images/key.png");
-	keySprite.setTexture(assetsManager.getTexture("key"));
+	this->assetsManager.loadTexture("key", "images/key.png");
+	this->keySprite.setTexture(this->assetsManager.getTexture("key"));
 
 	//Key animation
-	rectSourceSpriteKey.left = 0;
-	rectSourceSpriteKey.top = 0;
-	rectSourceSpriteKey.width = 60;
-	rectSourceSpriteKey.height = 60;
-	keySprite.setTextureRect(rectSourceSpriteKey);
+	this->rectSourceSpriteKey.left = 0;
+	this->rectSourceSpriteKey.top = 0;
+	this->rectSourceSpriteKey.width = 60;
+	this->rectSourceSpriteKey.height = 60;
+	this->keySprite.setTextureRect(this->rectSourceSpriteKey);
 
 
 	//Texture for the nextLevel icon
-	assetsManager.loadTexture("nextlevel", "images/nextlevel.png");
-	nextLevelSprite.setTexture(assetsManager.getTexture("nextlevel"));
+	this->assetsManager.loadTexture("nextlevel", "images/nextlevel.png");
+	this->nextLevelSprite.setTexture(this->assetsManager.getTexture("nextlevel"));
 
 	//NextLevel animation
-	rectSourceSpriteNextLevel.left = 0;
-	rectSourceSpriteNextLevel.top = 0;
-	rectSourceSpriteNextLevel.width = 60;
-	rectSourceSpriteNextLevel.height = 60;
-	nextLevelSprite.setTextureRect(rectSourceSpriteNextLevel);
+	this->rectSourceSpriteNextLevel.left = 0;
+	this->rectSourceSpriteNextLevel.top = 0;
+	this->rectSourceSpriteNextLevel.width = 60;
+	this->rectSourceSpriteNextLevel.height = 60;
+	this->nextLevelSprite.setTextureRect(this->rectSourceSpriteNextLevel);
 
 
 	//Texture for the trophy icon
-	assetsManager.loadTexture("trophy", "images/trophy.png");
-	trophySprite.setTexture(assetsManager.getTexture("trophy"));
+	this->assetsManager.loadTexture("trophy", "images/trophy.png");
+	this->trophySprite.setTexture(this->assetsManager.getTexture("trophy"));
 
 	//Trophy animation
-	rectSourceSpriteTrophy.left = 0;
-	rectSourceSpriteTrophy.top = 0;
-	rectSourceSpriteTrophy.width = 60;
-	rectSourceSpriteTrophy.height = 60;
-	trophySprite.setTextureRect(rectSourceSpriteTrophy);
+	this->rectSourceSpriteTrophy.left = 0;
+	this->rectSourceSpriteTrophy.top = 0;
+	this->rectSourceSpriteTrophy.width = 60;
+	this->rectSourceSpriteTrophy.height = 60;
+	this->trophySprite.setTextureRect(this->rectSourceSpriteTrophy);
 
 
 	//Text to display the level number
-	assetsManager.loadFont("arial", "fonts/arial.ttf");
-	text.setFont(assetsManager.getFont("arial"));
+	this->assetsManager.loadFont("arial", "fonts/arial.ttf");
+	this->text.setFont(this->assetsManager.getFont("arial"));
 
 	//Set the string to display
-	text.setString("Level: " + std::to_string(levelNum) );
+	this->text.setString("Level: " + std::to_string(this->levelNum) );
 
 	//Set the character size (in pixels, not points)
-	text.setCharacterSize(36);
+	this->text.setCharacterSize(36);
 
 	//Set the text style
-	text.setStyle(sf::Text::Bold);
+	this->text.setStyle(sf::Text::Bold);
 
 	//Set the color
-	text.setFillColor(sf::Color::White);
+	this->text.setFillColor(sf::Color::White);
 }
 
 //Get the value of a block in the map
 char Map::operator()(int row, int col) const{
-	return maze[row][col];
+	return this->maze[row][col];
 };
 char& Map::operator()(int row, int col){
-	return maze[row][col];
+	return this->maze[row][col];
 }
 
 void Map::setNewMaze(std::array<std::array<char, COLS>, ROWS> newMaze){
-	maze = newMaze;
+	this->maze = newMaze;
 }
 std::array<std::array<char, Map::COLS>, Map::ROWS>& Map::getMazeByName(std::string name){
-	return mazeList[name];
+	return this->mazeList[name];
 }
 
 int Map::getLevel(){
-	return levelNum;
+	return this->levelNum;
 }
 
 void Map::setLevel(int newLevel){
-	levelNum = newLevel;
+	this->levelNum = newLevel;
 
 	//Set the string to display when level change
-	text.setString("Level: " + std::to_string(levelNum) );
+	this->text.setString("Level: " + std::to_string(this->levelNum) );
 }
 
 void Map::update(sf::Time dt){
@@ -281,54 +281,54 @@ void Map::update(sf::Time dt){
 	
 	if(currentTime >= frameDuration){
 		//Set rectangle left position
-		if (rectSourceSpriteKey.left == 120){
-			rectSourceSpriteKey.left = 0;
+		if (this->rectSourceSpriteKey.left == 120){
+			this->rectSourceSpriteKey.left = 0;
 		}
 		else{
-			rectSourceSpriteKey.left += 60;
+			this->rectSourceSpriteKey.left += 60;
 		}
 
 		currentTime = 0;
 
 		//Set the rectangle so we see the movement
-		keySprite.setTextureRect(rectSourceSpriteKey);
+		this->keySprite.setTextureRect(this->rectSourceSpriteKey);
 	}
 
 	if(currentTimeNL >= frameDurationNL){
 		//Set rectangle left position
-		if (rectSourceSpriteNextLevel.left == 240){
-			rectSourceSpriteNextLevel.left = 0;
+		if (this->rectSourceSpriteNextLevel.left == 240){
+			this->rectSourceSpriteNextLevel.left = 0;
 		}
 		else{
-			rectSourceSpriteNextLevel.left += 60;
+			this->rectSourceSpriteNextLevel.left += 60;
 		}
 
 		currentTimeNL = 0;
 
 		//Set the rectangle so we see the movement
-		nextLevelSprite.setTextureRect(rectSourceSpriteNextLevel);
+		this->nextLevelSprite.setTextureRect(this->rectSourceSpriteNextLevel);
 	}
 
 	if(currentTimeE >= frameDurationNL){
 		//Set rectangle left position
-		if (rectSourceSpriteTrophy.left == 300){
-			rectSourceSpriteTrophy.left = 0;
+		if (this->rectSourceSpriteTrophy.left == 300){
+			this->rectSourceSpriteTrophy.left = 0;
 		}
 		else{
-			rectSourceSpriteTrophy.left += 60;
+			this->rectSourceSpriteTrophy.left += 60;
 		}
 
 		currentTimeE = 0;
 
 		//Set the rectangle so we see the movement
-		trophySprite.setTextureRect(rectSourceSpriteTrophy);
+		this->trophySprite.setTextureRect(this->rectSourceSpriteTrophy);
 	}
 }
 
 void Map::draw(sf::RenderWindow& window){
 
 	//Draw the map
-	window.draw(backgroundI);
+	window.draw(this->backgroundI);
 
 	//Draw maze
 	for(int row = 0; row < ROWS; row++){
@@ -340,66 +340,66 @@ void Map::draw(sf::RenderWindow& window){
 			block.setOutlineColor(sf::Color::Black);
 			block.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
 
-			if(maze[row][col] == '#'){
-				if(levelNum == 1){
-					wallSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(wallSprite);
-				} else if(levelNum == 2){
-					wallSprite2.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(wallSprite2);
-				} else if(levelNum == 3){
-					wallSprite3.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(wallSprite3);
-				} else if(levelNum == 4){
-					wallSprite4.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(wallSprite4);
-				} else if(levelNum == 5){
-					wallSprite5.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(wallSprite5);
+			if(this->maze[row][col] == '#'){
+				if(this->levelNum == 1){
+					this->wallSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					window.draw(this->wallSprite);
+				} else if(this->levelNum == 2){
+					this->wallSprite2.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					window.draw(this->wallSprite2);
+				} else if(this->levelNum == 3){
+					this->wallSprite3.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					window.draw(this->wallSprite3);
+				} else if(this->levelNum == 4){
+					this->wallSprite4.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					window.draw(this->wallSprite4);
+				} else if(this->levelNum == 5){
+					this->wallSprite5.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					window.draw(this->wallSprite5);
 				}
 			} else{
-				if(levelNum == 1){
-					pathSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(pathSprite);
-				} else if(levelNum == 2 || levelNum == 4){
-					pathSprite2.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(pathSprite2);
-				} else if(levelNum == 3 || levelNum == 5){
-					pathSprite3.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(pathSprite3);
+				if(this->levelNum == 1){
+					this->pathSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					window.draw(this->pathSprite);
+				} else if(this->levelNum == 2 || this->levelNum == 4){
+					this->pathSprite2.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					window.draw(this->pathSprite2);
+				} else if(this->levelNum == 3 || this->levelNum == 5){
+					this->pathSprite3.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					window.draw(this->pathSprite3);
 				}
 			}
 
-			if(maze[row][col] == 't'){
-				if(levelNum == 2){
-					pathSprite2Trap.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(pathSprite2Trap);
-				} else if(levelNum == 3){
-					pathSprite3Trap.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(pathSprite3Trap);
-				} else if(levelNum == 4){
-					pathSprite4Trap.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(pathSprite4Trap);
+			if(this->maze[row][col] == 't'){
+				if(this->levelNum == 2){
+					this->pathSprite2Trap.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					window.draw(this->pathSprite2Trap);
+				} else if(this->levelNum == 3){
+					this->pathSprite3Trap.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					window.draw(this->pathSprite3Trap);
+				} else if(this->levelNum == 4){
+					this->pathSprite4Trap.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					window.draw(this->pathSprite4Trap);
 				}
 			}
 
-			if(maze[row][col] == 'k'){
-				keySprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-				window.draw(keySprite);
+			if(this->maze[row][col] == 'k'){
+				this->keySprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				window.draw(this->keySprite);
 				// animKey.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
 				// animKey.draw(window);
 			}
 
-			if(maze[row][col] == 'n'){
-				nextLevelSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-				window.draw(nextLevelSprite);
+			if(this->maze[row][col] == 'n'){
+				this->nextLevelSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				window.draw(this->nextLevelSprite);
 				// animNextLevel.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
 				// animNextLevel.draw(window);
 			}
 
-			if(maze[row][col] == 'e'){
-				trophySprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-				window.draw(trophySprite);
+			if(this->maze[row][col] == 'e'){
+				this->trophySprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				window.draw(this->trophySprite);
 				// animTrophy.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
 				// animTrophy.draw(window);
 			}
@@ -407,6 +407,6 @@ void Map::draw(sf::RenderWindow& window){
 	}
 
 	//Draw the text
-	text.setPosition(10, 10);
-	window.draw(text);
+	this->text.setPosition(10, 10);
+	window.draw(this->text);
 }

@@ -10,18 +10,18 @@ MenuScreen::~MenuScreen(){
 //Initialization
 void MenuScreen::init(){
 	//Texture for the background
-	assetsManager.loadTexture("menuscreen", "images/menuscreen.jpg");
-	screen.setTexture(assetsManager.getTexture("menuscreen"));
-	screen.setPosition(0,0);
+	this->assetsManager.loadTexture("menuscreen", "images/menuscreen.jpg");
+	this->screen.setTexture(this->assetsManager.getTexture("menuscreen"));
+	this->screen.setPosition(0,0);
 
 	//Text to display the text
-	assetsManager.loadFont("arial", "fonts/arial.ttf");
-	titleScreen.setFont(assetsManager.getFont("arial"));
+	this->assetsManager.loadFont("arial", "fonts/arial.ttf");
+	this->titleScreen.setFont(this->assetsManager.getFont("arial"));
 
 	// Initialize title text
-	titleScreen.setString("Menu");
-	titleScreen.setCharacterSize(70);
-	titleScreen.setPosition(300, 320);
+	this->titleScreen.setString("Menu");
+	this->titleScreen.setCharacterSize(70);
+	this->titleScreen.setPosition(300, 320);
 }
 
 //Handling events
@@ -36,7 +36,7 @@ void MenuScreen::update(sf::Time TimePerFrame){
 void MenuScreen::draw(sf::RenderTarget& target){
 
 	//Draw the screen
-	target.draw(screen);
+	target.draw(this->screen);
 
 	//Draw texts
 	// target.draw(titleScreen);

@@ -14,20 +14,20 @@ Enemy::~Enemy(){
 //Initialization
 void Enemy::init(){
 
-	goingRight = true;
+	this->goingRight = true;
 
 	//Hurt sound
-	assetsManager.loadSound("dead", "sounds/dead.ogg");
-	hurtSound = (assetsManager.getSound("dead"));
-	hurtSound.setVolume(10);
+	this->assetsManager.loadSound("dead", "sounds/dead.ogg");
+	this->hurtSound = (this->assetsManager.getSound("dead"));
+	this->hurtSound.setVolume(10);
 
-	moveAnimation.setParamsMovements(paramsMovement);
+	this->moveAnimation.setParamsMovements(this->paramsMovement);
 }
 
 void Enemy::setBehaviour(int directionMovement, int min, int max){
-	directionEnemy = directionMovement;
-	minVal = min;
-	maxVal = max;
+	this->directionEnemy = directionMovement;
+	this->minVal = min;
+	this->maxVal = max;
 }
 
 //Update position
@@ -39,7 +39,7 @@ void Enemy::update(sf::Time dt, Player& player){
 	//entitySpeed
 
 	//Delay between 2 moves
-	static const sf::Time moveDelay = sf::seconds(5.f / entitySpeed);
+	static const sf::Time moveDelay = sf::seconds(5.f / this->entitySpeed);
 
 	//Last time player moved
 	static sf::Time lastMove = sf::Time::Zero;
@@ -47,37 +47,37 @@ void Enemy::update(sf::Time dt, Player& player){
 
 	if(lastMove >= moveDelay){
 
-		if(directionEnemy == Enemy::HORIZONTAL){
+		if(this->directionEnemy == Enemy::HORIZONTAL){
 
-			if(positionX <= maxVal && goingRight){
-				moveAnimation.setDirection(Animation::RIGHT);
-				positionX++;
-				if(positionX == maxVal){
-					goingRight = false;
+			if(this->positionX <= this->maxVal && this->goingRight){
+				this->moveAnimation.setDirection(Animation::RIGHT);
+				this->positionX++;
+				if(this->positionX == this->maxVal){
+					this->goingRight = false;
 				}
 			}
-			if(positionX >= minVal && !goingRight){
-				moveAnimation.setDirection(Animation::LEFT);
-				positionX--;
-				if(positionX == minVal){
-					goingRight = true;
+			if(this->positionX >= this->minVal && !this->goingRight){
+				this->moveAnimation.setDirection(Animation::LEFT);
+				this->positionX--;
+				if(this->positionX == this->minVal){
+					this->goingRight = true;
 				}
 			}
 		}
-		else if(directionEnemy == Enemy::VERTICAL){
+		else if(this->directionEnemy == Enemy::VERTICAL){
 
-			if(positionY <= maxVal && goingDown){
-				moveAnimation.setDirection(Animation::DOWN);
-				positionY++;
-				if(positionY == maxVal){
-					goingDown = false;
+			if(this->positionY <= this->maxVal && this->goingDown){
+				this->moveAnimation.setDirection(Animation::DOWN);
+				this->positionY++;
+				if(this->positionY == this->maxVal){
+					this->goingDown = false;
 				}
 			}
-			if(positionY >= minVal && !goingDown){
-				moveAnimation.setDirection(Animation::UP);
-				positionY--;
-				if(positionY == minVal){
-					goingDown = true;
+			if(this->positionY >= this->minVal && !this->goingDown){
+				this->moveAnimation.setDirection(Animation::UP);
+				this->positionY--;
+				if(this->positionY == this->minVal){
+					this->goingDown = true;
 				}
 			}
 		}
@@ -89,11 +89,11 @@ void Enemy::update(sf::Time dt, Player& player){
 		//Enemy hit player
 		if( getHitBox().left == player.getHitBox().left && getHitBox().top == player.getHitBox().top ){
 			std::cout << "You DIEEEDDD!!" << std::endl;
-			hurtSound.play();
+			this->hurtSound.play();
 			player.justDie(true);
 		}
 
-		moveAnimation.update(dt);
+		this->moveAnimation.update(dt);
 
 		lastMove = sf::Time::Zero;
 	}
@@ -103,6 +103,6 @@ void Enemy::update(sf::Time dt, Player& player){
 void Enemy::draw(sf::RenderWindow& window){
 
 	// //Draw the enemy
-	moveAnimation.setPosition(positionX * maze.getBlockSize()+1, positionY * maze.getBlockSize()+1);
-	moveAnimation.draw(window);
+	this->moveAnimation.setPosition(this->positionX * this->maze.getBlockSize()+1, this->positionY * this->maze.getBlockSize()+1);
+	this->moveAnimation.draw(window);
 }

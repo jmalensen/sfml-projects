@@ -10,50 +10,50 @@ Player::~Player(){
 
 void Player::init(){
 	//Player position
-	positionX = 1;
-	positionY = 1;
+	this->positionX = 1;
+	this->positionY = 1;
 
-	dead = false;
+	this->dead = false;
 
 	///Sounds
 	//Movement sound
-	assetsManager.loadSound("jump", "sounds/jump.ogg");
-	sound = (assetsManager.getSound("jump"));
-	sound.setVolume(10);
+	this->assetsManager.loadSound("jump", "sounds/jump.ogg");
+	this->sound = (this->assetsManager.getSound("jump"));
+	this->sound.setVolume(10);
 
 	//Hurt sound
-	assetsManager.loadSound("hitHurt", "sounds/hitHurt.ogg");
-	hurtSound = (assetsManager.getSound("hitHurt"));
-	hurtSound.setVolume(100);
-	trapEnabled = false;
+	this->assetsManager.loadSound("hitHurt", "sounds/hitHurt.ogg");
+	this->hurtSound = (this->assetsManager.getSound("hitHurt"));
+	this->hurtSound.setVolume(100);
+	this->trapEnabled = false;
 
 	//Unlock sound
-	assetsManager.loadSound("unlock", "sounds/unlock-sound.ogg");
-	unlockSound = (assetsManager.getSound("unlock"));
-	unlockSound.setVolume(50);
-	unlockEnabled = false;
+	this->assetsManager.loadSound("unlock", "sounds/unlock-sound.ogg");
+	this->unlockSound = (this->assetsManager.getSound("unlock"));
+	this->unlockSound.setVolume(50);
+	this->unlockEnabled = false;
 
 	//Exit level sound
-	assetsManager.loadSound("exitlevel", "sounds/exitlevel.ogg");
-	exitLevelSound = (assetsManager.getSound("exitlevel"));
-	exitLevelSound.setVolume(30);
-	nextLevelEnabled = false;
+	this->assetsManager.loadSound("exitlevel", "sounds/exitlevel.ogg");
+	this->exitLevelSound = (this->assetsManager.getSound("exitlevel"));
+	this->exitLevelSound.setVolume(30);
+	this->nextLevelEnabled = false;
 
-	exit = false;
+	this->exit = false;
 
-	walkAnimation.setParamsMovements(paramsMovement);
+	this->walkAnimation.setParamsMovements(this->paramsMovement);
 }
 
 bool Player::getHasExited() const{
-	return exit;
+	return this->exit;
 }
 
 void Player::justDie(bool newStatus){
-	dead = newStatus;
+	this->dead = newStatus;
 }
 
 bool Player::isDead() const{
-	return dead;
+	return this->dead;
 }
 
 void Player::update(sf::Time dt){
@@ -70,17 +70,17 @@ void Player::update(sf::Time dt){
 	lastMove += dt;
 
 	//getHitBox().intersects(enemy.getHitBox());
-	walkAnimation.update(dt);
+	this->walkAnimation.update(dt);
 
-	if(!dead){
+	if(!this->dead){
 		//Handle movement of player
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-			walkAnimation.setDirection(Animation::UP);
+			this->walkAnimation.setDirection(Animation::UP);
 
 			if(lastMove >= moveDelay){
-				if(maze.operator()(positionY-1, positionX) != '#'){
+				if(this->maze.operator()(this->positionY-1, this->positionX) != '#'){
 					// std::cout << "Going up" << std::endl;
-					positionY--;
+					this->positionY--;
 					lastMove = sf::Time::Zero;
 				}
 				else{
@@ -90,12 +90,12 @@ void Player::update(sf::Time dt){
 		}
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-			walkAnimation.setDirection(Animation::DOWN);
+			this->walkAnimation.setDirection(Animation::DOWN);
 
 			if(lastMove >= moveDelay){
-				if(maze.operator()(positionY+1, positionX) != '#'){
+				if(this->maze.operator()(this->positionY+1, this->positionX) != '#'){
 					// std::cout << "Going down" << std::endl;
-					positionY++;
+					this->positionY++;
 					lastMove = sf::Time::Zero;
 				}
 				else{
@@ -105,12 +105,12 @@ void Player::update(sf::Time dt){
 		}
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-			walkAnimation.setDirection(Animation::LEFT);
+			this->walkAnimation.setDirection(Animation::LEFT);
 
 			if(lastMove >= moveDelay){
-				if(maze.operator()(positionY, positionX-1) != '#'){
+				if(this->maze.operator()(this->positionY, this->positionX-1) != '#'){
 					// std::cout << "Going left" << std::endl;
-					positionX--;
+					this->positionX--;
 					lastMove = sf::Time::Zero;
 				}
 				else{
@@ -120,12 +120,12 @@ void Player::update(sf::Time dt){
 		}
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-			walkAnimation.setDirection(Animation::RIGHT);
+			this->walkAnimation.setDirection(Animation::RIGHT);
 
 			if(lastMove >= moveDelay){
-				if(maze.operator()(positionY, positionX+1) != '#'){
+				if(this->maze.operator()(this->positionY, this->positionX+1) != '#'){
 					// std::cout << "Going right" << std::endl;
-					positionX++;
+					this->positionX++;
 					lastMove = sf::Time::Zero;
 				}
 				else{
@@ -135,98 +135,98 @@ void Player::update(sf::Time dt){
 		}
 	}
 
-	if(maze.operator()(positionY, positionX) == 't' && trapEnabled != true){
-		hurtSound.play();
+	if(this->maze.operator()(this->positionY, this->positionX) == 't' && this->trapEnabled != true){
+		this->hurtSound.play();
 
-		if(maze.getLevel() == 2){
-			maze.operator()(8, 5) = '#';
-			maze.operator()(13, 15) = 'k';
+		if(this->maze.getLevel() == 2){
+			this->maze.operator()(8, 5) = '#';
+			this->maze.operator()(13, 15) = 'k';
 		}
-		else if(maze.getLevel() == 3){
-			maze.operator()(1, 22) = '#';
-			maze.operator()(13, 15) = 'k';
+		else if(this->maze.getLevel() == 3){
+			this->maze.operator()(1, 22) = '#';
+			this->maze.operator()(13, 15) = 'k';
 		}
-		else if(maze.getLevel() == 4){
-			maze.operator()(19, 20) = '#';
-			maze.operator()(10, 10) = 'k';
+		else if(this->maze.getLevel() == 4){
+			this->maze.operator()(19, 20) = '#';
+			this->maze.operator()(10, 10) = 'k';
 		}
-		maze.operator()(positionY, positionX) = ' ';
-		unlockEnabled = false;
-		trapEnabled = true;
+		this->maze.operator()(this->positionY, this->positionX) = ' ';
+		this->unlockEnabled = false;
+		this->trapEnabled = true;
 	}
 
 	//If case is a key
-	if(maze.operator()(positionY, positionX) == 'k' && unlockEnabled != true){
+	if(this->maze.operator()(this->positionY, this->positionX) == 'k' && this->unlockEnabled != true){
 		//Key disappear
-		maze.operator()(positionY, positionX) = ' ';
+		this->maze.operator()(this->positionY, this->positionX) = ' ';
 
 		//Open the path
-		if(maze.getLevel() == 1){
-			maze.operator()(16, 3) = ' ';
+		if(this->maze.getLevel() == 1){
+			this->maze.operator()(16, 3) = ' ';
 		}
-		else if(maze.getLevel() == 2){
-			maze.operator()(5, 5) = ' ';
-			maze.operator()(8, 5) = ' ';
+		else if(this->maze.getLevel() == 2){
+			this->maze.operator()(5, 5) = ' ';
+			this->maze.operator()(8, 5) = ' ';
 		}
-		else if(maze.getLevel() == 3){
-			maze.operator()(1, 22) = ' ';
+		else if(this->maze.getLevel() == 3){
+			this->maze.operator()(1, 22) = ' ';
 		}
-		else if(maze.getLevel() == 4){
-			maze.operator()(19, 20) = ' ';
+		else if(this->maze.getLevel() == 4){
+			this->maze.operator()(19, 20) = ' ';
 		}
-		else if(maze.getLevel() == 5){
-			maze.operator()(19, 2) = ' ';// access trophy
-			maze.operator()(19, 20) = ' ';
+		else if(this->maze.getLevel() == 5){
+			this->maze.operator()(19, 2) = ' ';// access trophy
+			this->maze.operator()(19, 20) = ' ';
 		}
-		unlockSound.play();
+		this->unlockSound.play();
 
-		std::cout << "Change content:" << maze.operator()(positionY, positionX) << positionY << positionX << ":P" << std::endl;
-		unlockEnabled = true;
+		std::cout << "Change content:" << this->maze.operator()(this->positionY, this->positionX) << this->positionY << this->positionX << ":P" << std::endl;
+		this->unlockEnabled = true;
 	}
 
 	//Next level phase
-	if(maze.operator()(positionY, positionX) == 'n' && nextLevelEnabled != true){
-		exitLevelSound.play();
+	if(this->maze.operator()(this->positionY, this->positionX) == 'n' && this->nextLevelEnabled != true){
+		this->exitLevelSound.play();
 		std::cout << "Next level!!" << std::endl;
-		nextLevelEnabled = true;
+		this->nextLevelEnabled = true;
 
-		maze.setLevel(maze.getLevel() + 1);
+		this->maze.setLevel(this->maze.getLevel() + 1);
 
 		//Need to reset the sounds for the next level
 		resetSounds();
 
 		//Name of the maze level
-		std::string name = "maze"+ std::to_string(maze.getLevel());
+		std::string name = "maze"+ std::to_string(this->maze.getLevel());
 
 		//Set new level
-		maze.setNewMaze( maze.getMazeByName(name) );
+		this->maze.setNewMaze( this->maze.getMazeByName(name) );
 
-		positionX = 1;
-		positionY = 1;
-		entity.setPosition(positionX * maze.getBlockSize()+1, positionY * maze.getBlockSize()+1);
+		this->positionX = 1;
+		this->positionY = 1;
+		this->entity.setPosition(this->positionX * this->maze.getBlockSize()+1, this->positionY * this->maze.getBlockSize()+1);
 	}
 
 	//Sound of the win for the exit
-	if(maze.operator()(positionY, positionX) == 'e' && exit != true){
+	if(this->maze.operator()(this->positionY, this->positionX) == 'e' && this->exit != true){
 		std::cout << "Exit!!" << std::endl;
-		exit = true;
+		this->exit = true;
 	}
 }
 
 void Player::resetSounds(){
 	//Reset unlock sound
-	unlockEnabled = false;
+	this->unlockEnabled = false;
 
 	//Reset nextlevel sound
-	nextLevelEnabled = false;
+	this->nextLevelEnabled = false;
 
 	//Reset trap sound
-	trapEnabled = false;
+	this->trapEnabled = false;
 }
 
 void Player::draw(sf::RenderWindow& window){
 
 	//Draw the player
-	walkAnimation.setPosition(positionX * maze.getBlockSize()+1, positionY * maze.getBlockSize()+1);
-	walkAnimation.draw(window);
+	this->walkAnimation.setPosition(this->positionX * this->maze.getBlockSize()+1, this->positionY * this->maze.getBlockSize()+1);
+	this->walkAnimation.draw(window);
 }

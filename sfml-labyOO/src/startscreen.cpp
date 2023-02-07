@@ -10,24 +10,24 @@ StartScreen::~StartScreen(){
 //Initialization
 void StartScreen::init(){
 	//Texture for the background
-	assetsManager.loadTexture("screen", "images/screen.jpg");
-	screen.setTexture(assetsManager.getTexture("screen"));
-	screen.setPosition(0,0);
+	this->assetsManager.loadTexture("screen", "images/screen.jpg");
+	this->screen.setTexture(this->assetsManager.getTexture("screen"));
+	this->screen.setPosition(0,0);
 
 	//Text to display the text
-	assetsManager.loadFont("arial", "fonts/arial.ttf");
-	titleScreen.setFont(assetsManager.getFont("arial"));
-	textPressEnter.setFont(assetsManager.getFont("arial"));
+	this->assetsManager.loadFont("arial", "fonts/arial.ttf");
+	this->titleScreen.setFont(this->assetsManager.getFont("arial"));
+	this->textPressEnter.setFont(this->assetsManager.getFont("arial"));
 
 	// Initialize title text
-	titleScreen.setString("Javla Labyrinth");
-	titleScreen.setCharacterSize(70);
-	titleScreen.setPosition(400, 520);
+	this->titleScreen.setString("Javla Labyrinth");
+	this->titleScreen.setCharacterSize(70);
+	this->titleScreen.setPosition(400, 520);
 
 	// Initialize press enter text
-	textPressEnter.setString("Press Space to start");
-	textPressEnter.setCharacterSize(50);
-	textPressEnter.setPosition(400, 640);
+	this->textPressEnter.setString("Press Space to start");
+	this->textPressEnter.setCharacterSize(50);
+	this->textPressEnter.setPosition(400, 640);
 }
 
 //Handling events
@@ -41,9 +41,9 @@ void StartScreen::update(sf::Time TimePerFrame){
 //Draw
 void StartScreen::draw(sf::RenderTarget& target){
 	//Draw the player
-	target.draw(screen);
+	target.draw(this->screen);
 
 	//Draw texts
-	target.draw(titleScreen);
-	target.draw(textPressEnter);
+	target.draw(this->titleScreen);
+	target.draw(this->textPressEnter);
 }
