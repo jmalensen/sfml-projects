@@ -1,0 +1,24 @@
+g++ -std=c++2a -static -static-libgcc -static-libstdc++ *.cpp -o prog -Iinclude -I"C:\Devc++\SFML-2.5.1\include" -L"C:\Devc++\SFML-2.5.1\lib" -DSFML_STATIC -lsfml-network-s -lsfml-audio-s -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lfreetype -lwinmm -lgdi32 -mwindows
+
+g++ -std=c++2a -static -static-libgcc -static-libstdc++ *.cpp -o prog -Iinclude -I"C:\Devc++\SFML-2.5.1\include" -L"C:\Devc++\SFML-2.5.1\lib" -DSFML_STATIC -lsfml-network -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system -lopengl32 -lfreetype -lwinmm -lgdi32 -mwindows
+
+g++ -std=c++2a -static -static-libgcc -static-libstdc++ *.cpp -o prog -Iinclude -I"C:\Devc++\SFML-2.5.1\include" -L"C:\Devc++\SFML-2.5.1\lib" -DSFML_STATIC -lsfml-network -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system -lopengl32 -lfreetype -lwinmm -lgdi32
+
+
+
+
+
+
+
+---
+g++ -std=c++2a *.cpp -o prog -Iinclude -I"C:\Devc++\SFML-2.5.1\include" -L"C:\Devc++\SFML-2.5.1\lib" -DSFML_STATIC -lsfml-window -lsfml-graphics -lsfml-network -lsfml-audio -lsfml-system -lopengl32 -lfreetype -lwinmm -lgdi32 -lopenal32
+
+g++ -std=c++2a -static -static-libgcc -static-libstdc++ *.cpp -o prog -Iinclude -I"C:\Devc++\SFML-2.5.1\include" -L"C:\Devc++\SFML-2.5.1\lib" -DSFML_STATIC -lsfml-window -lsfml-graphics -lsfml-network -lsfml-audio -lsfml-system -lopengl32 -lfreetype -lwinmm -lgdi32 -lopenal32
+
+
+//cmake . -G "NMake Makefiles"
+//cmake -S . -B build -G "NMake Makefiles"
+
+in build folder, run cmake .
+in build folder, run cmake --build .
+in root folder, run cmake --build build --config Release
