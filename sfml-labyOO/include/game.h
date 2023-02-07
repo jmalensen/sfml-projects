@@ -9,6 +9,8 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <cstdlib>
+#include <fstream>
 
 class AssetsManager;
 class ScreensManager;
