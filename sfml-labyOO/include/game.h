@@ -1,17 +1,13 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/System.hpp>
+#include "stdHeader.h"
+#include "graphicssettings.h"
+#include "state.h"
 #include "assetsmanager.h"
 #include "screensmanager.h"
-#include <iostream>
-#include <chrono>
-#include <thread>
-#include <cstdlib>
-#include <fstream>
 
+class GraphicsSettings;
 class AssetsManager;
 class ScreensManager;
 
@@ -21,29 +17,44 @@ class Game{
 	Game();
 	~Game();
 
-	//Run the game
-	void run();
-
-	private:
-	AssetsManager assetsManager;
-	sf::Music music;
-
-	//Handle events
-	void handleEvents();
+	//Methods
+	void endApplication();
 
 	//Update the game
-	void update(sf::Time TimePerFrame);
+	void updateDt();
+	void updateSFMLEvents();
+	void update();
 
 	//Draw
 	void draw();
 
-	//The windows for the render
-	sf::RenderWindow window;
+	//Run the game
+	void run();
 
+	private:
+	//Variables
+	GraphicsSettings gfxSettings;
+	AssetsManager assetsManager;
+	sf::Music music;
+
+	sf::Clock dtClock;
+	float dt;
+
+	std::stack<State*> states;
+
+	//The windows for the render
+	sf::RenderWindow *window;
 	sf::VideoMode vm;
+	sf::Event sfEvent;
 
 	//The screenmanager
 	ScreensManager screensManager = ScreensManager(assetsManager);
+
+	//Methods
+	void initVariables();
+	void initGraphicsSettings();
+	void initWindow();
+	void initStates();
 };
 
 #endif //GAME_H

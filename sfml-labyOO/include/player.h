@@ -1,19 +1,12 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/System.hpp>
+#include "stdHeader.h"
 #include "map.h"
 #include "assetsmanager.h"
 #include "animation.h"
 #include "entity.h"
 #include "customStructures.h"
-#include <iostream>
-#include <chrono>
-#include <thread>
-#include <array>
-#include <string>
 
 class Map;
 class AssetsManager;

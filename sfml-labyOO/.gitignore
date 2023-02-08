@@ -14,6 +14,7 @@ bin
 
 #Ignore CMakeLists.txt because it's dependant on OS
 CMakeLists.txt
+CMakeCache.txt
 
 #Ignore Mac specific files
 .DS_Store

@@ -1,15 +1,9 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/System.hpp>
+#include "stdHeader.h"
 #include "map.h"
 #include "assetsmanager.h"
-#include <iostream>
-#include <chrono>
-#include <thread>
-#include <string>
 
 class Map;
 class AssetsManager;

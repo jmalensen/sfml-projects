@@ -1,10 +1,7 @@
 #ifndef SCREENSMANAGER_H
 #define SCREENSMANAGER_H
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/System.hpp>
-#include <iostream>
+#include "stdHeader.h"
 #include "assetsmanager.h"
 #include "startscreen.h"
 #include "menuscreen.h"

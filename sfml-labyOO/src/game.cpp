@@ -1,25 +1,65 @@
 #include "../include/game.h"
 
-Game::Game(){
+//Initializer functions
+void Game::initVariables(){
+	this->window = NULL;
+	this->dt = 0.f;
 
-	std::string title = "None";
-	int width = 0;
-	int height = 0;
-	int framerateLimit = 0;
-
-
-	//Create a SFML window using options from a window.ini file
-	std::ifstream ifs("config/window.ini");
-	if(ifs.is_open()){
-		std::getline(ifs, title);
-		ifs >> width >> height;
-		ifs >> framerateLimit;
+	//Background music
+	if (!this->music.openFromFile("sounds/musicloop.ogg")){
+		std::cout << "Fail to load music file" << std::endl;
 	}
-	ifs.close();
+
+	this->music.setVolume(20);
+	this->music.setLoop(true);
+}
+
+void Game::initGraphicsSettings() {
+	this->gfxSettings.loadFromFile("config/graphics.ini");
+}
+
+void Game::initWindow() {
+	/*Creates a SFML window.*/
+
+	if(this->gfxSettings.fullscreen){
+		this->window = new sf::RenderWindow(
+			this->gfxSettings.resolution, 
+			this->gfxSettings.title, 
+			sf::Style::Fullscreen, 
+			this->gfxSettings.contextSettings);
+	}
+	else{
+		this->window = new sf::RenderWindow(
+			this->gfxSettings.resolution,
+			this->gfxSettings.title,
+			sf::Style::Titlebar | sf::Style::Close, 
+			this->gfxSettings.contextSettings);
+	}
+
+	this->window->setFramerateLimit(this->gfxSettings.frameRateLimit);
+	//this->window->setVerticalSyncEnabled(this->gfxSettings.verticalSync);
+}
+
+void Game::initStates(){
+	//this->states.push();
+}
+
+Game::Game(){
+	this->initVariables();
+	this->initGraphicsSettings();
+	this->initWindow();
+	this->initStates();
+
+	this->screensManager.showStartScreen();
+	this->music.play();
 
 	//Create the window
-	this->window.create(sf::VideoMode(width, height), title);
-	this->window.setFramerateLimit(framerateLimit);
+	// this->window = new sf::RenderWindow(
+	// 		sf::VideoMode(1500, 1260), 
+	// 		"Test working?");
+
+	// this->window->create(sf::VideoMode(1500, 1260), "Test working?");
+	// this->window->setFramerateLimit(60);
 
 	// vm = sf::VideoMode::getFullscreenModes()[0];
 	// // vm = sf::VideoMode::getDesktopMode();
@@ -36,54 +76,28 @@ Game::Game(){
 }
 
 Game::~Game(){
-}
+	delete this->window;
 
-void Game::run(){
-	this->screensManager.showStartScreen();
-
-	//Background music
-	if (!this->music.openFromFile("sounds/musicloop.ogg")){
-		std::cout << "Fail to load music file" << std::endl;
-	}
-
-	this->music.setVolume(20);
-	this->music.setLoop(true);
-	this->music.play();
-
-	const sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
-	sf::Clock clock;
-	sf::Time elapsedTime = sf::Time::Zero;
-
-	//Game loop
-	while(this->window.isOpen()){
-		sf::Time dt = clock.restart();
-		elapsedTime += dt;
-
-		// std::cout << dt.asMilliseconds() << " " << TimePerFrame.asMilliseconds() << std::endl;
-
-		//If we need to check the FPS
-		// float currentTime = dt.asSeconds();
-		// float fps = 1.0f / currentTime;
-		// std::cout << "fps:" << fps << std::endl;
-
-		// while(elapsedTime > TimePerFrame){
-			// elapsedTime -= TimePerFrame;
-
-			handleEvents();
-			update(dt);
-		// }
-
-		draw();
-
-		//Slow down program
-		//std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+	while (!this->states.empty()) {
+		delete this->states.top();
+		this->states.pop();
 	}
 }
 
-void Game::handleEvents(){
-	//Handle events
-	sf::Event event;
-	while(this->window.pollEvent(event)){
+void Game::endApplication(){
+	std::cout << "Ending Application!" << "\n";
+}
+
+void Game::updateDt(){
+	/*Updates the dt variable with the time it takes to update and render one frame.*/
+	this->dt = this->dtClock.restart().asSeconds();
+}
+
+void Game::updateSFMLEvents() {
+	while (this->window->pollEvent(this->sfEvent)) {
+		if (this->sfEvent.type == sf::Event::Closed){
+			this->window->close();
+		}
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)
 		&& this->screensManager.getCurrentScreen() == ScreensManager::STARTSCREEN){
@@ -94,15 +108,14 @@ void Game::handleEvents(){
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)
 		&& this->screensManager.getCurrentScreen() != ScreensManager::STARTSCREEN){
 			this->screensManager.showMainScreen();
-			this->screensManager.handleEvents(event);
+			this->screensManager.handleEvents(sfEvent);
 		}
 
-		else if(event.type == sf::Event::Closed
-		|| (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)
+		else if((sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)
 				&& this->screensManager.getCurrentScreen() == ScreensManager::ENDSCREEN)
 		|| (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)
 				&& this->screensManager.getCurrentScreen() == ScreensManager::GAMEOVERSCREEN) ){
-			this->window.close();
+			this->window->close();
 		}
 
 		//Display the menu
@@ -110,27 +123,53 @@ void Game::handleEvents(){
 		&& this->screensManager.getCurrentScreen() != ScreensManager::MENUSCREEN){
 			this->screensManager.showMenuScreen();
 		}
-
-		// else if (event.type == sf::Event::Resized)
-		// {
-		// 		view.setSize(event.size.width, event.size.height);
-		// 		view.setCenter(event.size.width / 2, event.size.height / 2);
-		// 		window.setView(view);
-		// }
 	}
 }
 
-void Game::update(sf::Time TimePerFrame){
-	this->screensManager.update(TimePerFrame);
+void Game::update(){
+	// this->screensManager.update(TimePerFrame);
+
+	this->updateSFMLEvents();
+
+	if (!this->states.empty()) {
+		if (this->window->hasFocus()) {
+			this->states.top()->update(this->dt);
+
+			if (this->states.top()->getQuit()) {
+				this->states.top()->endState();
+				delete this->states.top();
+				this->states.pop();
+			}
+		}
+	}
+	//Application end
+	else {
+		this->endApplication();
+		//this->window->close();
+	}
 }
 
 void Game::draw(){
+
 	//Clear the window with black color
-	this->window.clear(sf::Color::Black);
+	this->window->clear(sf::Color::Black);
+
+	//Render items
+	if (!this->states.empty()){
+		this->states.top()->draw();
+	}
 
 	//Draw screens
-	this->screensManager.draw(this->window);
+	//this->screensManager.draw(this->window);
 
 	//Display the window
-	this->window.display();
+	this->window->display();
+}
+
+void Game::run(){
+	while (this->window->isOpen()) {
+		this->updateDt();
+		this->update();
+		this->draw();
+	}
 }

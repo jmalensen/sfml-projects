@@ -1,13 +1,7 @@
 #ifndef ASSETSMANAGER_H
 #define ASSETSMANAGER_H
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/System.hpp>
-#include <iostream>
-#include <chrono>
-#include <thread>
-#include <map>
+#include "stdHeader.h"
 
 class AssetsManager {
 	public:

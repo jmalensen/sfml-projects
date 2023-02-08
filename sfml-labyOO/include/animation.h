@@ -1,12 +1,7 @@
 #ifndef ANIMATION_H
 #define ANIMATION_H
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/System.hpp>
-#include <iostream>
-#include <chrono>
-#include <thread>
+#include "stdHeader.h"
 #include "customStructures.h"
 
 class Animation{

@@ -1,19 +1,12 @@
 #ifndef MAINSCREEN_H
 #define MAINSCREEN_H
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/System.hpp>
-#include <iostream>
-#include <chrono>
-#include <thread>
-#include <functional>
+#include "stdHeader.h"
 #include "screen.h"
 #include "assetsmanager.h"
 #include "map.h"
 #include "player.h"
 #include "enemy.h"
-#include <memory>
 
 class AssetsManager;
 class Map;

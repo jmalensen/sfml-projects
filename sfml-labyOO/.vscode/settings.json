@@ -80,7 +80,8 @@
 		"condition_variable": "cpp",
 		"unordered_set": "cpp",
 		"iomanip": "cpp",
-		"fstream": "cpp"
+		"fstream": "cpp",
+		"list": "cpp"
 	},
 	"cmake.configureOnOpen": false,
 	"code-runner.executorMap": {

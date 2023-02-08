@@ -1,10 +1,7 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include <SFML/Graphics.hpp>
-#include <array>
-#include <iostream>
-#include <unordered_map>
+#include "stdHeader.h"
 #include "assetsmanager.h"
 #include "animation.h"
 

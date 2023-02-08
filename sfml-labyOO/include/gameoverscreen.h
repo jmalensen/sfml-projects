@@ -1,12 +1,7 @@
 #ifndef GAMEOVERSCREEN_H
 #define GAMEOVERSCREEN_H
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/System.hpp>
-#include <iostream>
-#include <chrono>
-#include <thread>
+#include "stdHeader.h"
 #include "screen.h"
 #include "assetsmanager.h"
 
