@@ -1,20 +1,23 @@
 #include "../include/startscreen.h"
 
-StartScreen::StartScreen(AssetsManager &assetsManager): assetsManager(assetsManager){
+StartScreen::StartScreen(AssetsManager &assetsManager) : assetsManager(assetsManager)
+{
 	init();
 }
 
-StartScreen::~StartScreen(){
+StartScreen::~StartScreen()
+{
 }
 
-//Initialization
-void StartScreen::init(){
-	//Texture for the background
+// Initialization
+void StartScreen::init()
+{
+	// Texture for the background
 	this->assetsManager.loadTexture("screen", "images/screen.jpg");
 	this->screen.setTexture(this->assetsManager.getTexture("screen"));
-	this->screen.setPosition(0,0);
+	this->screen.setPosition(0, 0);
 
-	//Text to display the text
+	// Text to display the text
 	this->assetsManager.loadFont("arial", "fonts/arial.ttf");
 	this->titleScreen.setFont(this->assetsManager.getFont("arial"));
 	this->textPressEnter.setFont(this->assetsManager.getFont("arial"));
@@ -30,20 +33,23 @@ void StartScreen::init(){
 	this->textPressEnter.setPosition(400, 640);
 }
 
-//Handling events
-void StartScreen::handleEvents(sf::Event event){
+// Handling events
+void StartScreen::handleEvents(sf::Event event)
+{
 }
 
-//Update the start screen
-void StartScreen::update(sf::Time TimePerFrame){
+// Update the start screen
+void StartScreen::update(sf::Time TimePerFrame)
+{
 }
 
-//Draw
-void StartScreen::draw(sf::RenderTarget& target){
-	//Draw the player
+// Draw
+void StartScreen::draw(sf::RenderTarget &target)
+{
+	// Draw the player
 	target.draw(this->screen);
 
-	//Draw texts
+	// Draw texts
 	target.draw(this->titleScreen);
 	target.draw(this->textPressEnter);
 }

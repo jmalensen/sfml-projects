@@ -8,48 +8,49 @@
 class Map;
 class AssetsManager;
 
-class Entity{
-	public:
-	//Constructor and destructor
-	Entity(Map& maze, AssetsManager &assetsManager);
+class Entity
+{
+public:
+	// Constructor and destructor
+	Entity(Map &maze, AssetsManager &assetsManager);
 	virtual ~Entity();
 
-	//Initialization
+	// Initialization
 	virtual void init() = 0;
 
-	//Getters
+	// Getters
 	virtual int getPositionX() const;
 	virtual int getPositionY() const;
 
-	//Setters
+	// Setters
 	virtual void setPositionX(int newX);
 	virtual void setPositionY(int newY);
 
 	virtual void setSpeed(float newSpeed);
 
-	//Update position
+	// Update position
 	virtual void update(sf::Time dt) = 0;
 
-	//Draw
-	virtual void draw(sf::RenderWindow& window) = 0;
+	// Draw
+	virtual void draw(sf::RenderWindow &window) = 0;
 
 	sf::FloatRect getHitBox() const;
 
-	protected:
+protected:
 	AssetsManager &assetsManager;
 
-	//Entity position
+	// Entity position
 	int positionX;
 	int positionY;
 
 	float entitySpeed;
 
-	//Texture for the entity
+	// Texture for the entity
 	sf::IntRect rectSourceSpriteEntity;
 	sf::Sprite entity;
 
-	//Map
-	Map& maze;
+	// Map
+	Map &maze;
 };
 
-#endif //ENTITY_H
+#endif // ENTITY_H

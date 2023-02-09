@@ -1,21 +1,24 @@
 #include "../include/gameoverscreen.h"
 
-GameoverScreen::GameoverScreen(AssetsManager &assetsManager) : assetsManager(assetsManager){
+GameoverScreen::GameoverScreen(AssetsManager &assetsManager) : assetsManager(assetsManager)
+{
 	init();
 }
 
-GameoverScreen::~GameoverScreen(){
+GameoverScreen::~GameoverScreen()
+{
 }
 
-//Initialization
-void GameoverScreen::init(){
+// Initialization
+void GameoverScreen::init()
+{
 
-	//Texture for the background
+	// Texture for the background
 	this->assetsManager.loadTexture("screen", "images/screen.jpg");
 	this->screen.setTexture(this->assetsManager.getTexture("screen"));
-	this->screen.setPosition(0,0);
+	this->screen.setPosition(0, 0);
 
-	//Text to display the text
+	// Text to display the text
 	this->assetsManager.loadFont("arial", "fonts/arial.ttf");
 	this->titleScreen.setFont(this->assetsManager.getFont("arial"));
 
@@ -25,20 +28,23 @@ void GameoverScreen::init(){
 	this->titleScreen.setPosition(400, 520);
 }
 
-//Handling events
-void GameoverScreen::handleEvents(sf::Event event){
+// Handling events
+void GameoverScreen::handleEvents(sf::Event event)
+{
 }
 
-//Update the screen
-void GameoverScreen::update(sf::Time dt){
+// Update the screen
+void GameoverScreen::update(sf::Time dt)
+{
 }
 
-//Draw
-void GameoverScreen::draw(sf::RenderTarget& target){
+// Draw
+void GameoverScreen::draw(sf::RenderTarget &target)
+{
 
-	//Draw the screen
+	// Draw the screen
 	target.draw(this->screen);
 
-	//Draw text
+	// Draw text
 	target.draw(this->titleScreen);
 }

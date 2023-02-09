@@ -1,6 +1,7 @@
 #include "../include/graphicssettings.h"
 
-GraphicsSettings::GraphicsSettings() {
+GraphicsSettings::GraphicsSettings()
+{
 	this->title = "DEFAULT";
 	this->resolution = sf::VideoMode::getDesktopMode();
 	this->fullscreen = false;
@@ -10,14 +11,17 @@ GraphicsSettings::GraphicsSettings() {
 	this->videoModes = sf::VideoMode::getFullscreenModes();
 }
 
-GraphicsSettings::~GraphicsSettings() {
+GraphicsSettings::~GraphicsSettings()
+{
 }
 
-//Functions
-void GraphicsSettings::saveToFile(const std::string path) {
+// Functions
+void GraphicsSettings::saveToFile(const std::string path)
+{
 	std::ofstream ofs(path);
 
-	if (ofs.is_open()) {
+	if (ofs.is_open())
+	{
 		ofs << this->title;
 		ofs << this->resolution.width << " " << this->resolution.height;
 		ofs << this->fullscreen;
@@ -29,10 +33,12 @@ void GraphicsSettings::saveToFile(const std::string path) {
 	ofs.close();
 }
 
-void GraphicsSettings::loadFromFile(const std::string path) {
+void GraphicsSettings::loadFromFile(const std::string path)
+{
 	std::ifstream ifs(path);
 
-	if (ifs.is_open()) {
+	if (ifs.is_open())
+	{
 		std::getline(ifs, this->title);
 		ifs >> this->resolution.width >> this->resolution.height;
 		ifs >> this->fullscreen;

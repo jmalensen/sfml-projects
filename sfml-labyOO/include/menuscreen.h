@@ -7,36 +7,37 @@
 
 class AssetsManager;
 
-class MenuScreen: public Screen{
-	public:
-	//Constructor and destructor
+class MenuScreen : public Screen
+{
+public:
+	// Constructor and destructor
 	MenuScreen(AssetsManager &assetsManager);
 	~MenuScreen();
 
-	//Initialization
+	// Initialization
 	void init();
 
-	//Handling events
+	// Handling events
 	void handleEvents(sf::Event event);
 
-	//Update the menu screen
+	// Update the menu screen
 	void update(sf::Time TimePerFrame);
 
-	//Draw
-	void draw(sf::RenderTarget& target);
+	// Draw
+	void draw(sf::RenderTarget &target);
 
-	private:
-	//The assets manager
+private:
+	// The assets manager
 	AssetsManager &assetsManager;
 
-	//Texture for the screen
+	// Texture for the screen
 	sf::Sprite screen;
 
-	///Text to display the text
-	//Select the font
+	/// Text to display the text
+	// Select the font
 	sf::Font font;
 
 	sf::Text titleScreen;
 };
 
-#endif //MENUSCREEN_H
+#endif // MENUSCREEN_H

@@ -7,36 +7,37 @@
 
 class AssetsManager;
 
-class GameoverScreen: public Screen{
-	public:
-	//Constructor and destructor
+class GameoverScreen : public Screen
+{
+public:
+	// Constructor and destructor
 	GameoverScreen(AssetsManager &assetsManager);
 	~GameoverScreen();
 
-	//Initialization
+	// Initialization
 	void init();
 
-	//Handling events
+	// Handling events
 	void handleEvents(sf::Event event);
 
-	//Update the screen
+	// Update the screen
 	void update(sf::Time TimePerFrame);
 
-	//Draw
-	void draw(sf::RenderTarget& target);
+	// Draw
+	void draw(sf::RenderTarget &target);
 
-	private:
-	//The assets manager
+private:
+	// The assets manager
 	AssetsManager &assetsManager;
 
-	//Texture for the screen
+	// Texture for the screen
 	sf::Sprite screen;
 
-	///Text to display the text
-	//Select the font
+	/// Text to display the text
+	// Select the font
 	sf::Font font;
 
 	sf::Text titleScreen;
 };
 
-#endif //GAMEOVERSCREEN_H
+#endif // GAMEOVERSCREEN_H

@@ -7,40 +7,41 @@
 
 class AssetsManager;
 
-class EndScreen: public Screen{
-	public:
-	//Constructor and destructor
+class EndScreen : public Screen
+{
+public:
+	// Constructor and destructor
 	EndScreen(AssetsManager &assetsManager);
 	~EndScreen();
 
-	//Initialization
+	// Initialization
 	void init();
 
-	//Handling events
+	// Handling events
 	void handleEvents(sf::Event event);
 
-	//Update the end screen
+	// Update the end screen
 	void update(sf::Time TimePerFrame);
 
-	//Draw
-	void draw(sf::RenderTarget& target);
+	// Draw
+	void draw(sf::RenderTarget &target);
 
-	private:
-	//The assets manager
+private:
+	// The assets manager
 	AssetsManager &assetsManager;
 
-	//Texture for the screen
+	// Texture for the screen
 	sf::Sprite screen;
 
-	///Text to display the text
-	//Select the font
+	/// Text to display the text
+	// Select the font
 	sf::Font font;
 
 	sf::Text titleScreen;
 
-	//Victory sound
+	// Victory sound
 	sf::Sound winSound;
 	bool playedWinSound;
 };
 
-#endif //ENDSCREEN_H
+#endif // ENDSCREEN_H

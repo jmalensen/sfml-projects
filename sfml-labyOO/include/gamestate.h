@@ -4,20 +4,19 @@
 #include "stdHeader.h"
 #include "state.h"
 
-class GameState :
-	public State
+class GameState : public State
 {
-	public:
-	GameState(StateData* stateData);
+public:
+	GameState(StateData *stateData);
 	virtual ~GameState();
 
-	//Functions
-	void updateView(const float& dt);
-	void update(const float& dt);
+	// Functions
+	void updateView(const float &dt);
+	void update(const float &dt);
 
-	void draw(sf::RenderWindow* window = NULL);
+	void draw(sf::RenderWindow *window = NULL);
 
-	private:
+private:
 	sf::View view;
 	sf::Vector2i viewGridPosition;
 	sf::RenderTexture renderTexture;

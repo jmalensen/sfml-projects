@@ -2,7 +2,7 @@
 #ifndef HEADER_H
 #define HEADER_H
 
-//Core
+// Core
 #include <algorithm>
 #include <deque>
 #include <iostream>
@@ -26,7 +26,7 @@
 #include <functional>
 #include <unordered_map>
 
-//SFML
+// SFML
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>

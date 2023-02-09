@@ -1,6 +1,7 @@
 #include "../include/screensmanager.h"
 
-ScreensManager::ScreensManager(AssetsManager &assetsManager): assetsManager(assetsManager) {
+ScreensManager::ScreensManager(AssetsManager &assetsManager) : assetsManager(assetsManager)
+{
 	this->currentScreen = ScreensManager::STARTSCREEN;
 
 	this->startScreen = std::make_unique<StartScreen>(this->assetsManager);
@@ -12,107 +13,122 @@ ScreensManager::ScreensManager(AssetsManager &assetsManager): assetsManager(asse
 
 ScreensManager::~ScreensManager() {}
 
-void ScreensManager::showStartScreen() {
+void ScreensManager::showStartScreen()
+{
 	this->currentScreen = ScreensManager::STARTSCREEN;
 }
 
-void ScreensManager::showMainScreen() {
+void ScreensManager::showMainScreen()
+{
 	this->currentScreen = ScreensManager::MAINSCREEN;
 }
 
-void ScreensManager::showMenuScreen() {
+void ScreensManager::showMenuScreen()
+{
 	this->currentScreen = ScreensManager::MENUSCREEN;
 }
 
-void ScreensManager::showEndScreen() {
+void ScreensManager::showEndScreen()
+{
 	this->currentScreen = ScreensManager::ENDSCREEN;
 }
 
-void ScreensManager::showGameoverScreen() {
+void ScreensManager::showGameoverScreen()
+{
 	this->currentScreen = ScreensManager::GAMEOVERSCREEN;
 }
 
-int ScreensManager::getCurrentScreen() {
+int ScreensManager::getCurrentScreen()
+{
 	return this->currentScreen;
 }
 
-void ScreensManager::handleEvents(sf::Event event) {
-	switch (this->currentScreen) {
-		case ScreensManager::STARTSCREEN :
+void ScreensManager::handleEvents(sf::Event event)
+{
+	switch (this->currentScreen)
+	{
+	case ScreensManager::STARTSCREEN:
 		this->startScreen->handleEvents(event);
 		break;
 
-		case ScreensManager::MAINSCREEN :
+	case ScreensManager::MAINSCREEN:
 		this->mainScreen->handleEvents(event);
 		break;
 
-		case ScreensManager::MENUSCREEN :
+	case ScreensManager::MENUSCREEN:
 		this->menuScreen->handleEvents(event);
 		break;
 
-		case ScreensManager::ENDSCREEN :
+	case ScreensManager::ENDSCREEN:
 		this->endScreen->handleEvents(event);
 		break;
 
-		case ScreensManager::GAMEOVERSCREEN :
+	case ScreensManager::GAMEOVERSCREEN:
 		this->gameoverScreen->handleEvents(event);
 		break;
 	}
 }
 
-void ScreensManager::update(sf::Time TimePerFrame) {
-	switch (this->currentScreen) {
-		case ScreensManager::STARTSCREEN :
+void ScreensManager::update(sf::Time TimePerFrame)
+{
+	switch (this->currentScreen)
+	{
+	case ScreensManager::STARTSCREEN:
 		this->startScreen->update(TimePerFrame);
 		break;
 
-		case ScreensManager::MAINSCREEN :
+	case ScreensManager::MAINSCREEN:
 		this->mainScreen->update(TimePerFrame);
 		break;
 
-		case ScreensManager::MENUSCREEN :
+	case ScreensManager::MENUSCREEN:
 		this->menuScreen->update(TimePerFrame);
 		break;
 
-		case ScreensManager::ENDSCREEN :
+	case ScreensManager::ENDSCREEN:
 		this->endScreen->update(TimePerFrame);
 		break;
 
-		case ScreensManager::GAMEOVERSCREEN :
+	case ScreensManager::GAMEOVERSCREEN:
 		this->gameoverScreen->update(TimePerFrame);
 		break;
 	}
 }
 
-void ScreensManager::draw(sf::RenderWindow &window) {
-	switch (this->currentScreen) {
-		case ScreensManager::STARTSCREEN :
+void ScreensManager::draw(sf::RenderWindow &window)
+{
+	switch (this->currentScreen)
+	{
+	case ScreensManager::STARTSCREEN:
 		this->startScreen->draw(window);
 		break;
 
-		case ScreensManager::MAINSCREEN :
-		if(!this->mainScreen->active && this->mainScreen->getIsPlayerDead()){
+	case ScreensManager::MAINSCREEN:
+		if (!this->mainScreen->active && this->mainScreen->getIsPlayerDead())
+		{
 			showGameoverScreen();
 			this->gameoverScreen->draw(window);
 		}
-		else if(this->mainScreen->active){
+		else if (this->mainScreen->active)
+		{
 			this->mainScreen->draw(window);
 		}
-		else{
+		else
+		{
 			showEndScreen();
 			this->endScreen->draw(window);
 		}
 		break;
 
-		case ScreensManager::MENUSCREEN :
+	case ScreensManager::MENUSCREEN:
 		this->menuScreen->draw(window);
 		break;
 
-		case ScreensManager::ENDSCREEN :
+	case ScreensManager::ENDSCREEN:
 		this->endScreen->draw(window);
 		break;
 
-		case ScreensManager::GAMEOVERSCREEN :
+	case ScreensManager::GAMEOVERSCREEN:
 		this->gameoverScreen->draw(window);
 		break;
 	}

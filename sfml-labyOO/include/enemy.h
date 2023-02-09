@@ -14,29 +14,30 @@ class AssetsManager;
 class Player;
 class Animation;
 
-class Enemy: public Entity{
-	public:
-	//Constructor and destructor
-	Enemy(int id, Map& maze, AssetsManager &assetsManager, int posx, int posy, int direction, int min, int max, float speed);
+class Enemy : public Entity
+{
+public:
+	// Constructor and destructor
+	Enemy(int id, Map &maze, AssetsManager &assetsManager, int posx, int posy, int direction, int min, int max, float speed);
 	~Enemy() final;
 
-	//Initialization
+	// Initialization
 	void init() override;
 
-	//Update position
+	// Update position
 	void update(sf::Time dt) override;
-	void update(sf::Time dt, Player& player);
+	void update(sf::Time dt, Player &player);
 
-	//Draw
-	void draw(sf::RenderWindow& window) override;
+	// Draw
+	void draw(sf::RenderWindow &window) override;
 
-	//Set direction of enemy
+	// Set direction of enemy
 	void setBehaviour(int directionMovement, int min, int max);
 
 	static constexpr int HORIZONTAL = 1;
 	static constexpr int VERTICAL = 2;
 
-	private:
+private:
 	int idEnemy;
 	int directionEnemy;
 	bool goingRight;
@@ -44,21 +45,21 @@ class Enemy: public Entity{
 	int minVal;
 	int maxVal;
 
-	//Sounds
+	// Sounds
 	sf::Sound hurtSound;
 
 	Animation moveAnimation;
 
-	//0-60 down
-	//60-120 left
-	//120-180 right
-	//180-240 up
-	ParamsMovement paramsMovement {
-		120,//Right
-		60,//Left
-		180,//Up
-		0//Down
+	// 0-60 down
+	// 60-120 left
+	// 120-180 right
+	// 180-240 up
+	ParamsMovement paramsMovement{
+			120, // Right
+			60,	 // Left
+			180, // Up
+			0		 // Down
 	};
 };
 
-#endif //ENEMY_H
+#endif // ENEMY_H

@@ -1,20 +1,24 @@
 #include "../include/state.h"
 
-State::State(StateData* stateData){
+State::State(StateData *stateData)
+{
 	this->stateData = stateData;
 	this->window = stateData->window;
 	this->states = stateData->states;
 	this->quit = false;
 }
 
-State::~State(){
+State::~State()
+{
 }
 
-//Accessors
-const bool & State::getQuit() const{
+// Accessors
+const bool &State::getQuit() const
+{
 	return this->quit;
 }
 
-void State::endState(){
+void State::endState()
+{
 	this->quit = true;
 }

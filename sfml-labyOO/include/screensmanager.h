@@ -16,9 +16,10 @@ class MainScreen;
 class EndScreen;
 class GameoverScreen;
 
-class ScreensManager {
-	public:
-	//Constructor and destructor
+class ScreensManager
+{
+public:
+	// Constructor and destructor
 	ScreensManager(AssetsManager &assetsManager);
 	~ScreensManager();
 
@@ -27,7 +28,7 @@ class ScreensManager {
 	static constexpr int MENUSCREEN = 2;
 	static constexpr int ENDSCREEN = 3;
 	static constexpr int GAMEOVERSCREEN = 4;
-	
+
 	// Functions for switching between screens
 	void showStartScreen();
 	void showMainScreen();
@@ -40,7 +41,7 @@ class ScreensManager {
 	void update(sf::Time TimePerFrame);
 	void draw(sf::RenderWindow &window);
 
-	private:
+private:
 	AssetsManager &assetsManager;
 
 	// Member variable for the current screen
@@ -53,4 +54,4 @@ class ScreensManager {
 	std::unique_ptr<GameoverScreen> gameoverScreen;
 };
 
-#endif //SCREENSMANAGER_H
+#endif // SCREENSMANAGER_H

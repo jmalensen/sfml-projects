@@ -11,28 +11,29 @@ class GraphicsSettings;
 class AssetsManager;
 class ScreensManager;
 
-class Game{
-	public:
-	//Constructor and destructor
+class Game
+{
+public:
+	// Constructor and destructor
 	Game();
 	~Game();
 
-	//Methods
+	// Methods
 	void endApplication();
 
-	//Update the game
+	// Update the game
 	void updateDt();
 	void updateSFMLEvents();
 	void update();
 
-	//Draw
+	// Draw
 	void draw();
 
-	//Run the game
+	// Run the game
 	void run();
 
-	private:
-	//Variables
+private:
+	// Variables
 	GraphicsSettings gfxSettings;
 	AssetsManager assetsManager;
 	sf::Music music;
@@ -40,21 +41,21 @@ class Game{
 	sf::Clock dtClock;
 	float dt;
 
-	std::stack<State*> states;
+	std::stack<State *> states;
 
-	//The windows for the render
+	// The windows for the render
 	sf::RenderWindow *window;
 	sf::VideoMode vm;
 	sf::Event sfEvent;
 
-	//The screenmanager
+	// The screenmanager
 	ScreensManager screensManager = ScreensManager(assetsManager);
 
-	//Methods
+	// Methods
 	void initVariables();
 	void initGraphicsSettings();
 	void initWindow();
 	void initStates();
 };
 
-#endif //GAME_H
+#endif // GAME_H

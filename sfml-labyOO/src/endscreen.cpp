@@ -1,22 +1,25 @@
 #include "../include/endscreen.h"
 
-EndScreen::EndScreen(AssetsManager &assetsManager) : assetsManager(assetsManager){
+EndScreen::EndScreen(AssetsManager &assetsManager) : assetsManager(assetsManager)
+{
 	init();
 }
 
-EndScreen::~EndScreen(){
+EndScreen::~EndScreen()
+{
 }
 
-//Initialization
-void EndScreen::init(){
+// Initialization
+void EndScreen::init()
+{
 	this->playedWinSound = false;
 
-	//Texture for the background
+	// Texture for the background
 	this->assetsManager.loadTexture("screen", "images/screen.jpg");
 	this->screen.setTexture(this->assetsManager.getTexture("screen"));
-	this->screen.setPosition(0,0);
+	this->screen.setPosition(0, 0);
 
-	//Text to display the text
+	// Text to display the text
 	this->assetsManager.loadFont("arial", "fonts/arial.ttf");
 	this->titleScreen.setFont(this->assetsManager.getFont("arial"));
 
@@ -25,42 +28,45 @@ void EndScreen::init(){
 	this->titleScreen.setCharacterSize(70);
 	this->titleScreen.setPosition(400, 520);
 
-	//Win sound
+	// Win sound
 	this->assetsManager.loadSound("win", "sounds/win.ogg");
 	this->winSound = (this->assetsManager.getSound("win"));
 	this->winSound.setVolume(15);
 }
 
-//Handling events
-void EndScreen::handleEvents(sf::Event event){
+// Handling events
+void EndScreen::handleEvents(sf::Event event)
+{
 }
 
-//Update the end screen
-void EndScreen::update(sf::Time dt){
-	//This part is needed otherwise sound might not be played
+// Update the end screen
+void EndScreen::update(sf::Time dt)
+{
+	// This part is needed otherwise sound might not be played
 	static const float speed = 40.f;
 
-	//Delay between 2 moves
+	// Delay between 2 moves
 	static const sf::Time moveDelay = sf::seconds(5.f / speed);
 
-	//Last time player moved
+	// Last time player moved
 	static sf::Time lastMove = sf::Time::Zero;
 	lastMove += dt;
 
-	if(lastMove >= moveDelay && !this->playedWinSound){
+	if (lastMove >= moveDelay && !this->playedWinSound)
+	{
 		this->winSound.play();
 		lastMove = sf::Time::Zero;
 		this->playedWinSound = true;
 	}
-
 }
 
-//Draw
-void EndScreen::draw(sf::RenderTarget& target){
+// Draw
+void EndScreen::draw(sf::RenderTarget &target)
+{
 
-	//Draw the player
+	// Draw the player
 	target.draw(this->screen);
 
-	//Draw texts
+	// Draw texts
 	target.draw(this->titleScreen);
 }

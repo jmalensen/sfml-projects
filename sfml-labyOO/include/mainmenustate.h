@@ -5,30 +5,29 @@
 #include "gamestate.h"
 #include "button.h"
 
-class MainMenuState :
-	public State
+class MainMenuState : public State
 {
-	public:
-	MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys);
+public:
+	MainMenuState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys);
 	virtual ~MainMenuState();
 
-	//Methods
+	// Methods
 	void endState();
 
-	void updateInput(const float& dt);
+	void updateInput(const float &dt);
 	void updateButtons();
-	void update(const float& dt);
-	void renderButtons(sf::RenderTarget* target = NULL);
-	void render(sf::RenderTarget* target = NULL);
+	void update(const float &dt);
+	void drawButtons(sf::RenderTarget *target = NULL);
+	void draw(sf::RenderTarget *target = NULL);
 
-	private:
-	//Variables
+private:
+	// Variables
 	sf::RectangleShape background;
 	sf::Font font;
 
-	std::map<std::string, Button*> buttons;
+	std::map<std::string, Button *> buttons;
 
-	//Methods
+	// Methods
 	void initFonts();
 	void initKeybinds();
 	void initButtons();

@@ -6,7 +6,8 @@
 
 #include "../include/game.h"
 
-int main() {
+int main()
+{
 
 	// auto window = sf::RenderWindow{ { SCREEN_WIDTH, SCREEN_HEIGHT }, "SFML Labyrinth" };
 	// window.setFramerateLimit(60);
@@ -39,6 +40,6 @@ int main() {
 	return 0;
 }
 
-//Game owns the ScreenManager
-//Game make the screen changes
-//When player exit, we need to change the screen from Game
+// Game owns the ScreenManager
+// Game make the screen changes
+// When player exit, we need to change the screen from Game

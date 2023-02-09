@@ -7,38 +7,39 @@
 
 class AssetsManager;
 
-class StartScreen: public Screen{
-	public:
-	//Constructor and destructor
+class StartScreen : public Screen
+{
+public:
+	// Constructor and destructor
 	StartScreen(AssetsManager &assetsManager);
 	~StartScreen();
 
-	//Initialization
+	// Initialization
 	void init();
 
-	//Handling events
+	// Handling events
 	void handleEvents(sf::Event event);
 
-	//Update the start screen
+	// Update the start screen
 	void update(sf::Time TimePerFrame);
 
-	//Draw
-	void draw(sf::RenderTarget& target);
+	// Draw
+	void draw(sf::RenderTarget &target);
 
-	private:
-	//The assets manager
+private:
+	// The assets manager
 	AssetsManager &assetsManager;
 
-	//Texture for the screen
+	// Texture for the screen
 	sf::Texture textureBackgroundScreen;
 	sf::Sprite screen;
 
-	///Text to display the level number
-	//Select the font
+	/// Text to display the level number
+	// Select the font
 	sf::Font font;
 
 	sf::Text titleScreen;
 	sf::Text textPressEnter;
 };
 
-#endif //STARTSCREEN_H
+#endif // STARTSCREEN_H

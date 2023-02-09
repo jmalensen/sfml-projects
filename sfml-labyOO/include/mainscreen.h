@@ -13,38 +13,39 @@ class Map;
 class Player;
 class Enemy;
 
-class MainScreen: public Screen{
-	public:
-	//Constructor and destructor
+class MainScreen : public Screen
+{
+public:
+	// Constructor and destructor
 	MainScreen(AssetsManager &assetsManager);
 	~MainScreen();
 
-	//Initialization
+	// Initialization
 	void init();
 
-	//Handling events
+	// Handling events
 	void handleEvents(sf::Event event);
 
-	//Update the main screen
+	// Update the main screen
 	void update(sf::Time TimePerFrame);
 
-	//Draw
-	void draw(sf::RenderWindow& window);
+	// Draw
+	void draw(sf::RenderWindow &window);
 
 	bool getIsPlayerDead() const;
 
-	private:
-	//The assets manager
+private:
+	// The assets manager
 	AssetsManager &assetsManager;
 
 	bool isPlayerDead;
 
-	//The map
+	// The map
 	Map map;
 
-	//The player
+	// The player
 	Player player;
-	std::vector< std::shared_ptr<Enemy>> enemies;
+	std::vector<std::shared_ptr<Enemy>> enemies;
 };
 
-#endif //MAINSCREEN_H
+#endif // MAINSCREEN_H

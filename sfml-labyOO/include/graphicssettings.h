@@ -3,12 +3,13 @@
 
 #include "stdHeader.h"
 
-class GraphicsSettings {
-	public:
+class GraphicsSettings
+{
+public:
 	GraphicsSettings();
 	~GraphicsSettings();
 
-	//Variables
+	// Variables
 	std::string title;
 	sf::VideoMode resolution;
 	bool fullscreen;
@@ -17,7 +18,7 @@ class GraphicsSettings {
 	sf::ContextSettings contextSettings;
 	std::vector<sf::VideoMode> videoModes;
 
-	//Functions
+	// Functions
 	void saveToFile(const std::string path);
 	void loadFromFile(const std::string path);
 };
