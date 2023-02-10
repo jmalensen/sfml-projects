@@ -3,14 +3,12 @@
 
 #include "stdHeader.h"
 #include "assetsmanager.h"
-#include "startscreen.h"
 #include "menuscreen.h"
 #include "mainscreen.h"
 #include "endscreen.h"
 #include "gameoverscreen.h"
 
 class AssetsManager;
-class StartScreen;
 class MenuScreen;
 class MainScreen;
 class EndScreen;
@@ -23,14 +21,12 @@ public:
 	ScreensManager(AssetsManager &assetsManager);
 	~ScreensManager();
 
-	static constexpr int STARTSCREEN = 0;
-	static constexpr int MAINSCREEN = 1;
-	static constexpr int MENUSCREEN = 2;
+	static constexpr int MENUSCREEN = 1;
+	static constexpr int MAINSCREEN = 2;
 	static constexpr int ENDSCREEN = 3;
 	static constexpr int GAMEOVERSCREEN = 4;
 
 	// Functions for switching between screens
-	void showStartScreen();
 	void showMainScreen();
 	void showMenuScreen();
 	void showEndScreen();
@@ -39,7 +35,7 @@ public:
 
 	void handleEvents(sf::Event event);
 	void update(sf::Time TimePerFrame);
-	void draw(sf::RenderWindow &window);
+	void draw(sf::RenderWindow *window);
 
 private:
 	AssetsManager &assetsManager;
@@ -47,7 +43,6 @@ private:
 	// Member variable for the current screen
 	int currentScreen;
 
-	std::unique_ptr<StartScreen> startScreen;
 	std::unique_ptr<MainScreen> mainScreen;
 	std::unique_ptr<MenuScreen> menuScreen;
 	std::unique_ptr<EndScreen> endScreen;

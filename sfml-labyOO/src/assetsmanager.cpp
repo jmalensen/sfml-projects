@@ -12,11 +12,12 @@ bool AssetsManager::loadTexture(std::string name, std::string filepath)
 		sf::Texture texture;
 		if (!texture.loadFromFile(filepath))
 		{
-			std::cout << "Failed to load sprite: " << filepath << std::endl;
+			std::cout << "Failed to load texture: " << filepath << std::endl;
+			throw "ERROR::ASSETSMANAGER::Failed to load texture:" + filepath;
 			return false;
 		}
 		this->textures[name] = texture;
-		std::cout << "Load sprite: " << name << " " << filepath << std::endl;
+		std::cout << "Load texture: " << name << " " << filepath << std::endl;
 	}
 	return true;
 }
@@ -30,25 +31,13 @@ bool AssetsManager::loadSound(std::string name, std::string filepath)
 		if (!soundBuffer.loadFromFile(filepath))
 		{
 			std::cout << "Failed to load sound: " << filepath << std::endl;
+			throw "ERROR::ASSETSMANAGER::Failed to load sound:" + filepath;
 			return false;
 		}
 		this->soundBuffers[name] = soundBuffer;
 	}
 	return true;
 }
-
-// bool AssetsManager::loadMusic(std::string name, std::string filepath) {
-// 	// check if the music has already been loaded
-// 	if (musics.count(name) == 0) {
-// 		sf::Music music;
-// 		if (!music.openFromFile(filepath)) {
-// 			std::cout << "Failed to load music: " << filepath << std::endl;
-// 			return false;
-// 		}
-// 		musics[name] = music;
-// 	}
-// 	return true;
-// }
 
 bool AssetsManager::loadFont(std::string name, std::string filepath)
 {
@@ -59,6 +48,7 @@ bool AssetsManager::loadFont(std::string name, std::string filepath)
 		if (!font.loadFromFile(filepath))
 		{
 			std::cout << "Failed to load font: " << filepath << std::endl;
+			throw "ERROR::ASSETSMANAGER::Failed to load font:" + filepath;
 			return false;
 		}
 		this->fonts[name] = font;

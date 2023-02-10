@@ -46,9 +46,34 @@ void Game::initWindow()
 	// this->window->setVerticalSyncEnabled(this->gfxSettings.verticalSync);
 }
 
+void Game::initKeys()
+{
+	std::ifstream ifs("config/supported_keys.ini");
+
+	if (ifs.is_open())
+	{
+		std::string key = "";
+		int key_value = 0;
+
+		while (ifs >> key >> key_value)
+		{
+			this->supportedKeys[key] = key_value;
+		}
+	}
+
+	ifs.close();
+
+	// DEBUG REMOVE LATER!
+	for (auto i : this->supportedKeys)
+	{
+		std::cout << i.first << " " << i.second << std::endl;
+	}
+}
+
 void Game::initStates()
 {
 	// this->states.push();
+	this->states.push(new MainMenuState(this->window, &this->supportedKeys, &this->states));
 }
 
 Game::Game()
@@ -56,9 +81,10 @@ Game::Game()
 	this->initVariables();
 	this->initGraphicsSettings();
 	this->initWindow();
+	this->initKeys();
 	this->initStates();
 
-	this->screensManager.showStartScreen();
+	// this->screensManager.showStartScreen();
 	this->music.play();
 
 	// Create the window
@@ -94,10 +120,10 @@ Game::~Game()
 	}
 }
 
+// Methods
 void Game::endApplication()
 {
-	std::cout << "Ending Application!"
-						<< "\n";
+	std::cout << "Ending Application!" << std::endl;
 }
 
 void Game::updateDt()
@@ -115,34 +141,33 @@ void Game::updateSFMLEvents()
 			this->window->close();
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && this->screensManager.getCurrentScreen() == ScreensManager::STARTSCREEN)
-		{
-			this->screensManager.showMenuScreen();
-		}
+		// if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && this->screensManager.getCurrentScreen() == ScreensManager::STARTSCREEN)
+		// {
+		// 	this->screensManager.showMenuScreen();
+		// }
 
-		// Handle enter key press
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && this->screensManager.getCurrentScreen() != ScreensManager::STARTSCREEN)
-		{
-			this->screensManager.showMainScreen();
-			this->screensManager.handleEvents(sfEvent);
-		}
+		// // Handle enter key press
+		// else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && this->screensManager.getCurrentScreen() != ScreensManager::STARTSCREEN)
+		// {
+		// 	this->screensManager.showMainScreen();
+		// 	this->screensManager.handleEvents(sfEvent);
+		// }
 
-		else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->screensManager.getCurrentScreen() == ScreensManager::ENDSCREEN) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->screensManager.getCurrentScreen() == ScreensManager::GAMEOVERSCREEN))
-		{
-			this->window->close();
-		}
+		// else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->screensManager.getCurrentScreen() == ScreensManager::ENDSCREEN) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->screensManager.getCurrentScreen() == ScreensManager::GAMEOVERSCREEN))
+		// {
+		// 	this->window->close();
+		// }
 
-		// Display the menu
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->screensManager.getCurrentScreen() != ScreensManager::MENUSCREEN)
-		{
-			this->screensManager.showMenuScreen();
-		}
+		// // Display the menu
+		// else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->screensManager.getCurrentScreen() != ScreensManager::MENUSCREEN)
+		// {
+		// 	this->screensManager.showMenuScreen();
+		// }
 	}
 }
 
 void Game::update()
 {
-	// this->screensManager.update(TimePerFrame);
 
 	this->updateSFMLEvents();
 
@@ -179,9 +204,6 @@ void Game::draw()
 	{
 		this->states.top()->draw();
 	}
-
-	// Draw screens
-	// this->screensManager.draw(this->window);
 
 	// Display the window
 	this->window->display();

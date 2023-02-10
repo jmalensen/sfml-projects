@@ -1,16 +1,7 @@
 #include "../include/gameoverscreen.h"
 
-GameoverScreen::GameoverScreen(AssetsManager &assetsManager) : assetsManager(assetsManager)
-{
-	init();
-}
-
-GameoverScreen::~GameoverScreen()
-{
-}
-
 // Initialization
-void GameoverScreen::init()
+void GameoverScreen::initVariables()
 {
 
 	// Texture for the background
@@ -28,6 +19,15 @@ void GameoverScreen::init()
 	this->titleScreen.setPosition(400, 520);
 }
 
+GameoverScreen::GameoverScreen(AssetsManager &assetsManager) : assetsManager(assetsManager)
+{
+	initVariables();
+}
+
+GameoverScreen::~GameoverScreen()
+{
+}
+
 // Handling events
 void GameoverScreen::handleEvents(sf::Event event)
 {
@@ -39,12 +39,12 @@ void GameoverScreen::update(sf::Time dt)
 }
 
 // Draw
-void GameoverScreen::draw(sf::RenderTarget &target)
+void GameoverScreen::draw(sf::RenderWindow *window)
 {
 
 	// Draw the screen
-	target.draw(this->screen);
+	window->draw(this->screen);
 
 	// Draw text
-	target.draw(this->titleScreen);
+	window->draw(this->titleScreen);
 }

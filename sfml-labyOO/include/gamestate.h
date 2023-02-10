@@ -3,29 +3,30 @@
 
 #include "stdHeader.h"
 #include "state.h"
+#include "assetsmanager.h"
+#include "screensmanager.h"
+
+class AssetsManager;
+class ScreensManager;
 
 class GameState : public State
 {
 public:
-	GameState(StateData *stateData);
+	GameState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states);
 	virtual ~GameState();
 
 	// Functions
-	void updateView(const float &dt);
+	void updateInput(const float &dt);
 	void update(const float &dt);
-
-	void draw(sf::RenderWindow *window = NULL);
+	void draw(sf::RenderTarget *target = NULL);
 
 private:
-	sf::View view;
-	sf::Vector2i viewGridPosition;
-	sf::RenderTexture renderTexture;
-	sf::Sprite renderSprite;
+	AssetsManager assetsManager;
+	// The screenmanager
+	ScreensManager screensManager = ScreensManager(assetsManager);
 
-	sf::Font font;
-
-	sf::Clock keyTimer;
-	float keyTimeMax;
+	// Functions
+	void initKeybinds();
 };
 
 #endif

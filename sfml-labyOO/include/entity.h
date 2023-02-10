@@ -15,9 +15,6 @@ public:
 	Entity(Map &maze, AssetsManager &assetsManager);
 	virtual ~Entity();
 
-	// Initialization
-	virtual void init() = 0;
-
 	// Getters
 	virtual int getPositionX() const;
 	virtual int getPositionY() const;
@@ -32,7 +29,7 @@ public:
 	virtual void update(sf::Time dt) = 0;
 
 	// Draw
-	virtual void draw(sf::RenderWindow &window) = 0;
+	virtual void draw(sf::RenderWindow *window) = 0;
 
 	sf::FloatRect getHitBox() const;
 
@@ -51,6 +48,9 @@ protected:
 
 	// Map
 	Map &maze;
+
+	// Initialization
+	virtual void initVariables() = 0;
 };
 
 #endif // ENTITY_H

@@ -43,14 +43,11 @@ public:
 	int getLevel();
 	void setLevel(int newLevel);
 
-	// Initialization
-	void init();
-
 	// Update maze
 	void update(sf::Time dt);
 
 	// Draw the map
-	void draw(sf::RenderWindow &window);
+	void draw(sf::RenderWindow *window);
 
 private:
 	AssetsManager &assetsManager;
@@ -105,6 +102,9 @@ private:
 	sf::Text text;
 	// Select the font
 	sf::Font font;
+
+	// Initialization
+	void initVariables();
 };
 
 #endif // MAP_H

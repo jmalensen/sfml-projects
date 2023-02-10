@@ -1,16 +1,6 @@
 #include "../include/player.h"
 
-Player::Player(Map &maze, AssetsManager &assetsManager) : Entity(maze, assetsManager), walkAnimation(60, "images/perso.png", 4, Animation::RIGHT, 4)
-{
-	// Initialize the player
-	init();
-}
-
-Player::~Player()
-{
-}
-
-void Player::init()
+void Player::initVariables()
 {
 	// Player position
 	this->positionX = 1;
@@ -45,6 +35,16 @@ void Player::init()
 	this->exit = false;
 
 	this->walkAnimation.setParamsMovements(this->paramsMovement);
+}
+
+Player::Player(Map &maze, AssetsManager &assetsManager) : Entity(maze, assetsManager), walkAnimation(60, "images/perso.png", 4, Animation::RIGHT, 4)
+{
+	// Initialize the player
+	initVariables();
+}
+
+Player::~Player()
+{
 }
 
 bool Player::getHasExited() const
@@ -261,7 +261,7 @@ void Player::resetSounds()
 	this->trapEnabled = false;
 }
 
-void Player::draw(sf::RenderWindow &window)
+void Player::draw(sf::RenderWindow *window)
 {
 
 	// Draw the player

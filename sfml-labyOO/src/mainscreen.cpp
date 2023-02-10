@@ -1,16 +1,7 @@
 #include "../include/mainscreen.h"
 
-MainScreen::MainScreen(AssetsManager &assetsManager) : assetsManager(assetsManager), map(assetsManager), player(map, assetsManager)
-{
-	init();
-}
-
-MainScreen::~MainScreen()
-{
-}
-
 // Initialization
-void MainScreen::init()
+void MainScreen::initVariables()
 {
 	this->isPlayerDead = false;
 
@@ -33,6 +24,15 @@ void MainScreen::init()
 	this->enemies.push_back(std::make_shared<Enemy>(14, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, 19, 80.f));
 	this->enemies.push_back(std::make_shared<Enemy>(15, this->map, this->assetsManager, 16, 20, Enemy::VERTICAL, 16, 20, 70.f));
 	this->enemies.push_back(std::make_shared<Enemy>(16, this->map, this->assetsManager, 5, 10, Enemy::HORIZONTAL, 5, 20, 90.f));
+}
+
+MainScreen::MainScreen(AssetsManager &assetsManager) : assetsManager(assetsManager), map(assetsManager), player(map, assetsManager)
+{
+	initVariables();
+}
+
+MainScreen::~MainScreen()
+{
 }
 
 // Handling events
@@ -81,7 +81,7 @@ void MainScreen::update(sf::Time TimePerFrame)
 }
 
 // Draw
-void MainScreen::draw(sf::RenderWindow &window)
+void MainScreen::draw(sf::RenderWindow *window)
 {
 
 	// Draw map

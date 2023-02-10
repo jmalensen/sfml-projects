@@ -1,22 +1,6 @@
 #include "../include/map.h"
 
-Map::Map(AssetsManager &assetsManager) : assetsManager(assetsManager), animKey(60, "images/key.png", 4, Animation::NODIRECTION, 1), animNextLevel(60, "images/nextlevel.png", 4, Animation::NODIRECTION, 1), animTrophy(60, "images/trophy.png", 4, Animation::NODIRECTION, 1)
-{
-	// Initialize the map
-	init();
-}
-
-Map::~Map()
-{
-}
-
-// Done - Create traps which blocks areas (with resolution)
-// traps which kill!!
-// Done - Create ennemies
-// Done - Create 3 more levels
-// Multiplayer coop
-
-void Map::init()
+void Map::initVariables()
 {
 	// Init map
 	// Create a 2D array to represent the maze
@@ -231,6 +215,22 @@ void Map::init()
 	this->text.setFillColor(sf::Color::White);
 }
 
+Map::Map(AssetsManager &assetsManager) : assetsManager(assetsManager), animKey(60, "images/key.png", 4, Animation::NODIRECTION, 1), animNextLevel(60, "images/nextlevel.png", 4, Animation::NODIRECTION, 1), animTrophy(60, "images/trophy.png", 4, Animation::NODIRECTION, 1)
+{
+	// Initialize the map
+	initVariables();
+}
+
+Map::~Map()
+{
+}
+
+// Done - Create traps which blocks areas (with resolution)
+// traps which kill!!
+// Done - Create ennemies
+// Done - Create 3 more levels
+// Multiplayer coop
+
 // Get the value of a block in the map
 char Map::operator()(int row, int col) const
 {
@@ -340,11 +340,11 @@ void Map::update(sf::Time dt)
 	}
 }
 
-void Map::draw(sf::RenderWindow &window)
+void Map::draw(sf::RenderWindow *window)
 {
 
 	// Draw the map
-	window.draw(this->backgroundI);
+	window->draw(this->backgroundI);
 
 	// Draw maze
 	for (int row = 0; row < ROWS; row++)
@@ -363,27 +363,27 @@ void Map::draw(sf::RenderWindow &window)
 				if (this->levelNum == 1)
 				{
 					this->wallSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(this->wallSprite);
+					window->draw(this->wallSprite);
 				}
 				else if (this->levelNum == 2)
 				{
 					this->wallSprite2.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(this->wallSprite2);
+					window->draw(this->wallSprite2);
 				}
 				else if (this->levelNum == 3)
 				{
 					this->wallSprite3.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(this->wallSprite3);
+					window->draw(this->wallSprite3);
 				}
 				else if (this->levelNum == 4)
 				{
 					this->wallSprite4.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(this->wallSprite4);
+					window->draw(this->wallSprite4);
 				}
 				else if (this->levelNum == 5)
 				{
 					this->wallSprite5.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(this->wallSprite5);
+					window->draw(this->wallSprite5);
 				}
 			}
 			else
@@ -391,17 +391,17 @@ void Map::draw(sf::RenderWindow &window)
 				if (this->levelNum == 1)
 				{
 					this->pathSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(this->pathSprite);
+					window->draw(this->pathSprite);
 				}
 				else if (this->levelNum == 2 || this->levelNum == 4)
 				{
 					this->pathSprite2.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(this->pathSprite2);
+					window->draw(this->pathSprite2);
 				}
 				else if (this->levelNum == 3 || this->levelNum == 5)
 				{
 					this->pathSprite3.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(this->pathSprite3);
+					window->draw(this->pathSprite3);
 				}
 			}
 
@@ -410,24 +410,24 @@ void Map::draw(sf::RenderWindow &window)
 				if (this->levelNum == 2)
 				{
 					this->pathSprite2Trap.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(this->pathSprite2Trap);
+					window->draw(this->pathSprite2Trap);
 				}
 				else if (this->levelNum == 3)
 				{
 					this->pathSprite3Trap.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(this->pathSprite3Trap);
+					window->draw(this->pathSprite3Trap);
 				}
 				else if (this->levelNum == 4)
 				{
 					this->pathSprite4Trap.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-					window.draw(this->pathSprite4Trap);
+					window->draw(this->pathSprite4Trap);
 				}
 			}
 
 			if (this->maze[row][col] == 'k')
 			{
 				this->keySprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-				window.draw(this->keySprite);
+				window->draw(this->keySprite);
 				// animKey.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
 				// animKey.draw(window);
 			}
@@ -435,7 +435,7 @@ void Map::draw(sf::RenderWindow &window)
 			if (this->maze[row][col] == 'n')
 			{
 				this->nextLevelSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-				window.draw(this->nextLevelSprite);
+				window->draw(this->nextLevelSprite);
 				// animNextLevel.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
 				// animNextLevel.draw(window);
 			}
@@ -443,7 +443,7 @@ void Map::draw(sf::RenderWindow &window)
 			if (this->maze[row][col] == 'e')
 			{
 				this->trophySprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-				window.draw(this->trophySprite);
+				window->draw(this->trophySprite);
 				// animTrophy.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
 				// animTrophy.draw(window);
 			}
@@ -452,5 +452,5 @@ void Map::draw(sf::RenderWindow &window)
 
 	// Draw the text
 	this->text.setPosition(10, 10);
-	window.draw(this->text);
+	window->draw(this->text);
 }

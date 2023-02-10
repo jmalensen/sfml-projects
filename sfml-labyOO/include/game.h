@@ -4,12 +4,14 @@
 #include "stdHeader.h"
 #include "graphicssettings.h"
 #include "state.h"
-#include "assetsmanager.h"
-#include "screensmanager.h"
+#include "mainmenustate.h"
+// #include "assetsmanager.h"
+// #include "screensmanager.h"
 
 class GraphicsSettings;
-class AssetsManager;
-class ScreensManager;
+class MainMenuState;
+// class AssetsManager;
+// class ScreensManager;
 
 class Game
 {
@@ -35,7 +37,7 @@ public:
 private:
 	// Variables
 	GraphicsSettings gfxSettings;
-	AssetsManager assetsManager;
+	// AssetsManager assetsManager;
 	sf::Music music;
 
 	sf::Clock dtClock;
@@ -43,18 +45,21 @@ private:
 
 	std::stack<State *> states;
 
+	std::map<std::string, int> supportedKeys;
+
 	// The windows for the render
 	sf::RenderWindow *window;
 	sf::VideoMode vm;
 	sf::Event sfEvent;
 
 	// The screenmanager
-	ScreensManager screensManager = ScreensManager(assetsManager);
+	// ScreensManager screensManager = ScreensManager(assetsManager);
 
 	// Methods
 	void initVariables();
 	void initGraphicsSettings();
 	void initWindow();
+	void initKeys();
 	void initStates();
 };
 

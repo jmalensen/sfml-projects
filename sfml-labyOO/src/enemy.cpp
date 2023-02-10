@@ -1,20 +1,7 @@
 #include "../include/enemy.h"
 
-Enemy::Enemy(int id, Map &maze, AssetsManager &assetsManager, int posx, int posy, int direction, int min, int max, float speed) : Entity(maze, assetsManager), idEnemy(id), directionEnemy(direction), minVal(min), maxVal(max), moveAnimation(60, "images/enemy.png", 4, Animation::RIGHT, 4)
-{
-	// Initialize the enemy
-	init();
-	setPositionX(posx);
-	setPositionY(posy);
-	setSpeed(speed);
-}
-
-Enemy::~Enemy()
-{
-}
-
 // Initialization
-void Enemy::init()
+void Enemy::initVariables()
 {
 
 	this->goingRight = true;
@@ -25,6 +12,19 @@ void Enemy::init()
 	this->hurtSound.setVolume(10);
 
 	this->moveAnimation.setParamsMovements(this->paramsMovement);
+}
+
+Enemy::Enemy(int id, Map &maze, AssetsManager &assetsManager, int posx, int posy, int direction, int min, int max, float speed) : Entity(maze, assetsManager), idEnemy(id), directionEnemy(direction), minVal(min), maxVal(max), moveAnimation(60, "images/enemy.png", 4, Animation::RIGHT, 4)
+{
+	// Initialize the enemy
+	initVariables();
+	setPositionX(posx);
+	setPositionY(posy);
+	setSpeed(speed);
+}
+
+Enemy::~Enemy()
+{
 }
 
 void Enemy::setBehaviour(int directionMovement, int min, int max)
@@ -117,7 +117,7 @@ void Enemy::update(sf::Time dt, Player &player)
 }
 
 // Draw
-void Enemy::draw(sf::RenderWindow &window)
+void Enemy::draw(sf::RenderWindow *window)
 {
 
 	// Draw the enemy

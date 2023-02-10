@@ -19,9 +19,6 @@ public:
 	Player(Map &maze, AssetsManager &assetsManager);
 	~Player() final;
 
-	// Initialization
-	void init() override;
-
 	// Getter exit
 	bool getHasExited() const;
 
@@ -38,7 +35,7 @@ public:
 	void resetSounds();
 
 	// Draw
-	void draw(sf::RenderWindow &window) override;
+	void draw(sf::RenderWindow *window) override;
 
 private:
 	// Sounds
@@ -66,6 +63,9 @@ private:
 			180, // Up
 			0		 // Down
 	};
+
+	// Initialization
+	void initVariables() override;
 };
 
 #endif // PLAYER_H

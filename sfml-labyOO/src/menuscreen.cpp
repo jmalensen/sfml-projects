@@ -1,16 +1,7 @@
 #include "../include/menuscreen.h"
 
-MenuScreen::MenuScreen(AssetsManager &assetsManager) : assetsManager(assetsManager)
-{
-	init();
-}
-
-MenuScreen::~MenuScreen()
-{
-}
-
 // Initialization
-void MenuScreen::init()
+void MenuScreen::initVariables()
 {
 	// Texture for the background
 	this->assetsManager.loadTexture("menuscreen", "images/menuscreen.jpg");
@@ -27,6 +18,15 @@ void MenuScreen::init()
 	this->titleScreen.setPosition(300, 320);
 }
 
+MenuScreen::MenuScreen(AssetsManager &assetsManager) : assetsManager(assetsManager)
+{
+	this->initVariables();
+}
+
+MenuScreen::~MenuScreen()
+{
+}
+
 // Handling events
 void MenuScreen::handleEvents(sf::Event event)
 {
@@ -38,11 +38,11 @@ void MenuScreen::update(sf::Time TimePerFrame)
 }
 
 // Draw
-void MenuScreen::draw(sf::RenderTarget &target)
+void MenuScreen::draw(sf::RenderWindow *window)
 {
 
 	// Draw the screen
-	target.draw(this->screen);
+	window->draw(this->screen);
 
 	// Draw texts
 	//  target.draw(titleScreen);

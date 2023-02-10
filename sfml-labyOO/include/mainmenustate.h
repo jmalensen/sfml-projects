@@ -3,31 +3,32 @@
 
 #include "stdHeader.h"
 #include "gamestate.h"
-#include "button.h"
+#include "settingsstate.h"
+#include "gui.h"
 
 class MainMenuState : public State
 {
 public:
-	MainMenuState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys);
+	MainMenuState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states);
 	virtual ~MainMenuState();
 
-	// Methods
-	void endState();
-
+	// Functions
 	void updateInput(const float &dt);
 	void updateButtons();
 	void update(const float &dt);
-	void drawButtons(sf::RenderTarget *target = NULL);
+	void drawButtons(sf::RenderTarget &target);
 	void draw(sf::RenderTarget *target = NULL);
 
 private:
 	// Variables
+	sf::Texture backgroundTexture;
 	sf::RectangleShape background;
 	sf::Font font;
 
-	std::map<std::string, Button *> buttons;
+	std::map<std::string, gui::Button *> buttons;
 
-	// Methods
+	// Functions
+	void initBackground();
 	void initFonts();
 	void initKeybinds();
 	void initButtons();

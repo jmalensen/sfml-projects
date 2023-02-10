@@ -1,16 +1,7 @@
 #include "../include/endscreen.h"
 
-EndScreen::EndScreen(AssetsManager &assetsManager) : assetsManager(assetsManager)
-{
-	init();
-}
-
-EndScreen::~EndScreen()
-{
-}
-
 // Initialization
-void EndScreen::init()
+void EndScreen::initVariables()
 {
 	this->playedWinSound = false;
 
@@ -32,6 +23,15 @@ void EndScreen::init()
 	this->assetsManager.loadSound("win", "sounds/win.ogg");
 	this->winSound = (this->assetsManager.getSound("win"));
 	this->winSound.setVolume(15);
+}
+
+EndScreen::EndScreen(AssetsManager &assetsManager) : assetsManager(assetsManager)
+{
+	initVariables();
+}
+
+EndScreen::~EndScreen()
+{
 }
 
 // Handling events
@@ -61,12 +61,12 @@ void EndScreen::update(sf::Time dt)
 }
 
 // Draw
-void EndScreen::draw(sf::RenderTarget &target)
+void EndScreen::draw(sf::RenderWindow *window)
 {
 
 	// Draw the player
-	target.draw(this->screen);
+	window->draw(this->screen);
 
 	// Draw texts
-	target.draw(this->titleScreen);
+	window->draw(this->titleScreen);
 }

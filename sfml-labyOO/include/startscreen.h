@@ -24,7 +24,7 @@ public:
 	void update(sf::Time TimePerFrame);
 
 	// Draw
-	void draw(sf::RenderTarget &target);
+	void draw(sf::RenderWindow *window);
 
 private:
 	// The assets manager

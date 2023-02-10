@@ -14,9 +14,6 @@ public:
 	MenuScreen(AssetsManager &assetsManager);
 	~MenuScreen();
 
-	// Initialization
-	void init();
-
 	// Handling events
 	void handleEvents(sf::Event event);
 
@@ -24,7 +21,7 @@ public:
 	void update(sf::Time TimePerFrame);
 
 	// Draw
-	void draw(sf::RenderTarget &target);
+	void draw(sf::RenderWindow *window);
 
 private:
 	// The assets manager
@@ -38,6 +35,9 @@ private:
 	sf::Font font;
 
 	sf::Text titleScreen;
+
+	// Initialization
+	void initVariables();
 };
 
 #endif // MENUSCREEN_H

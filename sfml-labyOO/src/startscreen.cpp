@@ -44,12 +44,12 @@ void StartScreen::update(sf::Time TimePerFrame)
 }
 
 // Draw
-void StartScreen::draw(sf::RenderTarget &target)
+void StartScreen::draw(sf::RenderWindow *window)
 {
 	// Draw the player
-	target.draw(this->screen);
+	window->draw(this->screen);
 
 	// Draw texts
-	target.draw(this->titleScreen);
-	target.draw(this->textPressEnter);
+	window->draw(this->titleScreen);
+	window->draw(this->textPressEnter);
 }

@@ -20,9 +20,6 @@ public:
 	MainScreen(AssetsManager &assetsManager);
 	~MainScreen();
 
-	// Initialization
-	void init();
-
 	// Handling events
 	void handleEvents(sf::Event event);
 
@@ -30,7 +27,7 @@ public:
 	void update(sf::Time TimePerFrame);
 
 	// Draw
-	void draw(sf::RenderWindow &window);
+	void draw(sf::RenderWindow *window);
 
 	bool getIsPlayerDead() const;
 
@@ -46,6 +43,9 @@ private:
 	// The player
 	Player player;
 	std::vector<std::shared_ptr<Enemy>> enemies;
+
+	// Initialization
+	void initVariables();
 };
 
 #endif // MAINSCREEN_H

@@ -1,8 +1,12 @@
 #include "../include/animation.h"
 
+void Animation::initVariables()
+{
+}
+
 Animation::Animation(short frameWidth, const std::string &textureLocation, short animationSpeed, short direction, short i_nbMovements, ParamsMovement params) : animationIterator(0), currentFrame(0), frameWidth(frameWidth), animationSpeed(std::max<short>(1, animationSpeed))
 {
-	init();
+	initVariables();
 	this->texture.loadFromFile(textureLocation);
 	this->totalFrames = this->texture.getSize().x / this->frameWidth;
 	this->nbMovements = i_nbMovements;
@@ -13,11 +17,7 @@ Animation::~Animation()
 {
 }
 
-void Animation::init()
-{
-}
-
-void Animation::draw(sf::RenderWindow &window)
+void Animation::draw(sf::RenderWindow *window)
 {
 	this->sprite.setTexture(texture);
 
@@ -50,7 +50,7 @@ void Animation::draw(sf::RenderWindow &window)
 
 	this->sprite.setTextureRect(sf::IntRect(this->currentFrame * this->frameWidth, top, this->frameWidth, this->texture.getSize().y / this->nbMovements));
 
-	window.draw(this->sprite);
+	window->draw(this->sprite);
 }
 
 void Animation::setDirection(short ndirection)

@@ -17,9 +17,8 @@ public:
 	Animation(short frameWidth, const std::string &textureLocation, short animationSpeed = 1, short direction = NODIRECTION, short i_nbMovements = 1, ParamsMovement params = {0, 0, 0, 0});
 	~Animation();
 
-	void init();
 	void update(sf::Time dt);
-	void draw(sf::RenderWindow &window);
+	void draw(sf::RenderWindow *window);
 
 	void setDirection(short ndirection);
 	void setAnimationSpeed(short nanimationSpeed);
@@ -46,6 +45,8 @@ private:
 	sf::Texture texture;
 
 	ParamsMovement paramsMovement;
+
+	void initVariables();
 };
 
 #endif // ANIMATION_H
