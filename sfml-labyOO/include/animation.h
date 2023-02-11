@@ -17,7 +17,7 @@ public:
 	Animation(short frameWidth, const std::string &textureLocation, short animationSpeed = 1, short direction = NODIRECTION, short i_nbMovements = 1, ParamsMovement params = {0, 0, 0, 0});
 	~Animation();
 
-	void update(sf::Time dt);
+	void update(const float &dt);
 	void draw(sf::RenderWindow *window);
 
 	void setDirection(short ndirection);
@@ -34,7 +34,7 @@ private:
 	// Increment the currentFrame as soon as this iterator reaches the animationSpeed
 	short animationIterator;
 	short animationSpeed;
-	short currentFrame;
+	// short currentFrame;
 	short frameWidth;
 	short totalFrames;
 
@@ -45,6 +45,10 @@ private:
 	sf::Texture texture;
 
 	ParamsMovement paramsMovement;
+
+	float animationTime{0.f};
+	float frameDuration{0.125f};
+	int currentFrame{0};
 
 	void initVariables();
 };

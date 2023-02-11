@@ -34,7 +34,7 @@ void GameoverScreen::handleEvents(sf::Event event)
 }
 
 // Update the screen
-void GameoverScreen::update(sf::Time dt)
+void GameoverScreen::update(const float &dt)
 {
 }
 

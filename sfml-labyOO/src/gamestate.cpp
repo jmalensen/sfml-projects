@@ -44,8 +44,7 @@ void GameState::updateInput(const float &dt)
 void GameState::update(const float &dt)
 {
 	// std::cout << "GameState::update" << std::endl;
-	const sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
-	this->screensManager.update(TimePerFrame);
+	this->screensManager.update(dt);
 
 	// Handle enter key press
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && this->screensManager.getCurrentScreen() != ScreensManager::MAINSCREEN)

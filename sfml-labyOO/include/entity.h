@@ -26,7 +26,7 @@ public:
 	virtual void setSpeed(float newSpeed);
 
 	// Update position
-	virtual void update(sf::Time dt) = 0;
+	virtual void update(const float &dt) = 0;
 
 	// Draw
 	virtual void draw(sf::RenderWindow *window) = 0;
@@ -40,7 +40,9 @@ protected:
 	int positionX;
 	int positionY;
 
+	// Animation of entity
 	float entitySpeed;
+	float lastMove;
 
 	// Texture for the entity
 	sf::IntRect rectSourceSpriteEntity;

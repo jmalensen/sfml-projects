@@ -33,7 +33,7 @@ void MenuScreen::handleEvents(sf::Event event)
 }
 
 // Update the end screen
-void MenuScreen::update(sf::Time TimePerFrame)
+void MenuScreen::update(const float &dt)
 {
 }
 

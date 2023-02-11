@@ -34,7 +34,7 @@ public:
 	int getCurrentScreen();
 
 	void handleEvents(sf::Event event);
-	void update(sf::Time TimePerFrame);
+	void update(const float &dt);
 	void draw(sf::RenderWindow *window);
 
 private:

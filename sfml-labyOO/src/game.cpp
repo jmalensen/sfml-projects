@@ -140,29 +140,6 @@ void Game::updateSFMLEvents()
 		{
 			this->window->close();
 		}
-
-		// if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && this->screensManager.getCurrentScreen() == ScreensManager::STARTSCREEN)
-		// {
-		// 	this->screensManager.showMenuScreen();
-		// }
-
-		// // Handle enter key press
-		// else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && this->screensManager.getCurrentScreen() != ScreensManager::STARTSCREEN)
-		// {
-		// 	this->screensManager.showMainScreen();
-		// 	this->screensManager.handleEvents(sfEvent);
-		// }
-
-		// else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->screensManager.getCurrentScreen() == ScreensManager::ENDSCREEN) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->screensManager.getCurrentScreen() == ScreensManager::GAMEOVERSCREEN))
-		// {
-		// 	this->window->close();
-		// }
-
-		// // Display the menu
-		// else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->screensManager.getCurrentScreen() != ScreensManager::MENUSCREEN)
-		// {
-		// 	this->screensManager.showMenuScreen();
-		// }
 	}
 }
 

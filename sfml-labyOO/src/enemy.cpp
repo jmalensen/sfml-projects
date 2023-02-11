@@ -5,6 +5,7 @@ void Enemy::initVariables()
 {
 
 	this->goingRight = true;
+	this->lastMove = 0.f;
 
 	// Hurt sound
 	this->assetsManager.loadSound("dead", "sounds/dead.ogg");
@@ -35,24 +36,20 @@ void Enemy::setBehaviour(int directionMovement, int min, int max)
 }
 
 // Update position
-void Enemy::update(sf::Time dt) {}
-void Enemy::update(sf::Time dt, Player &player)
+void Enemy::update(const float &dt) {}
+void Enemy::update(const float &dt, Player &player)
 {
 
 	/// Needed to keep the same clock for the enemy (not moving too fast)
-	// Enemy speed (pixels/s)
-	// entitySpeed
-
 	// Delay between 2 moves
-	static const sf::Time moveDelay = sf::seconds(5.f / this->entitySpeed);
+	static float moveDelay = (5.f / this->entitySpeed);
 
 	// Last time player moved
-	static sf::Time lastMove = sf::Time::Zero;
-	lastMove += dt;
+	this->lastMove += dt;
 
-	if (lastMove >= moveDelay)
+	if (this->lastMove >= moveDelay)
 	{
-
+		this->lastMove = 0.f;
 		if (this->directionEnemy == Enemy::HORIZONTAL)
 		{
 
@@ -111,8 +108,6 @@ void Enemy::update(sf::Time dt, Player &player)
 		}
 
 		this->moveAnimation.update(dt);
-
-		lastMove = sf::Time::Zero;
 	}
 }
 

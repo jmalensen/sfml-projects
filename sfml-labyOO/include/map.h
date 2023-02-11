@@ -44,7 +44,7 @@ public:
 	void setLevel(int newLevel);
 
 	// Update maze
-	void update(sf::Time dt);
+	void update(const float &dt);
 
 	// Draw the map
 	void draw(sf::RenderWindow *window);

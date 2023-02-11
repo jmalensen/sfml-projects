@@ -22,8 +22,8 @@ public:
 	~Enemy() final;
 
 	// Update position
-	void update(sf::Time dt) override;
-	void update(sf::Time dt, Player &player);
+	void update(const float &dt) override;
+	void update(const float &dt, Player &player);
 
 	// Draw
 	void draw(sf::RenderWindow *window) override;

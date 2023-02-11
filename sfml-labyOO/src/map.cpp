@@ -263,7 +263,7 @@ void Map::setLevel(int newLevel)
 	this->text.setString("Level: " + std::to_string(this->levelNum));
 }
 
-void Map::update(sf::Time dt)
+void Map::update(const float &dt)
 {
 
 	// animKey.update(dt);
@@ -277,13 +277,15 @@ void Map::update(sf::Time dt)
 
 	// Current time needed for the delta time
 	static float currentTime = 0.0f;
-	currentTime += dt.asSeconds();
+	currentTime += dt;
 
 	static float currentTimeNL = 0.0f;
-	currentTimeNL += dt.asSeconds();
+	currentTimeNL += dt;
 
 	static float currentTimeE = 0.0f;
-	currentTimeE += dt.asSeconds();
+	currentTimeE += dt;
+
+	// std::cout << "Update map: " << currentTime << " " << frameDuration << " " << dt << std::endl;
 
 	if (currentTime >= frameDuration)
 	{

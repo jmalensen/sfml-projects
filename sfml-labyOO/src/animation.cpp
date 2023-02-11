@@ -83,24 +83,38 @@ void Animation::setParamsMovements(ParamsMovement nParamMovements)
 	this->paramsMovement = nParamMovements;
 }
 
-void Animation::update(sf::Time dt)
+void Animation::update(const float &dt)
 {
 
-	// Entity speed (pixels/s)
-	static const float speed = 40.f;
+	// Add the elapsed time since the last update to the animation time
+	this->animationTime += dt;
 
-	// Delay between 2 moves
-	static const sf::Time moveDelay = sf::seconds(5.f / speed);
+	// Calculate the number of frames that have passed since the last update
+	int numFrames = static_cast<int>(this->animationTime / this->frameDuration);
 
-	// Last time player moved
-	static sf::Time lastMove = sf::Time::Zero;
-	lastMove += dt;
+	// Update the current frame based on the number of frames that have passed
+	this->currentFrame = (this->currentFrame + numFrames) % this->totalFrames;
 
-	if (lastMove >= moveDelay)
-	{
-		this->animationIterator -= this->animationSpeed;
-		this->currentFrame = (this->currentFrame + 1) % this->totalFrames;
+	// std::cout << "Animation::update: " << this->currentFrame << " " << numFrames << std::endl;
 
-		lastMove = sf::Time::Zero;
-	}
+	// Reset the animation time to the reminder after dividing by the frame duration
+	this->animationTime = fmodf(this->animationTime, this->frameDuration);
+
+	// // Entity speed (pixels/s)
+	// const float speed = 40.f;
+
+	// // Delay between 2 moves
+	// static float moveDelay = 0.1f; //(5.f / speed);
+
+	// // Last time player moved
+	// static float lastMove = 0.0f;
+	// lastMove += dt;
+
+	// if (lastMove >= moveDelay)
+	// {
+	// 	this->animationIterator -= this->animationSpeed;
+	// 	this->currentFrame = (this->currentFrame + 1) % this->totalFrames;
+
+	// 	lastMove = 0.0f;
+	// }
 }

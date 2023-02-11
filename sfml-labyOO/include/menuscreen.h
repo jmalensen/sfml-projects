@@ -18,7 +18,7 @@ public:
 	void handleEvents(sf::Event event);
 
 	// Update the menu screen
-	void update(sf::Time TimePerFrame);
+	void update(const float &dt);
 
 	// Draw
 	void draw(sf::RenderWindow *window);

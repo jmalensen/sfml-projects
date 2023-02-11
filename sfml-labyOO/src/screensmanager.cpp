@@ -59,24 +59,24 @@ void ScreensManager::handleEvents(sf::Event event)
 	}
 }
 
-void ScreensManager::update(sf::Time TimePerFrame)
+void ScreensManager::update(const float &dt)
 {
 	switch (this->currentScreen)
 	{
 	case ScreensManager::MENUSCREEN:
-		this->menuScreen->update(TimePerFrame);
+		this->menuScreen->update(dt);
 		break;
 
 	case ScreensManager::MAINSCREEN:
-		this->mainScreen->update(TimePerFrame);
+		this->mainScreen->update(dt);
 		break;
 
 	case ScreensManager::ENDSCREEN:
-		this->endScreen->update(TimePerFrame);
+		this->endScreen->update(dt);
 		break;
 
 	case ScreensManager::GAMEOVERSCREEN:
-		this->gameoverScreen->update(TimePerFrame);
+		this->gameoverScreen->update(dt);
 		break;
 	}
 }

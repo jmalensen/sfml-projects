@@ -40,22 +40,22 @@ void EndScreen::handleEvents(sf::Event event)
 }
 
 // Update the end screen
-void EndScreen::update(sf::Time dt)
+void EndScreen::update(const float &dt)
 {
 	// This part is needed otherwise sound might not be played
-	static const float speed = 40.f;
+	float speed = 40.f;
 
 	// Delay between 2 moves
-	static const sf::Time moveDelay = sf::seconds(5.f / speed);
+	float moveDelay = 5.f / speed;
 
 	// Last time player moved
-	static sf::Time lastMove = sf::Time::Zero;
+	float lastMove = 0.f;
 	lastMove += dt;
 
 	if (lastMove >= moveDelay && !this->playedWinSound)
 	{
 		this->winSound.play();
-		lastMove = sf::Time::Zero;
+		lastMove = 0.f;
 		this->playedWinSound = true;
 	}
 }

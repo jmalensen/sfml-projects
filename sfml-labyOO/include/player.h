@@ -29,7 +29,7 @@ public:
 	bool isDead() const;
 
 	// Update position
-	void update(sf::Time dt) override;
+	void update(const float &dt) override;
 
 	// Reset sound memory for each level
 	void resetSounds();

@@ -8,6 +8,8 @@ void Player::initVariables()
 
 	this->dead = false;
 
+	this->lastMove = 0.f;
+
 	/// Sounds
 	// Movement sound
 	this->assetsManager.loadSound("jump", "sounds/jump.ogg");
@@ -62,19 +64,15 @@ bool Player::isDead() const
 	return this->dead;
 }
 
-void Player::update(sf::Time dt)
+void Player::update(const float &dt)
 {
 
 	/// Needed to keep the same clock for the player (not moving too fast)
-	// Player speed (pixels/s)
-	static const float speed = 40.f;
-
 	// Delay between 2 moves
-	static const sf::Time moveDelay = sf::seconds(5.f / speed);
+	static float moveDelay = 0.2f; //(5.f / speed);
 
 	// Last time player moved
-	static sf::Time lastMove = sf::Time::Zero;
-	lastMove += dt;
+	this->lastMove += dt;
 
 	// getHitBox().intersects(enemy.getHitBox());
 	this->walkAnimation.update(dt);
@@ -86,13 +84,13 @@ void Player::update(sf::Time dt)
 		{
 			this->walkAnimation.setDirection(Animation::UP);
 
-			if (lastMove >= moveDelay)
+			if (this->lastMove >= moveDelay)
 			{
 				if (this->maze.operator()(this->positionY - 1, this->positionX) != '#')
 				{
 					// std::cout << "Going up" << std::endl;
 					this->positionY--;
-					lastMove = sf::Time::Zero;
+					this->lastMove = 0;
 				}
 				else
 				{
@@ -105,13 +103,13 @@ void Player::update(sf::Time dt)
 		{
 			this->walkAnimation.setDirection(Animation::DOWN);
 
-			if (lastMove >= moveDelay)
+			if (this->lastMove >= moveDelay)
 			{
 				if (this->maze.operator()(this->positionY + 1, this->positionX) != '#')
 				{
 					// std::cout << "Going down" << std::endl;
 					this->positionY++;
-					lastMove = sf::Time::Zero;
+					this->lastMove = 0;
 				}
 				else
 				{
@@ -124,13 +122,13 @@ void Player::update(sf::Time dt)
 		{
 			this->walkAnimation.setDirection(Animation::LEFT);
 
-			if (lastMove >= moveDelay)
+			if (this->lastMove >= moveDelay)
 			{
 				if (this->maze.operator()(this->positionY, this->positionX - 1) != '#')
 				{
 					// std::cout << "Going left" << std::endl;
 					this->positionX--;
-					lastMove = sf::Time::Zero;
+					this->lastMove = 0;
 				}
 				else
 				{
@@ -143,13 +141,15 @@ void Player::update(sf::Time dt)
 		{
 			this->walkAnimation.setDirection(Animation::RIGHT);
 
-			if (lastMove >= moveDelay)
+			// std::cout << "Right player: " << std::to_string(lastMove >= moveDelay) << " " << lastMove << " " << moveDelay << " " << dt << std::endl;
+
+			if (this->lastMove >= moveDelay)
 			{
 				if (this->maze.operator()(this->positionY, this->positionX + 1) != '#')
 				{
 					// std::cout << "Going right" << std::endl;
 					this->positionX++;
-					lastMove = sf::Time::Zero;
+					this->lastMove = 0;
 				}
 				else
 				{
