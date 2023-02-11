@@ -21,7 +21,7 @@ void GameoverScreen::initVariables()
 
 GameoverScreen::GameoverScreen(AssetsManager &assetsManager) : assetsManager(assetsManager)
 {
-	initVariables();
+	this->initVariables();
 }
 
 GameoverScreen::~GameoverScreen()

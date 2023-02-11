@@ -49,13 +49,13 @@ void SettingsState::initKeybinds()
 void SettingsState::initGui()
 {
 	this->buttons["BACK"] = new gui::Button(
-			1500.f, 880.f, 250.f, 50.f,
+			1000.f, 880.f, 250.f, 50.f,
 			&this->font, "Back", 50,
 			sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
 			sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
 	this->buttons["APPLY"] = new gui::Button(
-			1300.f, 880.f, 250.f, 50.f,
+			800.f, 880.f, 250.f, 50.f,
 			&this->font, "Apply", 50,
 			sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
 			sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
@@ -77,7 +77,7 @@ void SettingsState::initText()
 	this->optionsText.setFillColor(sf::Color(255, 255, 255, 200));
 
 	this->optionsText.setString(
-			"Resolution \n\nFullscreen \n\nVsync \n\nAntialiasing \n\n ");
+			"Resolution \n\nFullscreen ");
 }
 
 SettingsState::SettingsState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states)
@@ -169,7 +169,9 @@ void SettingsState::drawGui(sf::RenderTarget &target)
 void SettingsState::draw(sf::RenderTarget *target)
 {
 	if (!target)
+	{
 		target = this->window;
+	}
 
 	target->draw(this->background);
 

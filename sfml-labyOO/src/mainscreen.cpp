@@ -28,7 +28,7 @@ void MainScreen::initVariables()
 
 MainScreen::MainScreen(AssetsManager &assetsManager) : assetsManager(assetsManager), map(assetsManager), player(map, assetsManager)
 {
-	initVariables();
+	this->initVariables();
 }
 
 MainScreen::~MainScreen()

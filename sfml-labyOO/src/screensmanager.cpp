@@ -92,7 +92,7 @@ void ScreensManager::draw(sf::RenderWindow *window)
 	case ScreensManager::MAINSCREEN:
 		if (!this->mainScreen->active && this->mainScreen->getIsPlayerDead())
 		{
-			showGameoverScreen();
+			this->showGameoverScreen();
 			this->gameoverScreen->draw(window);
 		}
 		else if (this->mainScreen->active)
@@ -101,7 +101,7 @@ void ScreensManager::draw(sf::RenderWindow *window)
 		}
 		else
 		{
-			showEndScreen();
+			this->showEndScreen();
 			this->endScreen->draw(window);
 		}
 		break;

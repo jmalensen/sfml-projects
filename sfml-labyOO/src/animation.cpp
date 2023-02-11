@@ -6,7 +6,7 @@ void Animation::initVariables()
 
 Animation::Animation(short frameWidth, const std::string &textureLocation, short animationSpeed, short direction, short i_nbMovements, ParamsMovement params) : animationIterator(0), currentFrame(0), frameWidth(frameWidth), animationSpeed(std::max<short>(1, animationSpeed))
 {
-	initVariables();
+	this->initVariables();
 	this->texture.loadFromFile(textureLocation);
 	this->totalFrames = this->texture.getSize().x / this->frameWidth;
 	this->nbMovements = i_nbMovements;

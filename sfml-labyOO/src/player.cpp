@@ -42,7 +42,7 @@ void Player::initVariables()
 Player::Player(Map &maze, AssetsManager &assetsManager) : Entity(maze, assetsManager), walkAnimation(60, "images/perso.png", 4, Animation::RIGHT, 4)
 {
 	// Initialize the player
-	initVariables();
+	this->initVariables();
 }
 
 Player::~Player()
@@ -228,7 +228,7 @@ void Player::update(const float &dt)
 		this->maze.setLevel(this->maze.getLevel() + 1);
 
 		// Need to reset the sounds for the next level
-		resetSounds();
+		this->resetSounds();
 
 		// Name of the maze level
 		std::string name = "maze" + std::to_string(this->maze.getLevel());

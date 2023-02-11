@@ -161,10 +161,6 @@ void Map::initVariables()
 	this->assetsManager.loadTexture("pathtexture4trap", "images/pathtexture4t.jpg");
 	this->pathSprite4Trap.setTexture(this->assetsManager.getTexture("pathtexture4trap"));
 
-	// //Texture for the background
-	// this->assetsManager.loadTexture("background", "images/background.jpg");
-	// this->backgroundI.setTexture(this->assetsManager.getTexture("background"));
-
 	// Texture for the key
 	this->assetsManager.loadTexture("key", "images/key.png");
 	this->keySprite.setTexture(this->assetsManager.getTexture("key"));
@@ -218,7 +214,7 @@ void Map::initVariables()
 Map::Map(AssetsManager &assetsManager) : assetsManager(assetsManager), animKey(60, "images/key.png", 4, Animation::NODIRECTION, 1), animNextLevel(60, "images/nextlevel.png", 4, Animation::NODIRECTION, 1), animTrophy(60, "images/trophy.png", 4, Animation::NODIRECTION, 1)
 {
 	// Initialize the map
-	initVariables();
+	this->initVariables();
 }
 
 Map::~Map()

@@ -67,7 +67,9 @@ void GameState::update(const float &dt)
 void GameState::draw(sf::RenderTarget *target)
 {
 	if (!target)
+	{
 		target = this->window;
+	}
 
 	// Draw screens
 	this->screensManager.draw(this->window);

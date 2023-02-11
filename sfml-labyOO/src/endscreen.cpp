@@ -27,7 +27,7 @@ void EndScreen::initVariables()
 
 EndScreen::EndScreen(AssetsManager &assetsManager) : assetsManager(assetsManager)
 {
-	initVariables();
+	this->initVariables();
 }
 
 EndScreen::~EndScreen()

@@ -46,7 +46,9 @@ gui::Button::~Button()
 const bool gui::Button::isPressed() const
 {
 	if (this->buttonState == BTN_ACTIVE)
+	{
 		return true;
+	}
 
 	return false;
 }
@@ -185,7 +187,9 @@ const unsigned short &gui::DropDownList::getActiveElementId() const
 void gui::DropDownList::updateKeytime(const float &dt)
 {
 	if (this->keytime < this->keytimeMax)
+	{
 		this->keytime += 10.f * dt;
+	}
 }
 
 void gui::DropDownList::update(const sf::Vector2f &mousePos, const float &dt)
@@ -198,9 +202,13 @@ void gui::DropDownList::update(const sf::Vector2f &mousePos, const float &dt)
 	if (this->activeElement->isPressed() && this->getKeytime())
 	{
 		if (this->showList)
+		{
 			this->showList = false;
+		}
 		else
+		{
 			this->showList = true;
+		}
 	}
 
 	if (this->showList)

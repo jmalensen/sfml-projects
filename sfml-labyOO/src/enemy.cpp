@@ -18,10 +18,10 @@ void Enemy::initVariables()
 Enemy::Enemy(int id, Map &maze, AssetsManager &assetsManager, int posx, int posy, int direction, int min, int max, float speed) : Entity(maze, assetsManager), idEnemy(id), directionEnemy(direction), minVal(min), maxVal(max), moveAnimation(60, "images/enemy.png", 4, Animation::RIGHT, 4)
 {
 	// Initialize the enemy
-	initVariables();
-	setPositionX(posx);
-	setPositionY(posy);
-	setSpeed(speed);
+	this->initVariables();
+	this->setPositionX(posx);
+	this->setPositionY(posy);
+	this->setSpeed(speed);
 }
 
 Enemy::~Enemy()
@@ -100,7 +100,7 @@ void Enemy::update(const float &dt, Player &player)
 		// }
 
 		// Enemy hit player
-		if (getHitBox().left == player.getHitBox().left && getHitBox().top == player.getHitBox().top)
+		if (this->getHitBox().left == player.getHitBox().left && this->getHitBox().top == player.getHitBox().top)
 		{
 			std::cout << "You DIEEEDDD!!" << std::endl;
 			this->hurtSound.play();
