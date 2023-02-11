@@ -43,13 +43,11 @@ void EndScreen::handleEvents(sf::Event event)
 void EndScreen::update(const float &dt)
 {
 	// This part is needed otherwise sound might not be played
-	float speed = 40.f;
-
 	// Delay between 2 moves
-	float moveDelay = 5.f / speed;
+	static float moveDelay = 0.2f; // 5.f / speed;
 
 	// Last time player moved
-	float lastMove = 0.f;
+	static float lastMove = 0.f;
 	lastMove += dt;
 
 	if (lastMove >= moveDelay && !this->playedWinSound)

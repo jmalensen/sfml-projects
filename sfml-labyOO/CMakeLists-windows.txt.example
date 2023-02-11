@@ -11,7 +11,7 @@ project(${PROJECT_NAME} VERSION 0.1.0)
 #set(CMAKE_C_COMPILER "C:\\Devc++\\mingw64\\bin\\gcc.exe")
 
 ## If you want to link SFML statically
-set(SFML_STATIC_LIBRARIES TRUE)
+#set(SFML_STATIC_LIBRARIES TRUE)
 
 include(CTest)
 enable_testing()

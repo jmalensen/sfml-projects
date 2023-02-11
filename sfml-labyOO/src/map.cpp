@@ -33,7 +33,7 @@ void Map::initVariables()
 			"#  #### #  ####  #### ###",
 			"# #      # #    # #    ##",
 			"# # #### #### # #### #  #",
-			"# # #         #    # #  #",
+			"#e# #         #    # #  #",
 			"# # ###### #### # # #####",
 			"# # #t#    #    # # #k  #",
 			"#n  # # #### # ## # # # #",
@@ -161,39 +161,6 @@ void Map::initVariables()
 	this->assetsManager.loadTexture("pathtexture4trap", "images/pathtexture4t.jpg");
 	this->pathSprite4Trap.setTexture(this->assetsManager.getTexture("pathtexture4trap"));
 
-	// Texture for the key
-	this->assetsManager.loadTexture("key", "images/key.png");
-	this->keySprite.setTexture(this->assetsManager.getTexture("key"));
-
-	// Key animation
-	this->rectSourceSpriteKey.left = 0;
-	this->rectSourceSpriteKey.top = 0;
-	this->rectSourceSpriteKey.width = 60;
-	this->rectSourceSpriteKey.height = 60;
-	this->keySprite.setTextureRect(this->rectSourceSpriteKey);
-
-	// Texture for the nextLevel icon
-	this->assetsManager.loadTexture("nextlevel", "images/nextlevel.png");
-	this->nextLevelSprite.setTexture(this->assetsManager.getTexture("nextlevel"));
-
-	// NextLevel animation
-	this->rectSourceSpriteNextLevel.left = 0;
-	this->rectSourceSpriteNextLevel.top = 0;
-	this->rectSourceSpriteNextLevel.width = 60;
-	this->rectSourceSpriteNextLevel.height = 60;
-	this->nextLevelSprite.setTextureRect(this->rectSourceSpriteNextLevel);
-
-	// Texture for the trophy icon
-	this->assetsManager.loadTexture("trophy", "images/trophy.png");
-	this->trophySprite.setTexture(this->assetsManager.getTexture("trophy"));
-
-	// Trophy animation
-	this->rectSourceSpriteTrophy.left = 0;
-	this->rectSourceSpriteTrophy.top = 0;
-	this->rectSourceSpriteTrophy.width = 60;
-	this->rectSourceSpriteTrophy.height = 60;
-	this->trophySprite.setTextureRect(this->rectSourceSpriteTrophy);
-
 	// Text to display the level number
 	this->assetsManager.loadFont("arial", "fonts/arial.ttf");
 	this->text.setFont(this->assetsManager.getFont("arial"));
@@ -262,80 +229,9 @@ void Map::setLevel(int newLevel)
 void Map::update(const float &dt)
 {
 
-	// animKey.update(dt);
-	// animNextLevel.update(dt);
-	// animTrophy.update(dt);
-
-	/// Small animation of key
-	// Duration of the frame
-	static float frameDuration = 0.2f;
-	static float frameDurationNL = 0.1f;
-
-	// Current time needed for the delta time
-	static float currentTime = 0.0f;
-	currentTime += dt;
-
-	static float currentTimeNL = 0.0f;
-	currentTimeNL += dt;
-
-	static float currentTimeE = 0.0f;
-	currentTimeE += dt;
-
-	// std::cout << "Update map: " << currentTime << " " << frameDuration << " " << dt << std::endl;
-
-	if (currentTime >= frameDuration)
-	{
-		// Set rectangle left position
-		if (this->rectSourceSpriteKey.left == 120)
-		{
-			this->rectSourceSpriteKey.left = 0;
-		}
-		else
-		{
-			this->rectSourceSpriteKey.left += 60;
-		}
-
-		currentTime = 0;
-
-		// Set the rectangle so we see the movement
-		this->keySprite.setTextureRect(this->rectSourceSpriteKey);
-	}
-
-	if (currentTimeNL >= frameDurationNL)
-	{
-		// Set rectangle left position
-		if (this->rectSourceSpriteNextLevel.left == 240)
-		{
-			this->rectSourceSpriteNextLevel.left = 0;
-		}
-		else
-		{
-			this->rectSourceSpriteNextLevel.left += 60;
-		}
-
-		currentTimeNL = 0;
-
-		// Set the rectangle so we see the movement
-		this->nextLevelSprite.setTextureRect(this->rectSourceSpriteNextLevel);
-	}
-
-	if (currentTimeE >= frameDurationNL)
-	{
-		// Set rectangle left position
-		if (this->rectSourceSpriteTrophy.left == 300)
-		{
-			this->rectSourceSpriteTrophy.left = 0;
-		}
-		else
-		{
-			this->rectSourceSpriteTrophy.left += 60;
-		}
-
-		currentTimeE = 0;
-
-		// Set the rectangle so we see the movement
-		this->trophySprite.setTextureRect(this->rectSourceSpriteTrophy);
-	}
+	animKey.update(dt);
+	animNextLevel.update(dt);
+	animTrophy.update(dt);
 }
 
 void Map::draw(sf::RenderWindow *window)
@@ -424,26 +320,20 @@ void Map::draw(sf::RenderWindow *window)
 
 			if (this->maze[row][col] == 'k')
 			{
-				this->keySprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-				window->draw(this->keySprite);
-				// animKey.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-				// animKey.draw(window);
+				animKey.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				animKey.draw(window);
 			}
 
 			if (this->maze[row][col] == 'n')
 			{
-				this->nextLevelSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-				window->draw(this->nextLevelSprite);
-				// animNextLevel.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-				// animNextLevel.draw(window);
+				animNextLevel.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				animNextLevel.draw(window);
 			}
 
 			if (this->maze[row][col] == 'e')
 			{
-				this->trophySprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-				window->draw(this->trophySprite);
-				// animTrophy.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-				// animTrophy.draw(window);
+				animTrophy.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				animTrophy.draw(window);
 			}
 		}
 	}
