@@ -15,7 +15,7 @@ void Enemy::initVariables()
 	this->moveAnimation.setParamsMovements(this->paramsMovement);
 }
 
-Enemy::Enemy(int id, Map &maze, AssetsManager &assetsManager, int posx, int posy, int direction, int min, int max, float speed) : Entity(maze, assetsManager), idEnemy(id), directionEnemy(direction), minVal(min), maxVal(max), moveAnimation(60, "images/enemy.png", 4, Animation::RIGHT, 4)
+Enemy::Enemy(int id, Map &maze, AssetsManager &assetsManager, int posx, int posy, int direction, int min, int max, float speed) : Entity(maze, assetsManager), idEnemy(id), directionEnemy(direction), minVal(min), maxVal(max), moveAnimation(60, "images/enemy.png", Animation::RIGHT, 4)
 {
 	// Initialize the enemy
 	this->initVariables();

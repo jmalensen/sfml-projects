@@ -39,7 +39,7 @@ void Player::initVariables()
 	this->walkAnimation.setParamsMovements(this->paramsMovement);
 }
 
-Player::Player(Map &maze, AssetsManager &assetsManager) : Entity(maze, assetsManager), walkAnimation(60, "images/perso.png", 4, Animation::RIGHT, 4)
+Player::Player(Map &maze, AssetsManager &assetsManager) : Entity(maze, assetsManager), walkAnimation(60, "images/perso.png", Animation::RIGHT, 4)
 {
 	// Initialize the player
 	this->initVariables();

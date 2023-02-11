@@ -14,14 +14,13 @@ public:
 	static constexpr short NODIRECTION = 0;
 
 	// Constructor and destructor
-	Animation(short frameWidth, const std::string &textureLocation, short animationSpeed = 1, short direction = NODIRECTION, short i_nbMovements = 1, ParamsMovement params = {0, 0, 0, 0});
+	Animation(short frameWidth, const std::string &textureLocation, short direction = NODIRECTION, short i_nbMovements = 1, ParamsMovement params = {0, 0, 0, 0});
 	~Animation();
 
 	void update(const float &dt);
 	void draw(sf::RenderWindow *window);
 
 	void setDirection(short ndirection);
-	void setAnimationSpeed(short nanimationSpeed);
 	void setPosition(short x, short y);
 	void setTextureLocation(const std::string &textureLocation);
 
@@ -33,11 +32,8 @@ private:
 
 	// Increment the currentFrame as soon as this iterator reaches the animationSpeed
 	short animationIterator;
-	short animationSpeed;
-	// short currentFrame;
 	short frameWidth;
 	short totalFrames;
-
 	short nbMovements;
 
 	sf::Sprite sprite;
@@ -48,7 +44,7 @@ private:
 
 	float animationTime{0.f};
 	float frameDuration{0.125f};
-	int currentFrame{0};
+	int currentFrame;
 
 	void initVariables();
 };

@@ -4,7 +4,7 @@ void Animation::initVariables()
 {
 }
 
-Animation::Animation(short frameWidth, const std::string &textureLocation, short animationSpeed, short direction, short i_nbMovements, ParamsMovement params) : animationIterator(0), currentFrame(0), frameWidth(frameWidth), animationSpeed(std::max<short>(1, animationSpeed))
+Animation::Animation(short frameWidth, const std::string &textureLocation, short direction, short i_nbMovements, ParamsMovement params) : animationIterator(0), currentFrame(0), frameWidth(frameWidth)
 {
 	this->initVariables();
 	this->texture.loadFromFile(textureLocation);
@@ -58,11 +58,6 @@ void Animation::setDirection(short ndirection)
 	this->direction = ndirection;
 }
 
-void Animation::setAnimationSpeed(short nanimationSpeed)
-{
-	this->animationSpeed = std::max<unsigned short>(1, nanimationSpeed);
-}
-
 void Animation::setPosition(short x, short y)
 {
 	this->sprite.setPosition(x, y);
@@ -99,22 +94,4 @@ void Animation::update(const float &dt)
 
 	// Reset the animation time to the reminder after dividing by the frame duration
 	this->animationTime = fmodf(this->animationTime, this->frameDuration);
-
-	// // Entity speed (pixels/s)
-	// const float speed = 40.f;
-
-	// // Delay between 2 moves
-	// static float moveDelay = 0.1f; //(5.f / speed);
-
-	// // Last time player moved
-	// static float lastMove = 0.0f;
-	// lastMove += dt;
-
-	// if (lastMove >= moveDelay)
-	// {
-	// 	this->animationIterator -= this->animationSpeed;
-	// 	this->currentFrame = (this->currentFrame + 1) % this->totalFrames;
-
-	// 	lastMove = 0.0f;
-	// }
 }

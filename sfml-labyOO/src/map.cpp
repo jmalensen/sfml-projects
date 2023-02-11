@@ -178,7 +178,7 @@ void Map::initVariables()
 	this->text.setFillColor(sf::Color::White);
 }
 
-Map::Map(AssetsManager &assetsManager) : assetsManager(assetsManager), animKey(60, "images/key.png", 4, Animation::NODIRECTION, 1), animNextLevel(60, "images/nextlevel.png", 4, Animation::NODIRECTION, 1), animTrophy(60, "images/trophy.png", 4, Animation::NODIRECTION, 1)
+Map::Map(AssetsManager &assetsManager) : assetsManager(assetsManager), animKey(60, "images/key.png", Animation::NODIRECTION, 1), animNextLevel(60, "images/nextlevel.png", Animation::NODIRECTION, 1), animTrophy(60, "images/trophy.png", Animation::NODIRECTION, 1)
 {
 	// Initialize the map
 	this->initVariables();
