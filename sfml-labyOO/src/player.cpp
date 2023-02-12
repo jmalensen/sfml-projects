@@ -175,8 +175,8 @@ void Player::update(const float &dt)
 		}
 		else if (this->maze.getLevel() == 4)
 		{
-			this->maze.operator()(19, 20) = '#';
-			this->maze.operator()(10, 10) = 'k';
+			this->maze.operator()(13, 3) = '#';
+			this->maze.operator()(14, 12) = 'k';
 		}
 		this->maze.operator()(this->positionY, this->positionX) = ' ';
 		this->unlockEnabled = false;
@@ -192,7 +192,7 @@ void Player::update(const float &dt)
 		// Open the path
 		if (this->maze.getLevel() == 1)
 		{
-			this->maze.operator()(16, 3) = ' ';
+			this->maze.operator()(13, 4) = ' ';
 		}
 		else if (this->maze.getLevel() == 2)
 		{
@@ -205,7 +205,7 @@ void Player::update(const float &dt)
 		}
 		else if (this->maze.getLevel() == 4)
 		{
-			this->maze.operator()(19, 20) = ' ';
+			this->maze.operator()(13, 3) = ' ';
 		}
 		else if (this->maze.getLevel() == 5)
 		{

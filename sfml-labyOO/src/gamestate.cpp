@@ -35,9 +35,13 @@ void GameState::updateInput(const float &dt)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeytime())
 	{
 		if (!this->paused)
+		{
 			this->pauseState();
+		}
 		else
+		{
 			this->unpauseState();
+		}
 	}
 }
 
@@ -47,18 +51,18 @@ void GameState::update(const float &dt)
 	this->screensManager.update(dt);
 
 	// Handle enter key press
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && this->screensManager.getCurrentScreen() != ScreensManager::MAINSCREEN)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("ENTER"))) && this->screensManager.getCurrentScreen() != ScreensManager::MAINSCREEN)
 	{
 		this->screensManager.showMainScreen();
 	}
 
-	else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->screensManager.getCurrentScreen() == ScreensManager::ENDSCREEN) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->screensManager.getCurrentScreen() == ScreensManager::GAMEOVERSCREEN))
+	else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->screensManager.getCurrentScreen() == ScreensManager::ENDSCREEN) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->screensManager.getCurrentScreen() == ScreensManager::GAMEOVERSCREEN))
 	{
 		this->window->close();
 	}
 
 	// Display the menu
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->screensManager.getCurrentScreen() != ScreensManager::MENUSCREEN)
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->screensManager.getCurrentScreen() != ScreensManager::MENUSCREEN)
 	{
 		this->screensManager.showMenuScreen();
 	}

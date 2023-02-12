@@ -15,8 +15,8 @@ public:
 	Map(AssetsManager &assetsManager);
 	~Map();
 
-	static constexpr int ROWS = 21;
-	static constexpr int COLS = 26;
+	static constexpr int ROWS = 16; // 21;
+	static constexpr int COLS = 32; // 26;
 	static constexpr int BLOCK_SIZE = 60;
 
 	// Getters

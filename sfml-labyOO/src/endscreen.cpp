@@ -5,6 +5,8 @@ void EndScreen::initVariables()
 {
 	this->playedWinSound = false;
 
+	this->lastMove = 0.f;
+
 	// Texture for the background
 	this->assetsManager.loadTexture("screen", "images/screen.jpg");
 	this->screen.setTexture(this->assetsManager.getTexture("screen"));
@@ -47,13 +49,12 @@ void EndScreen::update(const float &dt)
 	static float moveDelay = 0.2f; // 5.f / speed;
 
 	// Last time player moved
-	static float lastMove = 0.f;
-	lastMove += dt;
+	this->lastMove += dt;
 
-	if (lastMove >= moveDelay && !this->playedWinSound)
+	if (this->lastMove >= moveDelay && !this->playedWinSound)
 	{
 		this->winSound.play();
-		lastMove = 0.f;
+		this->lastMove = 0.f;
 		this->playedWinSound = true;
 	}
 }

@@ -37,6 +37,7 @@ private:
 	sf::Text titleScreen;
 
 	// Victory sound
+	float lastMove;
 	sf::Sound winSound;
 	bool playedWinSound;
 

@@ -41,7 +41,7 @@ void Game::initWindow()
 				sf::Style::Titlebar | sf::Style::Close,
 				this->gfxSettings.contextSettings);
 	}
-
+	this->window->setPosition(sf::Vector2i(0, 0));
 	this->window->setFramerateLimit(this->gfxSettings.frameRateLimit);
 	// this->window->setVerticalSyncEnabled(this->gfxSettings.verticalSync);
 }
@@ -166,7 +166,7 @@ void Game::update()
 	else
 	{
 		this->endApplication();
-		// this->window->close();
+		this->window->close();
 	}
 }
 
