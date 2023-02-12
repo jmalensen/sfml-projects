@@ -178,6 +178,11 @@ void Player::update(const float &dt)
 			this->maze.operator()(13, 3) = '#';
 			this->maze.operator()(14, 12) = 'k';
 		}
+		else if (this->maze.getLevel() == 5)
+		{
+			this->maze.operator()(14, 29) = ' '; // remove trophy
+			this->maze.operator()(14, 8) = 'e';
+		}
 		this->maze.operator()(this->positionY, this->positionX) = ' ';
 		this->unlockEnabled = false;
 		this->trapEnabled = true;
@@ -209,8 +214,8 @@ void Player::update(const float &dt)
 		}
 		else if (this->maze.getLevel() == 5)
 		{
-			this->maze.operator()(19, 2) = ' '; // access trophy
-			this->maze.operator()(19, 20) = ' ';
+			this->maze.operator()(14, 27) = ' ';
+			this->maze.operator()(14, 28) = ' ';
 		}
 		this->unlockSound.play();
 
@@ -263,8 +268,9 @@ void Player::resetSounds()
 
 void Player::draw(sf::RenderWindow *window)
 {
+	float blockSize = gui::scale(this->maze.getBlockSize(), window);
 
 	// Draw the player
-	this->walkAnimation.setPosition(this->positionX * this->maze.getBlockSize() + 1, this->positionY * this->maze.getBlockSize() + 1);
+	this->walkAnimation.setPosition(this->positionX * blockSize + 1, this->positionY * blockSize + 1);
 	this->walkAnimation.draw(window);
 }

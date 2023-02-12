@@ -5,13 +5,9 @@
 #include "graphicssettings.h"
 #include "state.h"
 #include "mainmenustate.h"
-// #include "assetsmanager.h"
-// #include "screensmanager.h"
 
 class GraphicsSettings;
 class MainMenuState;
-// class AssetsManager;
-// class ScreensManager;
 
 class Game
 {
@@ -37,7 +33,7 @@ public:
 private:
 	// Variables
 	GraphicsSettings gfxSettings;
-	// AssetsManager assetsManager;
+	StateData stateData;
 	sf::Music music;
 
 	sf::Clock dtClock;
@@ -52,14 +48,12 @@ private:
 	sf::VideoMode vm;
 	sf::Event sfEvent;
 
-	// The screenmanager
-	// ScreensManager screensManager = ScreensManager(assetsManager);
-
 	// Methods
 	void initVariables();
 	void initGraphicsSettings();
 	void initWindow();
 	void initKeys();
+	void initStateData();
 	void initStates();
 };
 

@@ -70,10 +70,17 @@ void Game::initKeys()
 	}
 }
 
+void Game::initStateData()
+{
+	this->stateData.window = this->window;
+	this->stateData.gfxSettings = &this->gfxSettings;
+	this->stateData.supportedKeys = &this->supportedKeys;
+	this->stateData.states = &this->states;
+}
+
 void Game::initStates()
 {
-	// this->states.push();
-	this->states.push(new MainMenuState(this->window, &this->supportedKeys, &this->states));
+	this->states.push(new MainMenuState(&this->stateData));
 }
 
 Game::Game()
@@ -82,10 +89,10 @@ Game::Game()
 	this->initGraphicsSettings();
 	this->initWindow();
 	this->initKeys();
+	this->initStateData();
 	this->initStates();
 
-	// this->screensManager.showStartScreen();
-	this->music.play();
+	// this->music.play();
 
 	// Create the window
 	//  this->window = new sf::RenderWindow(

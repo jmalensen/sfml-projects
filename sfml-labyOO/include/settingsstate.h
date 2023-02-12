@@ -3,12 +3,13 @@
 
 #include "stdHeader.h"
 #include "state.h"
+#include "mainmenustate.h"
 #include "gui.h"
 
 class SettingsState : public State
 {
 public:
-	SettingsState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states);
+	SettingsState(StateData *stateData);
 	virtual ~SettingsState();
 
 	// Accessors
@@ -35,11 +36,10 @@ private:
 
 	// Functions
 	void initVariables();
-	void initBackground();
 	void initFonts();
 	void initKeybinds();
 	void initGui();
-	void initText();
+	void resetGui();
 };
 
 #endif

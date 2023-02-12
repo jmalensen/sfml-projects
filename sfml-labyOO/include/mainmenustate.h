@@ -9,7 +9,7 @@
 class MainMenuState : public State
 {
 public:
-	MainMenuState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states);
+	MainMenuState(StateData *stateData);
 	virtual ~MainMenuState();
 
 	// Functions
@@ -28,10 +28,10 @@ private:
 	std::map<std::string, gui::Button *> buttons;
 
 	// Functions
-	void initBackground();
+	void initGui();
+	void resetGui();
 	void initFonts();
 	void initKeybinds();
-	void initButtons();
 };
 
 #endif

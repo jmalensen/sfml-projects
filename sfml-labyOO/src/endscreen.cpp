@@ -63,6 +63,9 @@ void EndScreen::update(const float &dt)
 void EndScreen::draw(sf::RenderWindow *window)
 {
 
+	float factor = gui::getFactor(60, window);
+	this->screen.setScale(factor, factor);
+
 	// Draw the player
 	window->draw(this->screen);
 

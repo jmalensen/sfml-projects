@@ -42,6 +42,9 @@ void GameoverScreen::update(const float &dt)
 void GameoverScreen::draw(sf::RenderWindow *window)
 {
 
+	float factor = gui::getFactor(60, window);
+	this->screen.setScale(factor, factor);
+
 	// Draw the screen
 	window->draw(this->screen);
 

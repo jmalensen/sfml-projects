@@ -12,6 +12,13 @@ enum button_states
 
 namespace gui
 {
+	const float p2pX(const float perc, const sf::VideoMode &vm);
+	const float p2pY(const float perc, const sf::VideoMode &vm);
+	const unsigned calcCharSize(const sf::VideoMode &vm, const unsigned modifier = 60);
+
+	const float scale(const float initialSize, sf::RenderWindow *window);
+	const float getFactor(const float initialSize, sf::RenderWindow *window);
+
 	class Button
 	{
 	public:
@@ -33,7 +40,7 @@ namespace gui
 		void setId(const short unsigned id);
 
 		// Functions
-		void update(const sf::Vector2f &mousePos);
+		void update(const sf::Vector2i &mousePosWindow);
 		void draw(sf::RenderTarget &target);
 
 	private:
@@ -71,7 +78,7 @@ namespace gui
 		// Functions
 		const bool getKeytime();
 		void updateKeytime(const float &dt);
-		void update(const sf::Vector2f &mousePos, const float &dt);
+		void update(const sf::Vector2i &mousePosWindow, const float &dt);
 		void draw(sf::RenderTarget &target);
 
 	private:

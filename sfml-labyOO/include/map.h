@@ -4,6 +4,7 @@
 #include "stdHeader.h"
 #include "assetsmanager.h"
 #include "animation.h"
+#include "gui.h"
 
 class AssetsManager;
 class Animation;

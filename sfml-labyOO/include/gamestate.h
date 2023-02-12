@@ -12,7 +12,7 @@ class ScreensManager;
 class GameState : public State
 {
 public:
-	GameState(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states);
+	GameState(StateData *stateData);
 	virtual ~GameState();
 
 	// Functions

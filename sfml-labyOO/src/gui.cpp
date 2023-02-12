@@ -1,5 +1,61 @@
 #include "../include/gui.h"
 
+const float gui::p2pX(const float perc, const sf::VideoMode &vm)
+{
+	/*
+	 * Converts a percentage value to pixels relative to the current resolution in the x-axis.
+	 *
+	 * @param		float perc				The percentage value.
+	 * @param		sf::VideoMode& vm		The current videomode of the window (resolution).
+	 *
+	 * @return		float					The calculated pixel value.
+	 */
+
+	return std::floor(static_cast<float>(vm.width) * (perc / 100.f));
+}
+
+const float gui::p2pY(const float perc, const sf::VideoMode &vm)
+{
+	/*
+	 * Converts a percentage value to pixels relative to the current resolution in the y-axis.
+	 *
+	 * @param		float perc				The percentage value.
+	 * @param		sf::VideoMode& vm		The current videomode of the window (resolution).
+	 *
+	 * @return		float					The calculated pixel value.
+	 */
+
+	return std::floor(static_cast<float>(vm.height) * (perc / 100.f));
+}
+
+const unsigned gui::calcCharSize(const sf::VideoMode &vm, const unsigned modifier)
+{
+	/*
+	 * Calculates the character size for text using the current resolution and a constant.
+	 *
+	 * @param		sf::VideoMode& vm		The current videomode of the window (resolution).
+	 * @param		unsigned modifier		Used to modify the character size in a more custom way.
+	 *
+	 * @return		unsigned				The calculated character size value.
+	 */
+
+	return static_cast<unsigned>((vm.width + vm.height) / modifier);
+}
+
+const float gui::scale(const float initialSize, sf::RenderWindow *window)
+{
+	// 60 / 1860 init width
+	float factor = initialSize / 1860;
+
+	return static_cast<float>(factor * window->getSize().x);
+}
+
+const float gui::getFactor(const float initialSize, sf::RenderWindow *window)
+{
+	// 60 / 1860 init width
+	return static_cast<float>(((initialSize / 1860) * window->getSize().x) / initialSize);
+}
+
 gui::Button::Button(float x, float y, float width, float height,
 										sf::Font *font, std::string text, unsigned character_size,
 										sf::Color text_idle_color, sf::Color text_hover_color, sf::Color text_active_color,
@@ -21,9 +77,10 @@ gui::Button::Button(float x, float y, float width, float height,
 	this->text.setString(text);
 	this->text.setFillColor(text_idle_color);
 	this->text.setCharacterSize(character_size);
+	std::cout << this->text.getGlobalBounds().width << "\n";
 	this->text.setPosition(
-			this->shape.getPosition().x + (this->shape.getGlobalBounds().width / 2.f) - this->text.getGlobalBounds().width / 2.f,
-			this->shape.getPosition().y + (this->shape.getGlobalBounds().height / 2.f) - this->text.getGlobalBounds().height / 2.f);
+			this->shape.getPosition().x,
+			this->shape.getPosition().y);
 
 	this->textIdleColor = text_idle_color;
 	this->textHoverColor = text_hover_color;
@@ -75,7 +132,7 @@ void gui::Button::setId(const short unsigned id)
 }
 
 // Functions
-void gui::Button::update(const sf::Vector2f &mousePos)
+void gui::Button::update(const sf::Vector2i &mousePosWindow)
 {
 	/*Update the booleans for hover and pressed*/
 
@@ -83,7 +140,7 @@ void gui::Button::update(const sf::Vector2f &mousePos)
 	this->buttonState = BTN_IDLE;
 
 	// Hover
-	if (this->shape.getGlobalBounds().contains(mousePos))
+	if (this->shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosWindow)))
 	{
 		this->buttonState = BTN_HOVER;
 
@@ -192,11 +249,11 @@ void gui::DropDownList::updateKeytime(const float &dt)
 	}
 }
 
-void gui::DropDownList::update(const sf::Vector2f &mousePos, const float &dt)
+void gui::DropDownList::update(const sf::Vector2i &mousePosWindow, const float &dt)
 {
 	this->updateKeytime(dt);
 
-	this->activeElement->update(mousePos);
+	this->activeElement->update(mousePosWindow);
 
 	// Show and hide the list
 	if (this->activeElement->isPressed() && this->getKeytime())
@@ -215,7 +272,7 @@ void gui::DropDownList::update(const sf::Vector2f &mousePos, const float &dt)
 	{
 		for (auto &i : this->list)
 		{
-			i->update(mousePos);
+			i->update(mousePosWindow);
 
 			if (i->isPressed() && this->getKeytime())
 			{

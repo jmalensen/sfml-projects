@@ -4,6 +4,7 @@
 #include "stdHeader.h"
 #include "screen.h"
 #include "assetsmanager.h"
+#include "gui.h"
 
 class AssetsManager;
 

@@ -115,7 +115,9 @@ void Enemy::update(const float &dt, Player &player)
 void Enemy::draw(sf::RenderWindow *window)
 {
 
+	float blockSize = gui::scale(this->maze.getBlockSize(), window);
+
 	// Draw the enemy
-	this->moveAnimation.setPosition(this->positionX * this->maze.getBlockSize() + 1, this->positionY * this->maze.getBlockSize() + 1);
+	this->moveAnimation.setPosition(this->positionX * blockSize + 1, this->positionY * blockSize + 1);
 	this->moveAnimation.draw(window);
 }

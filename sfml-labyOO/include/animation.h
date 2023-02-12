@@ -3,6 +3,7 @@
 
 #include "stdHeader.h"
 #include "customStructures.h"
+#include "gui.h"
 
 class Animation
 {
@@ -45,6 +46,8 @@ private:
 	float animationTime{0.f};
 	float frameDuration{0.125f};
 	int currentFrame;
+
+	sf::RectangleShape rectangleSize;
 
 	void initVariables();
 };

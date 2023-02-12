@@ -2,14 +2,27 @@
 #define STATE_H
 
 #include "stdHeader.h"
+#include "graphicssettings.h"
 
 class State;
 class GraphicsSettings;
 
+class StateData
+{
+public:
+	StateData(){};
+
+	// Variables
+	sf::RenderWindow *window;
+	GraphicsSettings *gfxSettings;
+	std::map<std::string, int> *supportedKeys;
+	std::stack<State *> *states;
+};
+
 class State
 {
 public:
-	State(sf::RenderWindow *window, std::map<std::string, int> *supportedKeys, std::stack<State *> *states);
+	State(StateData *stateData);
 	virtual ~State();
 
 	// Accessors
@@ -21,11 +34,12 @@ public:
 	void endState();
 	void pauseState();
 	void unpauseState();
-	virtual void updateMousePositions();
+	virtual void updateMousePositions(sf::View *view = NULL);
 	virtual void update(const float &dt) = 0;
 	virtual void draw(sf::RenderTarget *target = NULL) = 0;
 
 protected:
+	StateData *stateData;
 	std::stack<State *> *states;
 	sf::RenderWindow *window;
 	std::map<std::string, int> *supportedKeys;

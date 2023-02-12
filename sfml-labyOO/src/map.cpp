@@ -93,7 +93,7 @@ void Map::initVariables()
 			"##      ######     ## #########",
 			"## ######   ## ### #    #    ##",
 			"#  #      # #  #   # ## # ## ##",
-			"# #  ###### # ## ### ## #    ##",
+			"# #  ###### # ## ### ## # t  ##",
 			"#   ####    # #      ##   # ###",
 			"######## #### ##  ##### #####e#",
 			"###############################",
@@ -215,43 +215,52 @@ void Map::draw(sf::RenderWindow *window)
 	// Draw the map
 	window->draw(this->backgroundI);
 
+	float blockSize = gui::scale(BLOCK_SIZE, window);
+	float factor = gui::getFactor(60, window);
+
+	this->wallSprite.setScale(factor, factor);
+	this->wallSprite2.setScale(factor, factor);
+	this->wallSprite3.setScale(factor, factor);
+	this->wallSprite4.setScale(factor, factor);
+	this->wallSprite5.setScale(factor, factor);
+	this->pathSprite.setScale(factor, factor);
+	this->pathSprite2.setScale(factor, factor);
+	this->pathSprite3.setScale(factor, factor);
+	this->pathSprite2Trap.setScale(factor, factor);
+	this->pathSprite3Trap.setScale(factor, factor);
+	this->pathSprite4Trap.setScale(factor, factor);
+
 	// Draw maze
 	for (int row = 0; row < ROWS; row++)
 	{
 		for (int col = 0; col < COLS - 1; col++)
 		{
 
-			sf::RectangleShape block;
-			block.setSize({BLOCK_SIZE, BLOCK_SIZE});
-			block.setOutlineThickness(1);
-			block.setOutlineColor(sf::Color::Black);
-			block.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
-
 			if (this->maze[row][col] == '#')
 			{
 				if (this->levelNum == 1)
 				{
-					this->wallSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					this->wallSprite.setPosition(col * blockSize, row * blockSize);
 					window->draw(this->wallSprite);
 				}
 				else if (this->levelNum == 2)
 				{
-					this->wallSprite2.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					this->wallSprite2.setPosition(col * blockSize, row * blockSize);
 					window->draw(this->wallSprite2);
 				}
 				else if (this->levelNum == 3)
 				{
-					this->wallSprite3.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					this->wallSprite3.setPosition(col * blockSize, row * blockSize);
 					window->draw(this->wallSprite3);
 				}
 				else if (this->levelNum == 4)
 				{
-					this->wallSprite4.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					this->wallSprite4.setPosition(col * blockSize, row * blockSize);
 					window->draw(this->wallSprite4);
 				}
 				else if (this->levelNum == 5)
 				{
-					this->wallSprite5.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					this->wallSprite5.setPosition(col * blockSize, row * blockSize);
 					window->draw(this->wallSprite5);
 				}
 			}
@@ -259,17 +268,17 @@ void Map::draw(sf::RenderWindow *window)
 			{
 				if (this->levelNum == 1)
 				{
-					this->pathSprite.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					this->pathSprite.setPosition(col * blockSize, row * blockSize);
 					window->draw(this->pathSprite);
 				}
 				else if (this->levelNum == 2 || this->levelNum == 4)
 				{
-					this->pathSprite2.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					this->pathSprite2.setPosition(col * blockSize, row * blockSize);
 					window->draw(this->pathSprite2);
 				}
 				else if (this->levelNum == 3 || this->levelNum == 5)
 				{
-					this->pathSprite3.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					this->pathSprite3.setPosition(col * blockSize, row * blockSize);
 					window->draw(this->pathSprite3);
 				}
 			}
@@ -278,36 +287,36 @@ void Map::draw(sf::RenderWindow *window)
 			{
 				if (this->levelNum == 2)
 				{
-					this->pathSprite2Trap.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					this->pathSprite2Trap.setPosition(col * blockSize, row * blockSize);
 					window->draw(this->pathSprite2Trap);
 				}
 				else if (this->levelNum == 3)
 				{
-					this->pathSprite3Trap.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					this->pathSprite3Trap.setPosition(col * blockSize, row * blockSize);
 					window->draw(this->pathSprite3Trap);
 				}
 				else if (this->levelNum == 4)
 				{
-					this->pathSprite4Trap.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+					this->pathSprite4Trap.setPosition(col * blockSize, row * blockSize);
 					window->draw(this->pathSprite4Trap);
 				}
 			}
 
 			if (this->maze[row][col] == 'k')
 			{
-				animKey.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				animKey.setPosition(col * blockSize, row * blockSize);
 				animKey.draw(window);
 			}
 
 			if (this->maze[row][col] == 'n')
 			{
-				animNextLevel.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				animNextLevel.setPosition(col * blockSize, row * blockSize);
 				animNextLevel.draw(window);
 			}
 
 			if (this->maze[row][col] == 'e')
 			{
-				animTrophy.setPosition(col * BLOCK_SIZE, row * BLOCK_SIZE);
+				animTrophy.setPosition(col * blockSize, row * blockSize);
 				animTrophy.draw(window);
 			}
 		}

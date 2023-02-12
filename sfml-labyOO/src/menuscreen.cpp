@@ -40,6 +40,8 @@ void MenuScreen::update(const float &dt)
 // Draw
 void MenuScreen::draw(sf::RenderWindow *window)
 {
+	float factor = gui::getFactor(60, window);
+	this->screen.setScale(factor, factor);
 
 	// Draw the screen
 	window->draw(this->screen);

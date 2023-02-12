@@ -43,13 +43,26 @@ void Animation::draw(sf::RenderWindow *window)
 		top = this->paramsMovement.topSpriteMoveUp;
 	}
 
-	// std::cout << "Change direction:" << direction << " " << top << std::endl;
-
 	// Params for top sprite depending on direction for the player
 	//- Number of possible moves (or line on the sprite)
 
 	this->sprite.setTextureRect(sf::IntRect(this->currentFrame * this->frameWidth, top, this->frameWidth, this->texture.getSize().y / this->nbMovements));
 
+	float factor = gui::getFactor(60, window);
+	this->sprite.setScale(factor, factor);
+
+	// std::cout << "Scale factor:" << gui::getFactor(60, window) << std::endl;
+
+	// sf::RectangleShape recTest;
+	// recTest.setFillColor(sf::Color::Black);
+	// recTest.setSize(sf::Vector2f(
+	// 		factor,
+	// 		factor));
+
+	// recTest.setPosition(sf::Vector2f(
+	// 		this->sprite.getPosition()));
+
+	// window->draw(recTest);
 	window->draw(this->sprite);
 }
 
