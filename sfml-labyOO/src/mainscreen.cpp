@@ -5,25 +5,25 @@ void MainScreen::initVariables()
 {
 	this->isPlayerDead = false;
 
-	this->enemies.push_back(std::make_shared<Enemy>(1, this->map, this->assetsManager, 5, 4, Enemy::HORIZONTAL, 5, 14, 30.f));
-	this->enemies.push_back(std::make_shared<Enemy>(2, this->map, this->assetsManager, 8, 9, Enemy::VERTICAL, 8, 13, 30.f));
+	this->enemies.push_back(std::make_shared<Enemy>(1, this->map, this->assetsManager, 5, 4, Enemy::HORIZONTAL, 5, 16, 30.f));
+	this->enemies.push_back(std::make_shared<Enemy>(2, this->map, this->assetsManager, 8, 7, Enemy::HORIZONTAL, 8, 22, 30.f));
 
-	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 5, 6, Enemy::VERTICAL, 5, 13, 40.f));
-	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 8, 16, Enemy::HORIZONTAL, 8, 18, 40.f));
-	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 9, 10, Enemy::VERTICAL, 9, 19, 40.f));
+	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 6, 15, 40.f));
+	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 8, 13, Enemy::HORIZONTAL, 8, 21, 40.f));
+	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, 28, 40.f));
 	this->enemies.push_back(std::make_shared<Enemy>(6, this->map, this->assetsManager, 16, 10, Enemy::HORIZONTAL, 16, 24, 40.f));
 
-	this->enemies.push_back(std::make_shared<Enemy>(7, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 5, 13, 50.f));
-	this->enemies.push_back(std::make_shared<Enemy>(8, this->map, this->assetsManager, 8, 16, Enemy::VERTICAL, 8, 18, 50.f));
+	this->enemies.push_back(std::make_shared<Enemy>(7, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 5, 14, 50.f));
+	this->enemies.push_back(std::make_shared<Enemy>(8, this->map, this->assetsManager, 8, 12, Enemy::HORIZONTAL, 8, 25, 50.f));
 	this->enemies.push_back(std::make_shared<Enemy>(9, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, 19, 50.f));
-	this->enemies.push_back(std::make_shared<Enemy>(10, this->map, this->assetsManager, 16, 20, Enemy::VERTICAL, 16, 20, 50.f));
-	this->enemies.push_back(std::make_shared<Enemy>(11, this->map, this->assetsManager, 5, 10, Enemy::HORIZONTAL, 5, 20, 50.f));
+	this->enemies.push_back(std::make_shared<Enemy>(10, this->map, this->assetsManager, 20, 10, Enemy::HORIZONTAL, 20, 24, 50.f));
+	this->enemies.push_back(std::make_shared<Enemy>(11, this->map, this->assetsManager, 5, 12, Enemy::HORIZONTAL, 5, 30, 50.f));
 
 	this->enemies.push_back(std::make_shared<Enemy>(12, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 5, 13, 60.f));
-	this->enemies.push_back(std::make_shared<Enemy>(13, this->map, this->assetsManager, 8, 16, Enemy::VERTICAL, 8, 18, 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(13, this->map, this->assetsManager, 8, 5, Enemy::HORIZONTAL, 8, 23, 60.f));
 	this->enemies.push_back(std::make_shared<Enemy>(14, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, 19, 60.f));
-	this->enemies.push_back(std::make_shared<Enemy>(15, this->map, this->assetsManager, 16, 20, Enemy::VERTICAL, 16, 20, 60.f));
-	this->enemies.push_back(std::make_shared<Enemy>(16, this->map, this->assetsManager, 5, 10, Enemy::HORIZONTAL, 5, 20, 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(15, this->map, this->assetsManager, 16, 10, Enemy::HORIZONTAL, 16, 21, 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(16, this->map, this->assetsManager, 5, 13, Enemy::HORIZONTAL, 5, 27, 60.f));
 }
 
 MainScreen::MainScreen(AssetsManager &assetsManager) : assetsManager(assetsManager), map(assetsManager), player(map, assetsManager)

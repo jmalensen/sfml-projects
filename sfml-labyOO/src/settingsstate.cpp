@@ -13,6 +13,7 @@ void SettingsState::initVariables()
 
 void SettingsState::initGui()
 {
+	this->window->setPosition(sf::Vector2i(0, 0));
 	const sf::VideoMode &vm = this->stateData->gfxSettings->resolution;
 
 	this->background.setSize(
@@ -164,6 +165,7 @@ void SettingsState::updateGui(const float &dt)
 		// TEST REMOVE LATER
 		this->stateData->gfxSettings->resolution = this->modes[this->dropDownLists["RESOLUTION"]->getActiveElementId()];
 
+		// Memory leak here or not ?
 		this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Default);
 
 		this->resetGui();
@@ -174,8 +176,6 @@ void SettingsState::updateGui(const float &dt)
 	{
 		it.second->update(this->mousePosWindow, dt);
 	}
-
-	// Dropdown lists functionality
 }
 
 void SettingsState::update(const float &dt)

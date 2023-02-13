@@ -6,6 +6,9 @@ lib/*
 #Ignore executables
 bin
 
+#Ignore dependencies
+dependencies
+
 #Ignore settings for .vscode because it's dependant on OS
 .vscode/c_cpp_properties.json
 .vscode/launch.json
@@ -18,3 +21,5 @@ CMakeCache.txt
 
 #Ignore Mac specific files
 .DS_Store
+
+SFMLLabyAppliInstaller.exe

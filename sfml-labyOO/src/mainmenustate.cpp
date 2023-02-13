@@ -31,6 +31,7 @@ void MainMenuState::initKeybinds()
 
 void MainMenuState::initGui()
 {
+	this->window->setPosition(sf::Vector2i(0, 0));
 	const sf::VideoMode &vm = this->stateData->gfxSettings->resolution;
 
 	this->background.setSize(
