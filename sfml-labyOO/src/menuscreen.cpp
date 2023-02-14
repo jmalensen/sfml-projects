@@ -9,13 +9,13 @@ void MenuScreen::initVariables()
 	this->screen.setPosition(0, 0);
 
 	// Text to display the text
-	this->assetsManager.loadFont("arial", "fonts/arial.ttf");
-	this->titleScreen.setFont(this->assetsManager.getFont("arial"));
+	// this->assetsManager.loadFont("arial", "fonts/arial.ttf");
+	// this->titleScreen.setFont(this->assetsManager.getFont("arial"));
 
-	// Initialize title text
-	this->titleScreen.setString("Menu");
-	this->titleScreen.setCharacterSize(70);
-	this->titleScreen.setPosition(300, 320);
+	// // Initialize title text
+	// this->titleScreen.setString("Menu");
+	// this->titleScreen.setCharacterSize(70);
+	// this->titleScreen.setPosition(300, 320);
 }
 
 MenuScreen::MenuScreen(AssetsManager &assetsManager) : assetsManager(assetsManager)

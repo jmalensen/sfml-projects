@@ -8,18 +8,18 @@ void EndScreen::initVariables()
 	this->lastMove = 0.f;
 
 	// Texture for the background
-	this->assetsManager.loadTexture("screen", "images/screen.jpg");
-	this->screen.setTexture(this->assetsManager.getTexture("screen"));
+	this->assetsManager.loadTexture("winscreen", "images/winscreen.jpg");
+	this->screen.setTexture(this->assetsManager.getTexture("winscreen"));
 	this->screen.setPosition(0, 0);
 
 	// Text to display the text
-	this->assetsManager.loadFont("arial", "fonts/arial.ttf");
-	this->titleScreen.setFont(this->assetsManager.getFont("arial"));
+	// this->assetsManager.loadFont("arial", "fonts/arial.ttf");
+	// this->titleScreen.setFont(this->assetsManager.getFont("arial"));
 
-	// Initialize title text
-	this->titleScreen.setString("Endgame");
-	this->titleScreen.setCharacterSize(70);
-	this->titleScreen.setPosition(400, 520);
+	// // Initialize title text
+	// this->titleScreen.setString("Endgame");
+	// this->titleScreen.setCharacterSize(70);
+	// this->titleScreen.setPosition(400, 520);
 
 	// Win sound
 	this->assetsManager.loadSound("win", "sounds/win.ogg");
@@ -70,5 +70,5 @@ void EndScreen::draw(sf::RenderWindow *window)
 	window->draw(this->screen);
 
 	// Draw texts
-	window->draw(this->titleScreen);
+	// window->draw(this->titleScreen);
 }

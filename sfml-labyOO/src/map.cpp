@@ -49,7 +49,7 @@ void Map::initVariables()
 			"# # #### #### # ## # #  ##    #",
 			"# #           #   t# #  #  ## #",
 			"# # ###### #### # # ##### ##  #",
-			"#n#####    #    # # #k  #   ###",
+			"# #####    #    # # #k  #   ###",
 			"#   # # #### # ## # # # ###  ##",
 			"# ### # ### ## #### ### ##    #",
 			"#     # #   #           ## # ##",
@@ -63,7 +63,7 @@ void Map::initVariables()
 
 	this->maze4 = {{
 			"###############################",
-			"#    n #### ###     #       #k#",
+			"#      #### ###     #       #k#",
 			"###### ##       ### ### # # # #",
 			"#      #### #######     # #   #",
 			"### ###   # ###     ###########",
@@ -168,6 +168,7 @@ Map::~Map()
 // Done - Create ennemies
 // Done - Create 3 more levels
 // Multiplayer coop
+// Add velocity to the player so it can increase speed
 
 // Get the value of a block in the map
 char Map::operator()(int row, int col) const

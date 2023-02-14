@@ -21,7 +21,7 @@ void SettingsState::initGui()
 					static_cast<float>(vm.width),
 					static_cast<float>(vm.height)));
 
-	if (!this->backgroundTexture.loadFromFile("images/bg1.png"))
+	if (!this->backgroundTexture.loadFromFile("images/bg1.jpg"))
 	{
 		throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}

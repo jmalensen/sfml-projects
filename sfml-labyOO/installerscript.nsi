@@ -5,6 +5,8 @@ OutFile "SFMLLabyAppliInstaller.exe"
 ; Define the default installation directory
 InstallDir "$PROGRAMFILES\SFML Laby Appli"
 
+; Check if app already installed
+
 ; Define the pages displayed in the installer
 Page directory
 Page instfiles

@@ -30,6 +30,7 @@ private:
 
 	// Texture for the screen
 	sf::Sprite screen;
+	sf::RectangleShape background;
 
 	/// Text to display the text
 	// Select the font

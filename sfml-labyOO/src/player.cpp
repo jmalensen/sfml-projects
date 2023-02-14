@@ -157,6 +157,8 @@ void Player::update(const float &dt)
 				}
 			}
 		}
+
+		// check hitboxes enemies depending on levels
 	}
 
 	if (this->maze.operator()(this->positionY, this->positionX) == 't' && this->trapEnabled != true)
