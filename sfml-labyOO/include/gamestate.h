@@ -3,11 +3,21 @@
 
 #include "stdHeader.h"
 #include "state.h"
+#include "menustate.h"
+#include "endgamestate.h"
+#include "gameoverstate.h"
 #include "assetsmanager.h"
-#include "screensmanager.h"
+#include "map.h"
+#include "player.h"
+#include "enemy.h"
 
 class AssetsManager;
-class ScreensManager;
+class MenuState;
+class EndGameState;
+class GameoverState;
+class Map;
+class Player;
+class Enemy;
 
 class GameState : public State
 {
@@ -22,10 +32,18 @@ public:
 
 private:
 	AssetsManager assetsManager;
-	// The screenmanager
-	ScreensManager screensManager = ScreensManager(assetsManager);
+
+	// The map
+	Map map;
+
+	// The player
+	Player player;
+
+	// The enemies
+	std::vector<std::shared_ptr<Enemy>> enemies;
 
 	// Functions
+	void initVariables();
 	void initKeybinds();
 };
 

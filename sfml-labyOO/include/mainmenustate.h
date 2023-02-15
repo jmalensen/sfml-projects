@@ -2,9 +2,11 @@
 #define MAINMENUSTATE_H
 
 #include "stdHeader.h"
-#include "gamestate.h"
+#include "menustate.h"
 #include "settingsstate.h"
 #include "gui.h"
+
+class MenuState;
 
 class MainMenuState : public State
 {
