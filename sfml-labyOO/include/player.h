@@ -19,6 +19,9 @@ public:
 	Player(Map &maze, AssetsManager &assetsManager);
 	~Player() final;
 
+	static constexpr int PLAYER_SPEED = 2;
+	static constexpr float PLAYER_ACCELERATION = 0.25f;
+
 	// Getter exit
 	bool getHasExited() const;
 
@@ -54,6 +57,8 @@ private:
 	int nbLives;
 	bool dead;
 	bool exit;
+
+	float speed;
 
 	/// Text to display the level number
 	sf::Text text;

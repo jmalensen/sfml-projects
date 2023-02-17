@@ -3,11 +3,12 @@
 void SettingsState::initVariables()
 {
 	// this->modes = sf::VideoMode::getFullscreenModes();
-	sf::VideoMode bigScreen1(2480, 1280);
-	sf::VideoMode bigScreen2(1860, 960); // accepted resolutions to keep the ratio correct
-	sf::VideoMode bigScreen3(1550, 800);
-	sf::VideoMode bigScreen4(1240, 640);
-	std::vector<sf::VideoMode> possibleResolutions{bigScreen1, bigScreen2, bigScreen3, bigScreen4};
+	sf::VideoMode bigScreen1(3720, 1920);
+	sf::VideoMode bigScreen2(2480, 1280);
+	sf::VideoMode bigScreen3(1860, 960); // accepted resolutions to keep the ratio correct
+	sf::VideoMode bigScreen4(1550, 800);
+	sf::VideoMode bigScreen5(1240, 640);
+	std::vector<sf::VideoMode> possibleResolutions{bigScreen1, bigScreen2, bigScreen3, bigScreen4, bigScreen5};
 	this->modes = possibleResolutions;
 }
 

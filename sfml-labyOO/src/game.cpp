@@ -92,7 +92,7 @@ Game::Game()
 	this->initStateData();
 	this->initStates();
 
-	// this->music.play();
+	this->music.play();
 
 	// Create the window
 	//  this->window = new sf::RenderWindow(

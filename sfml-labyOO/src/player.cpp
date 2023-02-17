@@ -51,7 +51,7 @@ void Player::initVariables()
 	this->text.setFillColor(sf::Color::White);
 }
 
-Player::Player(Map &maze, AssetsManager &assetsManager) : Entity(maze, assetsManager), walkAnimation(60, "images/perso.png", Animation::RIGHT, 4), nbLives(3)
+Player::Player(Map &maze, AssetsManager &assetsManager) : Entity(maze, assetsManager), walkAnimation(60, "images/perso.png", Animation::RIGHT, 4), nbLives(3), speed(0)
 {
 	// Initialize the player
 	this->initVariables();

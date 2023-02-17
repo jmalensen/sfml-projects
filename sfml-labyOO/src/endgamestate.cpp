@@ -23,7 +23,7 @@ void EndGameState::initVariables()
 	// Win sound
 	this->assetsManager.loadSound("win", "sounds/win.ogg");
 	this->winSound = (this->assetsManager.getSound("win"));
-	this->winSound.setVolume(15);
+	this->winSound.setVolume(40);
 }
 
 void EndGameState::initKeybinds()
