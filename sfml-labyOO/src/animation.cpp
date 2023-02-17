@@ -4,13 +4,19 @@ void Animation::initVariables()
 {
 }
 
-Animation::Animation(short frameWidth, const std::string &textureLocation, short direction, short i_nbMovements, ParamsMovement params) : animationIterator(0), currentFrame(0), frameWidth(frameWidth)
+Animation::Animation(short frameWidth, const std::string &textureLocation, short direction, short i_nbMovements, ParamsMovement params) : direction(direction), animationIterator(0), currentFrame(0), frameWidth(frameWidth)
 {
 	this->initVariables();
-	this->texture.loadFromFile(textureLocation);
+
+	if (!this->texture.loadFromFile(textureLocation))
+	{
+		throw "ERROR::ANIMATION::FAILED_TO_LOAD_ANIMATION_TEXTURE";
+	}
+
 	this->totalFrames = this->texture.getSize().x / this->frameWidth;
 	this->nbMovements = i_nbMovements;
 	this->paramsMovement = params;
+	this->sprite.setTexture(texture);
 }
 
 Animation::~Animation()
@@ -19,8 +25,6 @@ Animation::~Animation()
 
 void Animation::draw(sf::RenderWindow *window)
 {
-	this->sprite.setTexture(texture);
-
 	int top;
 	if (this->direction == NODIRECTION)
 	{

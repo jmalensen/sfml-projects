@@ -28,6 +28,10 @@ public:
 	// Check if player is dead
 	bool isDead() const;
 
+	// Get the number of lives of the player
+	int getNbLives() const;
+	void setNbLives(int nnbLives);
+
 	// Update position
 	void update(const float &dt) override;
 
@@ -39,8 +43,7 @@ public:
 
 private:
 	// Sounds
-	sf::Sound sound;
-	sf::Sound hurtSound;
+	sf::Sound trapSound;
 	sf::Sound unlockSound;
 	bool unlockEnabled;
 
@@ -48,8 +51,14 @@ private:
 	bool nextLevelEnabled;
 	bool trapEnabled;
 
+	int nbLives;
 	bool dead;
 	bool exit;
+
+	/// Text to display the level number
+	sf::Text text;
+	// Select the font
+	sf::Font font;
 
 	Animation walkAnimation;
 

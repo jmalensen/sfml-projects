@@ -43,7 +43,8 @@ private:
 	int maxVal;
 
 	// Sounds
-	sf::Sound hurtSound;
+	sf::Sound damageSound;
+	sf::Sound deathSound;
 
 	Animation moveAnimation;
 

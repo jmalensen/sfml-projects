@@ -64,7 +64,6 @@ void GameState::updateInput(const float &dt)
 void GameState::update(const float &dt)
 {
 	// std::cout << "GameState::update" << std::endl;
-
 	if (this->player.isDead())
 	{
 		this->endState();
@@ -75,6 +74,8 @@ void GameState::update(const float &dt)
 		this->endState();
 		this->states->push(new EndGameState(this->stateData));
 	}
+
+	this->updateInput(dt);
 
 	// Update the maze
 	this->map.update(dt);

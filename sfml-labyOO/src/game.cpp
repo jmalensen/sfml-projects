@@ -3,7 +3,7 @@
 // Initializer functions
 void Game::initVariables()
 {
-	this->window = NULL;
+	this->window = nullptr;
 	this->dt = 0.f;
 
 	// Background music

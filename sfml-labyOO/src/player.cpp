@@ -11,15 +11,10 @@ void Player::initVariables()
 	this->lastMove = 0.f;
 
 	/// Sounds
-	// Movement sound
-	this->assetsManager.loadSound("jump", "sounds/jump.ogg");
-	this->sound = (this->assetsManager.getSound("jump"));
-	this->sound.setVolume(10);
-
-	// Hurt sound
-	this->assetsManager.loadSound("hitHurt", "sounds/hitHurt.ogg");
-	this->hurtSound = (this->assetsManager.getSound("hitHurt"));
-	this->hurtSound.setVolume(100);
+	// Trap sound
+	this->assetsManager.loadSound("trap", "sounds/trap.ogg");
+	this->trapSound = (this->assetsManager.getSound("trap"));
+	this->trapSound.setVolume(100);
 	this->trapEnabled = false;
 
 	// Unlock sound
@@ -37,9 +32,26 @@ void Player::initVariables()
 	this->exit = false;
 
 	this->walkAnimation.setParamsMovements(this->paramsMovement);
+	this->walkAnimation.update(0.f);
+
+	// Text to display the number of lives of the player
+	this->assetsManager.loadFont("arial", "fonts/arial.ttf");
+	this->text.setFont(this->assetsManager.getFont("arial"));
+
+	// Set the string to display
+	this->text.setString("Nb lives: " + std::to_string(this->nbLives));
+
+	// Set the character size (in pixels, not points)
+	this->text.setCharacterSize(36);
+
+	// Set the text style
+	this->text.setStyle(sf::Text::Bold);
+
+	// Set the color
+	this->text.setFillColor(sf::Color::White);
 }
 
-Player::Player(Map &maze, AssetsManager &assetsManager) : Entity(maze, assetsManager), walkAnimation(60, "images/perso.png", Animation::RIGHT, 4)
+Player::Player(Map &maze, AssetsManager &assetsManager) : Entity(maze, assetsManager), walkAnimation(60, "images/perso.png", Animation::RIGHT, 4), nbLives(3)
 {
 	// Initialize the player
 	this->initVariables();
@@ -62,6 +74,19 @@ void Player::justDie(bool newStatus)
 bool Player::isDead() const
 {
 	return this->dead;
+}
+
+int Player::getNbLives() const
+{
+	return this->nbLives;
+}
+
+void Player::setNbLives(int nnbLives)
+{
+	this->nbLives = nnbLives;
+
+	// Set the string to display when nbLives  change
+	this->text.setString("Nb lives: " + std::to_string(this->nbLives));
 }
 
 void Player::update(const float &dt)
@@ -163,7 +188,7 @@ void Player::update(const float &dt)
 
 	if (this->maze.operator()(this->positionY, this->positionX) == 't' && this->trapEnabled != true)
 	{
-		this->hurtSound.play();
+		this->trapSound.play();
 
 		if (this->maze.getLevel() == 2)
 		{
@@ -275,4 +300,8 @@ void Player::draw(sf::RenderWindow *window)
 	// Draw the player
 	this->walkAnimation.setPosition(this->positionX * blockSize + 1, this->positionY * blockSize + 1);
 	this->walkAnimation.draw(window);
+
+	// Draw the text
+	this->text.setPosition(170, 10);
+	window->draw(this->text);
 }
