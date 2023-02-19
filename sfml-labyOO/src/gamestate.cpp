@@ -3,27 +3,50 @@
 // Initialization
 void GameState::initVariables()
 {
-	this->enemies.push_back(std::make_shared<Enemy>(1, this->map, this->assetsManager, 5, 4, Enemy::HORIZONTAL, 5, 16, 30.f));
+	this->enemies.push_back(std::make_shared<Enemy>(2, this->map, this->assetsManager, 5, 4, Enemy::HORIZONTAL, 5, 16, 30.f));
 	this->enemies.push_back(std::make_shared<Enemy>(2, this->map, this->assetsManager, 8, 7, Enemy::HORIZONTAL, 8, 22, 30.f));
 
 	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 6, 15, 50.f));
-	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 8, 13, Enemy::HORIZONTAL, 8, 21, 50.f));
-	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, 28, 50.f));
-	this->enemies.push_back(std::make_shared<Enemy>(6, this->map, this->assetsManager, 16, 10, Enemy::HORIZONTAL, 16, 24, 50.f));
+	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 8, 13, Enemy::HORIZONTAL, 8, 21, 50.f));
+	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, 28, 50.f));
+	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 16, 10, Enemy::HORIZONTAL, 16, 24, 50.f));
 
-	this->enemies.push_back(std::make_shared<Enemy>(7, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 5, 14, 60.f));
-	this->enemies.push_back(std::make_shared<Enemy>(8, this->map, this->assetsManager, 8, 12, Enemy::HORIZONTAL, 8, 25, 60.f));
-	this->enemies.push_back(std::make_shared<Enemy>(9, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, 19, 60.f));
-	this->enemies.push_back(std::make_shared<Enemy>(10, this->map, this->assetsManager, 20, 10, Enemy::HORIZONTAL, 20, 24, 60.f));
-	this->enemies.push_back(std::make_shared<Enemy>(11, this->map, this->assetsManager, 5, 12, Enemy::HORIZONTAL, 5, 30, 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 5, 14, 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 8, 12, Enemy::HORIZONTAL, 8, 25, 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, 19, 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 20, 10, Enemy::HORIZONTAL, 20, 24, 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 5, 12, Enemy::HORIZONTAL, 5, 30, 60.f));
 
-	this->enemies.push_back(std::make_shared<Enemy>(12, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 5, 13, 70.f));
-	this->enemies.push_back(std::make_shared<Enemy>(13, this->map, this->assetsManager, 8, 5, Enemy::HORIZONTAL, 8, 23, 70.f));
-	this->enemies.push_back(std::make_shared<Enemy>(14, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, 19, 70.f));
-	this->enemies.push_back(std::make_shared<Enemy>(15, this->map, this->assetsManager, 16, 10, Enemy::HORIZONTAL, 16, 21, 70.f));
-	this->enemies.push_back(std::make_shared<Enemy>(16, this->map, this->assetsManager, 5, 13, Enemy::HORIZONTAL, 5, 27, 70.f));
+	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 5, 13, 70.f));
+	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 8, 5, Enemy::HORIZONTAL, 8, 23, 70.f));
+	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, 19, 70.f));
+	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 16, 10, Enemy::HORIZONTAL, 16, 21, 70.f));
+	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 5, 13, Enemy::HORIZONTAL, 5, 27, 70.f));
 
 	this->pmenu = new PauseMenu(this->stateData->gfxSettings->resolution);
+
+	// Text to display the time
+	if (!this->font.loadFromFile("fonts/arial.ttf"))
+	{
+		throw("ERROR::GAME::COULD NOT LOAD FONT");
+	}
+	this->timerText.setFont(this->font);
+
+	// Set the string to display
+	this->timerText.setString("Time elapsed: 0s");
+
+	// Set the character size (in pixels, not points)
+	this->timerText.setCharacterSize(36);
+
+	// Set the text style
+	this->timerText.setStyle(sf::Text::Bold);
+
+	// Set the color
+	this->timerText.setFillColor(sf::Color::White);
+	this->timerText.setPosition(10, 40);
+
+	// Initialize the timer
+	this->startTime = this->clock.getElapsedTime();
 }
 
 void GameState::initKeybinds()
@@ -62,10 +85,15 @@ void GameState::updateInput(const float &dt)
 	{
 		if (!this->paused)
 		{
+			// Store the time when pause is triggered
+			this->pausedTime = this->clock.getElapsedTime();
 			this->pauseState();
 		}
 		else
 		{
+			sf::Time resumeTime = this->clock.getElapsedTime();
+			sf::Time pauseDuration = resumeTime - this->pausedTime;
+			this->startTime += pauseDuration;
 			this->unpauseState();
 		}
 	}
@@ -127,6 +155,18 @@ void GameState::update(const float &dt)
 			this->enemies[14]->update(dt, this->player);
 			this->enemies[15]->update(dt, this->player);
 		}
+
+		// Time elapsed since the start of the game (updated by pause)
+		sf::Time &elapsedTime = this->stateData->elapsedTime;
+		elapsedTime = this->clock.getElapsedTime() - this->startTime;
+
+		// Convert to minutes, seconds, and milliseconds
+		int minutes = elapsedTime.asSeconds() / 60;
+		int seconds = static_cast<int>(elapsedTime.asSeconds()) % 60;
+		int milliseconds = elapsedTime.asMilliseconds() % 1000;
+
+		std::string timerString = "Elapsed Time: " + std::to_string(minutes) + ":" + std::to_string(seconds) + ":" + std::to_string(milliseconds);
+		this->timerText.setString(timerString);
 	}
 	else
 	{
@@ -166,7 +206,7 @@ void GameState::draw(sf::RenderTarget *target)
 		this->enemies[6]->draw(this->window);
 		this->enemies[7]->draw(this->window);
 		this->enemies[8]->draw(this->window);
-		this->enemies[9]->draw(this->window); //
+		this->enemies[9]->draw(this->window);
 		this->enemies[10]->draw(this->window);
 	}
 
@@ -175,9 +215,12 @@ void GameState::draw(sf::RenderTarget *target)
 		this->enemies[11]->draw(this->window);
 		this->enemies[12]->draw(this->window);
 		this->enemies[13]->draw(this->window);
-		this->enemies[14]->draw(this->window); //
+		this->enemies[14]->draw(this->window);
 		this->enemies[15]->draw(this->window);
 	}
+
+	// Elapsed timer
+	this->window->draw(this->timerText);
 
 	// Pause menu render
 	if (this->paused)

@@ -31,6 +31,7 @@ private:
 
 	sf::Font font;
 	std::map<std::string, gui::Button *> buttons;
+	sf::Text timerText;
 
 	// Functions
 	void initVariables();

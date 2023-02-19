@@ -24,6 +24,35 @@ void EndGameState::initVariables()
 	this->assetsManager.loadSound("win", "sounds/win.ogg");
 	this->winSound = (this->assetsManager.getSound("win"));
 	this->winSound.setVolume(40);
+
+	this->timerText.setFont(this->font);
+
+	// Set the character size (in pixels, not points)
+	this->timerText.setCharacterSize(gui::calcCharSize(vm));
+
+	// Set the text style
+	this->timerText.setStyle(sf::Text::Bold);
+
+	// Set the color
+	this->timerText.setFillColor(sf::Color::White);
+	this->timerText.setPosition(gui::p2pX(36.f, vm), gui::p2pY(70.f, vm));
+
+	sf::Time elapsedTime = this->stateData->elapsedTime;
+	// Convert to minutes, seconds, and milliseconds
+	int minutes = elapsedTime.asSeconds() / 60;
+	int seconds = static_cast<int>(elapsedTime.asSeconds()) % 60;
+	int milliseconds = elapsedTime.asMilliseconds() % 1000;
+
+	std::string timerString = "Your Time: " + std::to_string(minutes) + ":" + std::to_string(seconds) + ":" + std::to_string(milliseconds);
+	this->timerText.setString(timerString);
+}
+
+void EndGameState::initFonts()
+{
+	if (!this->font.loadFromFile("fonts/arial.ttf"))
+	{
+		throw("ERROR::ENDGAME_STATE::COULD NOT LOAD FONT");
+	}
 }
 
 void EndGameState::initKeybinds()
@@ -48,6 +77,7 @@ EndGameState::EndGameState(StateData *stateData)
 		: State(stateData)
 {
 	this->initVariables();
+	this->initFonts();
 	this->initKeybinds();
 }
 
@@ -92,4 +122,7 @@ void EndGameState::draw(sf::RenderTarget *target)
 
 	// Draw the screen
 	this->window->draw(this->background);
+
+	// Elapsed timer
+	this->window->draw(this->timerText);
 }

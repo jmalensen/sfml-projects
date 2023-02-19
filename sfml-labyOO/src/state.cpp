@@ -6,6 +6,7 @@ State::State(StateData *stateData)
 	this->window = stateData->window;
 	this->supportedKeys = stateData->supportedKeys;
 	this->states = stateData->states;
+	this->elapsedTime = stateData->elapsedTime;
 	this->quit = false;
 	this->keytime = 0.f;
 	this->keytimeMax = 10.f;

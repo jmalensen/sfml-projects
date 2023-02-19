@@ -18,7 +18,7 @@ class Enemy : public Entity
 {
 public:
 	// Constructor and destructor
-	Enemy(int id, Map &maze, AssetsManager &assetsManager, int posx, int posy, int direction, int min, int max, float speed);
+	Enemy(int levelNum, Map &maze, AssetsManager &assetsManager, int posx, int posy, int direction, int min, int max, float speed);
 	~Enemy() final;
 
 	// Update position
@@ -31,11 +31,14 @@ public:
 	// Set direction of enemy
 	void setBehaviour(int directionMovement, int min, int max);
 
+	// Get MapLevel enemy
+	int getMapLevel();
+
 	static constexpr int HORIZONTAL = 1;
 	static constexpr int VERTICAL = 2;
 
 private:
-	int idEnemy;
+	int mapLevel;
 	int directionEnemy;
 	bool goingRight;
 	bool goingDown;

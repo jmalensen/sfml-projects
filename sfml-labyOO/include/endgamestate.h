@@ -4,6 +4,7 @@
 #include "stdHeader.h"
 #include "state.h"
 #include "assetsmanager.h"
+#include "gui.h"
 
 class AssetsManager;
 
@@ -29,8 +30,12 @@ private:
 	sf::Sound winSound;
 	bool playedWinSound;
 
+	sf::Font font;
+	sf::Text timerText;
+
 	// Functions
 	void initVariables();
+	void initFonts();
 	void initKeybinds();
 };
 

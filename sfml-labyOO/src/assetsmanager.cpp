@@ -106,21 +106,3 @@ bool AssetsManager::addAnimation(std::string name, std::vector<sf::IntRect> fram
 	this->animations[name] = frames;
 	return true;
 }
-
-sf::IntRect AssetsManager::getAnimationFrame(std::string animationName, int frame)
-{
-	if (this->animations.count(animationName) == 0)
-	{
-		throw std::invalid_argument("Animation not found : " + animationName);
-	}
-	return this->animations[animationName][frame];
-}
-
-int AssetsManager::getNumberOfFrames(std::string animationName)
-{
-	if (this->animations.count(animationName) == 0)
-	{
-		throw std::invalid_argument("Animation not found : " + animationName);
-	}
-	return this->animations[animationName].size();
-}

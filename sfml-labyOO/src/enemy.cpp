@@ -11,7 +11,7 @@ void Enemy::initVariables()
 	this->moveAnimation.update(0.f);
 }
 
-Enemy::Enemy(int id, Map &maze, AssetsManager &assetsManager, int posx, int posy, int direction, int min, int max, float speed) : Entity(maze, assetsManager), idEnemy(id), directionEnemy(direction), minVal(min), maxVal(max), moveAnimation(60, "images/enemy.png", Animation::RIGHT, 4)
+Enemy::Enemy(int levelNum, Map &maze, AssetsManager &assetsManager, int posx, int posy, int direction, int min, int max, float speed) : Entity(maze, assetsManager), mapLevel(levelNum), directionEnemy(direction), minVal(min), maxVal(max), moveAnimation(60, "images/enemy.png", Animation::RIGHT, 4)
 {
 	// Initialize the enemy
 	this->initVariables();
@@ -29,6 +29,12 @@ void Enemy::setBehaviour(int directionMovement, int min, int max)
 	this->directionEnemy = directionMovement;
 	this->minVal = min;
 	this->maxVal = max;
+}
+
+// Get MapLevel enemy
+int Enemy::getMapLevel()
+{
+	return this->mapLevel;
 }
 
 // Update position

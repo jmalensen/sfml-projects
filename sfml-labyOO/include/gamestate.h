@@ -34,6 +34,12 @@ private:
 	AssetsManager assetsManager;
 	PauseMenu *pmenu;
 
+	sf::Clock clock;
+	sf::Time startTime;
+	sf::Time pausedTime;
+	sf::Font font;
+	sf::Text timerText;
+
 	// The map
 	Map map;
 

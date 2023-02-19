@@ -5,6 +5,32 @@ void GameoverState::initVariables()
 {
 }
 
+void GameoverState::initFonts()
+{
+	if (!this->font.loadFromFile("fonts/arial.ttf"))
+	{
+		throw("ERROR::GAMEOVER_STATE::COULD NOT LOAD FONT");
+	}
+}
+
+void GameoverState::initKeybinds()
+{
+	std::ifstream ifs("config/gamestate_keybinds.ini");
+
+	if (ifs.is_open())
+	{
+		std::string key = "";
+		std::string key2 = "";
+
+		while (ifs >> key >> key2)
+		{
+			this->keybinds[key] = this->supportedKeys->at(key2);
+		}
+	}
+
+	ifs.close();
+}
+
 void GameoverState::initGui()
 {
 	// Texture for the background
@@ -28,32 +54,27 @@ void GameoverState::initGui()
 			&this->font, "Try again ?", gui::calcCharSize(vm),
 			sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
 			sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
-}
 
-void GameoverState::initFonts()
-{
-	if (!this->font.loadFromFile("fonts/arial.ttf"))
-	{
-		throw("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT");
-	}
-}
+	this->timerText.setFont(this->font);
 
-void GameoverState::initKeybinds()
-{
-	std::ifstream ifs("config/gamestate_keybinds.ini");
+	// Set the character size (in pixels, not points)
+	this->timerText.setCharacterSize(gui::calcCharSize(vm));
 
-	if (ifs.is_open())
-	{
-		std::string key = "";
-		std::string key2 = "";
+	// Set the text style
+	this->timerText.setStyle(sf::Text::Bold);
 
-		while (ifs >> key >> key2)
-		{
-			this->keybinds[key] = this->supportedKeys->at(key2);
-		}
-	}
+	// Set the color
+	this->timerText.setFillColor(sf::Color::White);
+	this->timerText.setPosition(gui::p2pX(42.f, vm), gui::p2pY(70.f, vm));
 
-	ifs.close();
+	sf::Time elapsedTime = this->stateData->elapsedTime;
+	// Convert to minutes, seconds, and milliseconds
+	int minutes = elapsedTime.asSeconds() / 60;
+	int seconds = static_cast<int>(elapsedTime.asSeconds()) % 60;
+	int milliseconds = elapsedTime.asMilliseconds() % 1000;
+
+	std::string timerString = "Your Time: " + std::to_string(minutes) + ":" + std::to_string(seconds) + ":" + std::to_string(milliseconds);
+	this->timerText.setString(timerString);
 }
 
 GameoverState::GameoverState(StateData *stateData)
@@ -121,6 +142,9 @@ void GameoverState::draw(sf::RenderTarget *target)
 
 	// Draw the screen
 	this->window->draw(this->background);
+
+	// Elapsed timer
+	this->window->draw(this->timerText);
 
 	this->drawGui(*target);
 }

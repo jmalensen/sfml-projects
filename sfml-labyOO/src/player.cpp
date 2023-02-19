@@ -218,107 +218,113 @@ void Player::update(const float &dt, std::vector<std::shared_ptr<Enemy>> enemies
 		// Check hitboxes enemies depending on levels
 		for (short a = 0; a < enemies.size(); a++)
 		{
-			if (this->getHitBox().left == enemies[a]->getHitBox().left && this->getHitBox().top == enemies[a]->getHitBox().top)
+			// Check level where enemy is displayed
+			int mapLevelEnemy = enemies[a]->getMapLevel();
+			if (this->maze.getLevel() == mapLevelEnemy)
 			{
-				this->justDie(false);
 
-				break;
+				if (this->getHitBox().left == enemies[a]->getHitBox().left && this->getHitBox().top == enemies[a]->getHitBox().top)
+				{
+					this->justDie(false);
+
+					break;
+				}
 			}
 		}
-	}
 
-	if (this->maze.operator()(this->positionY, this->positionX) == 't' && this->trapEnabled != true)
-	{
-		this->trapSound.play();
-
-		if (this->maze.getLevel() == 2)
+		if (this->maze.operator()(this->positionY, this->positionX) == 't' && this->trapEnabled != true)
 		{
-			this->maze.operator()(8, 5) = '#';
-			this->maze.operator()(13, 15) = 'k';
+			this->trapSound.play();
+
+			if (this->maze.getLevel() == 2)
+			{
+				this->maze.operator()(8, 5) = '#';
+				this->maze.operator()(13, 15) = 'k';
+			}
+			else if (this->maze.getLevel() == 3)
+			{
+				this->maze.operator()(1, 22) = '#';
+				this->maze.operator()(13, 15) = 'k';
+			}
+			else if (this->maze.getLevel() == 4)
+			{
+				this->maze.operator()(13, 3) = '#';
+				this->maze.operator()(14, 12) = 'k';
+			}
+			else if (this->maze.getLevel() == 5)
+			{
+				this->maze.operator()(14, 29) = ' '; // remove trophy
+				this->maze.operator()(14, 8) = 'e';
+			}
+			this->maze.operator()(this->positionY, this->positionX) = ' ';
+			this->unlockEnabled = false;
+			this->trapEnabled = true;
 		}
-		else if (this->maze.getLevel() == 3)
+
+		// If case is a key
+		if (this->maze.operator()(this->positionY, this->positionX) == 'k' && this->unlockEnabled != true)
 		{
-			this->maze.operator()(1, 22) = '#';
-			this->maze.operator()(13, 15) = 'k';
+			// Key disappear
+			this->maze.operator()(this->positionY, this->positionX) = ' ';
+
+			// Open the path
+			if (this->maze.getLevel() == 1)
+			{
+				this->maze.operator()(13, 4) = ' ';
+			}
+			else if (this->maze.getLevel() == 2)
+			{
+				this->maze.operator()(5, 5) = ' ';
+				this->maze.operator()(8, 5) = ' ';
+			}
+			else if (this->maze.getLevel() == 3)
+			{
+				this->maze.operator()(1, 22) = ' ';
+			}
+			else if (this->maze.getLevel() == 4)
+			{
+				this->maze.operator()(13, 3) = ' ';
+			}
+			else if (this->maze.getLevel() == 5)
+			{
+				this->maze.operator()(14, 27) = ' ';
+				this->maze.operator()(14, 28) = ' ';
+			}
+			this->unlockSound.play();
+
+			std::cout << "Change content:" << this->maze.operator()(this->positionY, this->positionX) << this->positionY << this->positionX << ":P" << std::endl;
+			this->unlockEnabled = true;
 		}
-		else if (this->maze.getLevel() == 4)
+
+		// Next level phase
+		if (this->maze.operator()(this->positionY, this->positionX) == 'n' && this->nextLevelEnabled != true)
 		{
-			this->maze.operator()(13, 3) = '#';
-			this->maze.operator()(14, 12) = 'k';
+			this->exitLevelSound.play();
+			std::cout << "Next level!!" << std::endl;
+			this->nextLevelEnabled = true;
+
+			this->maze.setLevel(this->maze.getLevel() + 1);
+
+			// Need to reset the sounds for the next level
+			this->resetSounds();
+
+			// Name of the maze level
+			std::string name = "maze" + std::to_string(this->maze.getLevel());
+
+			// Set new level
+			this->maze.setNewMaze(this->maze.getMazeByName(name));
+
+			this->positionX = 1;
+			this->positionY = 1;
+			this->entity.setPosition(this->positionX * this->maze.getBlockSize() + 1, this->positionY * this->maze.getBlockSize() + 1);
 		}
-		else if (this->maze.getLevel() == 5)
+
+		// Sound of the win for the exit
+		if (this->maze.operator()(this->positionY, this->positionX) == 'e' && this->exit != true)
 		{
-			this->maze.operator()(14, 29) = ' '; // remove trophy
-			this->maze.operator()(14, 8) = 'e';
+			std::cout << "Exit!!" << std::endl;
+			this->exit = true;
 		}
-		this->maze.operator()(this->positionY, this->positionX) = ' ';
-		this->unlockEnabled = false;
-		this->trapEnabled = true;
-	}
-
-	// If case is a key
-	if (this->maze.operator()(this->positionY, this->positionX) == 'k' && this->unlockEnabled != true)
-	{
-		// Key disappear
-		this->maze.operator()(this->positionY, this->positionX) = ' ';
-
-		// Open the path
-		if (this->maze.getLevel() == 1)
-		{
-			this->maze.operator()(13, 4) = ' ';
-		}
-		else if (this->maze.getLevel() == 2)
-		{
-			this->maze.operator()(5, 5) = ' ';
-			this->maze.operator()(8, 5) = ' ';
-		}
-		else if (this->maze.getLevel() == 3)
-		{
-			this->maze.operator()(1, 22) = ' ';
-		}
-		else if (this->maze.getLevel() == 4)
-		{
-			this->maze.operator()(13, 3) = ' ';
-		}
-		else if (this->maze.getLevel() == 5)
-		{
-			this->maze.operator()(14, 27) = ' ';
-			this->maze.operator()(14, 28) = ' ';
-		}
-		this->unlockSound.play();
-
-		std::cout << "Change content:" << this->maze.operator()(this->positionY, this->positionX) << this->positionY << this->positionX << ":P" << std::endl;
-		this->unlockEnabled = true;
-	}
-
-	// Next level phase
-	if (this->maze.operator()(this->positionY, this->positionX) == 'n' && this->nextLevelEnabled != true)
-	{
-		this->exitLevelSound.play();
-		std::cout << "Next level!!" << std::endl;
-		this->nextLevelEnabled = true;
-
-		this->maze.setLevel(this->maze.getLevel() + 1);
-
-		// Need to reset the sounds for the next level
-		this->resetSounds();
-
-		// Name of the maze level
-		std::string name = "maze" + std::to_string(this->maze.getLevel());
-
-		// Set new level
-		this->maze.setNewMaze(this->maze.getMazeByName(name));
-
-		this->positionX = 1;
-		this->positionY = 1;
-		this->entity.setPosition(this->positionX * this->maze.getBlockSize() + 1, this->positionY * this->maze.getBlockSize() + 1);
-	}
-
-	// Sound of the win for the exit
-	if (this->maze.operator()(this->positionY, this->positionX) == 'e' && this->exit != true)
-	{
-		std::cout << "Exit!!" << std::endl;
-		this->exit = true;
 	}
 }
 

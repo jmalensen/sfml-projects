@@ -17,6 +17,7 @@ public:
 	GraphicsSettings *gfxSettings;
 	std::map<std::string, int> *supportedKeys;
 	std::stack<State *> *states;
+	sf::Time elapsedTime;
 };
 
 class State
@@ -42,6 +43,7 @@ public:
 protected:
 	StateData *stateData;
 	std::stack<State *> *states;
+	sf::Time elapsedTime;
 	sf::RenderWindow *window;
 	std::map<std::string, int> *supportedKeys;
 	std::map<std::string, int> keybinds;

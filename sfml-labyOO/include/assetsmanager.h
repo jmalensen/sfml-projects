@@ -19,8 +19,6 @@ public:
 	sf::Sound getSound(std::string name);
 	sf::Font &getFont(std::string name);
 	bool addAnimation(std::string name, std::vector<sf::IntRect> frames);
-	sf::IntRect getAnimationFrame(std::string animationName, int frame);
-	int getNumberOfFrames(std::string animationName);
 
 private:
 	// Member variables for storing textures, sounds, animations, fonts

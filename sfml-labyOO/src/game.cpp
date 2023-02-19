@@ -76,6 +76,7 @@ void Game::initStateData()
 	this->stateData.gfxSettings = &this->gfxSettings;
 	this->stateData.supportedKeys = &this->supportedKeys;
 	this->stateData.states = &this->states;
+	this->stateData.elapsedTime = sf::Time::Zero;
 }
 
 void Game::initStates()
@@ -93,27 +94,6 @@ Game::Game()
 	this->initStates();
 
 	this->music.play();
-
-	// Create the window
-	//  this->window = new sf::RenderWindow(
-	//  		sf::VideoMode(1500, 1260),
-	//  		"Test working?");
-
-	// this->window->create(sf::VideoMode(1500, 1260), "Test working?");
-	// this->window->setFramerateLimit(60);
-
-	// vm = sf::VideoMode::getFullscreenModes()[0];
-	// // vm = sf::VideoMode::getDesktopMode();
-	// window.create(vm, "Resizable Window laby");
-	// std::cout << "Window size: " << vm.width << " " << vm.height << std::endl;
-
-	// sf::View view(sf::FloatRect(0.f, 0.f, window.getSize().x * 2.f, window.getSize().y * 2.f));
-
-	// view.setSize(vm.width * 2, vm.height * 2);
-	// view.setCenter(vm.width, vm.height);
-	// view.zoom(2.f);
-	// window.setView(view);
-	// window.setFramerateLimit(60);
 }
 
 Game::~Game()
