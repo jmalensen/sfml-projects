@@ -7,6 +7,8 @@ State::State(StateData *stateData)
 	this->supportedKeys = stateData->supportedKeys;
 	this->states = stateData->states;
 	this->quit = false;
+	this->keytime = 0.f;
+	this->keytimeMax = 10.f;
 }
 
 State::~State()
@@ -66,4 +68,12 @@ void State::updateMousePositions(sf::View *view)
 	this->mousePosView = this->window->mapPixelToCoords(sf::Mouse::getPosition(*this->window));
 
 	this->window->setView(this->window->getDefaultView());
+}
+
+void State::updateKeytime(const float &dt)
+{
+	if (this->keytime < this->keytimeMax)
+	{
+		this->keytime += 100.f * dt;
+	}
 }

@@ -35,6 +35,7 @@ public:
 	void pauseState();
 	void unpauseState();
 	virtual void updateMousePositions(sf::View *view = NULL);
+	virtual void updateKeytime(const float &dt);
 	virtual void update(const float &dt) = 0;
 	virtual void draw(sf::RenderTarget *target = NULL) = 0;
 

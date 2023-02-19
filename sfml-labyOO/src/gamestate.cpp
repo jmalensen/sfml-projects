@@ -22,6 +22,8 @@ void GameState::initVariables()
 	this->enemies.push_back(std::make_shared<Enemy>(14, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, 19, 70.f));
 	this->enemies.push_back(std::make_shared<Enemy>(15, this->map, this->assetsManager, 16, 10, Enemy::HORIZONTAL, 16, 21, 70.f));
 	this->enemies.push_back(std::make_shared<Enemy>(16, this->map, this->assetsManager, 5, 13, Enemy::HORIZONTAL, 5, 27, 70.f));
+
+	this->pmenu = new PauseMenu(this->stateData->gfxSettings->resolution);
 }
 
 void GameState::initKeybinds()
@@ -51,13 +53,21 @@ GameState::GameState(StateData *stateData)
 
 GameState::~GameState()
 {
+	delete this->pmenu;
 }
 
 void GameState::updateInput(const float &dt)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeytime())
 	{
-		this->states->push(new MenuState(this->stateData));
+		if (!this->paused)
+		{
+			this->pauseState();
+		}
+		else
+		{
+			this->unpauseState();
+		}
 	}
 }
 
@@ -75,42 +85,52 @@ void GameState::update(const float &dt)
 		this->states->push(new EndGameState(this->stateData));
 	}
 
+	this->updateKeytime(dt);
 	this->updateInput(dt);
 
-	// Update the maze
-	this->map.update(dt);
+	// Unpaused update
+	if (!this->paused)
+	{
 
-	// Update the game
-	this->player.update(dt);
+		// Update the maze
+		this->map.update(dt);
 
-	if (this->map.getLevel() == 2)
-	{
-		this->enemies[0]->update(dt, this->player);
-		this->enemies[1]->update(dt, this->player);
+		// Update the game
+		this->player.update(dt, this->enemies);
+
+		if (this->map.getLevel() == 2)
+		{
+			this->enemies[0]->update(dt, this->player);
+			this->enemies[1]->update(dt, this->player);
+		}
+		if (this->map.getLevel() == 3)
+		{
+			// enemies.erase(0 + enemies.begin());
+			this->enemies[2]->update(dt, this->player);
+			this->enemies[3]->update(dt, this->player);
+			this->enemies[4]->update(dt, this->player);
+			this->enemies[5]->update(dt, this->player);
+		}
+		if (this->map.getLevel() == 4)
+		{
+			this->enemies[6]->update(dt, this->player);
+			this->enemies[7]->update(dt, this->player);
+			this->enemies[8]->update(dt, this->player);
+			this->enemies[9]->update(dt, this->player);
+			this->enemies[10]->update(dt, this->player);
+		}
+		if (this->map.getLevel() == 5)
+		{
+			this->enemies[11]->update(dt, this->player);
+			this->enemies[12]->update(dt, this->player);
+			this->enemies[13]->update(dt, this->player);
+			this->enemies[14]->update(dt, this->player);
+			this->enemies[15]->update(dt, this->player);
+		}
 	}
-	if (this->map.getLevel() == 3)
+	else
 	{
-		// enemies.erase(0 + enemies.begin());
-		this->enemies[2]->update(dt, this->player);
-		this->enemies[3]->update(dt, this->player);
-		this->enemies[4]->update(dt, this->player);
-		this->enemies[5]->update(dt, this->player);
-	}
-	if (this->map.getLevel() == 4)
-	{
-		this->enemies[6]->update(dt, this->player);
-		this->enemies[7]->update(dt, this->player);
-		this->enemies[8]->update(dt, this->player);
-		this->enemies[9]->update(dt, this->player);
-		this->enemies[10]->update(dt, this->player);
-	}
-	if (this->map.getLevel() == 5)
-	{
-		this->enemies[11]->update(dt, this->player);
-		this->enemies[12]->update(dt, this->player);
-		this->enemies[13]->update(dt, this->player);
-		this->enemies[14]->update(dt, this->player);
-		this->enemies[15]->update(dt, this->player);
+		this->pmenu->update(dt);
 	}
 }
 
@@ -157,5 +177,11 @@ void GameState::draw(sf::RenderTarget *target)
 		this->enemies[13]->draw(this->window);
 		this->enemies[14]->draw(this->window); //
 		this->enemies[15]->draw(this->window);
+	}
+
+	// Pause menu render
+	if (this->paused)
+	{
+		this->pmenu->draw(this->window);
 	}
 }

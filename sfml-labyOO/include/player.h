@@ -6,11 +6,13 @@
 #include "assetsmanager.h"
 #include "animation.h"
 #include "entity.h"
+#include "enemy.h"
 #include "customStructures.h"
 
 class Map;
 class AssetsManager;
 class Animation;
+class Enemy;
 
 class Player : public Entity
 {
@@ -21,6 +23,8 @@ public:
 
 	static constexpr int PLAYER_SPEED = 2;
 	static constexpr float PLAYER_ACCELERATION = 0.25f;
+	static constexpr short INVINCIBILITY_DURATION = 128;
+	static constexpr short BLINKING = 4;
 
 	// Getter exit
 	bool getHasExited() const;
@@ -37,6 +41,7 @@ public:
 
 	// Update position
 	void update(const float &dt) override;
+	void update(const float &dt, std::vector<std::shared_ptr<Enemy>> enemies);
 
 	// Reset sound memory for each level
 	void resetSounds();
@@ -54,11 +59,17 @@ private:
 	bool nextLevelEnabled;
 	bool trapEnabled;
 
+	// Sounds
+	sf::Sound damageSound;
+	sf::Sound deathSound;
+
 	int nbLives;
 	bool dead;
 	bool exit;
 
 	float speed;
+
+	short invincibleTimer;
 
 	/// Text to display the level number
 	sf::Text text;

@@ -7,16 +7,6 @@ void Enemy::initVariables()
 	this->goingRight = true;
 	this->lastMove = 0.f;
 
-	// Damage sound
-	this->assetsManager.loadSound("damage", "sounds/damage.ogg");
-	this->damageSound = (this->assetsManager.getSound("damage"));
-	this->damageSound.setVolume(100);
-
-	// Death sound
-	this->assetsManager.loadSound("dead", "sounds/dead.ogg");
-	this->deathSound = (this->assetsManager.getSound("dead"));
-	this->deathSound.setVolume(15);
-
 	this->moveAnimation.setParamsMovements(this->paramsMovement);
 	this->moveAnimation.update(0.f);
 }
@@ -108,18 +98,7 @@ void Enemy::update(const float &dt, Player &player)
 		// Enemy hit player
 		if (this->getHitBox().left == player.getHitBox().left && this->getHitBox().top == player.getHitBox().top)
 		{
-			if (player.getNbLives() == 0)
-			{
-				std::cout << "You DIEEEDDD!!" << std::endl;
-				this->deathSound.play();
-				player.justDie(true);
-			}
-			else
-			{
-				std::cout << "Damage by enemy!!" << std::endl;
-				this->damageSound.play();
-				player.setNbLives(player.getNbLives() - 1);
-			}
+			player.justDie(false);
 		}
 
 		this->moveAnimation.update(dt);

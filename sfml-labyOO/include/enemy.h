@@ -42,10 +42,6 @@ private:
 	int minVal;
 	int maxVal;
 
-	// Sounds
-	sf::Sound damageSound;
-	sf::Sound deathSound;
-
 	Animation moveAnimation;
 
 	// 0-60 down

@@ -3,7 +3,7 @@
 
 #include "stdHeader.h"
 #include "state.h"
-#include "menustate.h"
+#include "pausemenu.h"
 #include "endgamestate.h"
 #include "gameoverstate.h"
 #include "assetsmanager.h"
@@ -12,7 +12,7 @@
 #include "enemy.h"
 
 class AssetsManager;
-class MenuState;
+class PauseMenu;
 class EndGameState;
 class GameoverState;
 class Map;
@@ -32,6 +32,7 @@ public:
 
 private:
 	AssetsManager assetsManager;
+	PauseMenu *pmenu;
 
 	// The map
 	Map map;

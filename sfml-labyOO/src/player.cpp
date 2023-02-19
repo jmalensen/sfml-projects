@@ -29,6 +29,16 @@ void Player::initVariables()
 	this->exitLevelSound.setVolume(30);
 	this->nextLevelEnabled = false;
 
+	// Damage sound
+	this->assetsManager.loadSound("damage", "sounds/damage.ogg");
+	this->damageSound = (this->assetsManager.getSound("damage"));
+	this->damageSound.setVolume(100);
+
+	// Death sound
+	this->assetsManager.loadSound("dead", "sounds/dead.ogg");
+	this->deathSound = (this->assetsManager.getSound("dead"));
+	this->deathSound.setVolume(15);
+
 	this->exit = false;
 
 	this->walkAnimation.setParamsMovements(this->paramsMovement);
@@ -51,7 +61,7 @@ void Player::initVariables()
 	this->text.setFillColor(sf::Color::White);
 }
 
-Player::Player(Map &maze, AssetsManager &assetsManager) : Entity(maze, assetsManager), walkAnimation(60, "images/perso.png", Animation::RIGHT, 4), nbLives(3), speed(0)
+Player::Player(Map &maze, AssetsManager &assetsManager) : Entity(maze, assetsManager), walkAnimation(60, "images/perso.png", Animation::RIGHT, 4), nbLives(3), speed(0), invincibleTimer(0)
 {
 	// Initialize the player
 	this->initVariables();
@@ -66,9 +76,24 @@ bool Player::getHasExited() const
 	return this->exit;
 }
 
-void Player::justDie(bool newStatus)
+void Player::justDie(bool instantDeath)
 {
-	this->dead = newStatus;
+	// If instant death, you just die
+	this->dead = instantDeath;
+
+	if (this->getNbLives() == 0 && this->invincibleTimer == 0)
+	{
+		std::cout << "You DIEEEDDD!!" << std::endl;
+		this->deathSound.play();
+		this->dead = true;
+	}
+	else if (this->getNbLives() > 0 && this->invincibleTimer == 0)
+	{
+		// std::cout << "Damage by enemy!!" << std::endl;
+		this->damageSound.play();
+		this->setNbLives(this->getNbLives() - 1);
+		this->invincibleTimer = INVINCIBILITY_DURATION;
+	}
 }
 
 bool Player::isDead() const
@@ -89,7 +114,8 @@ void Player::setNbLives(int nnbLives)
 	this->text.setString("Nb lives: " + std::to_string(this->nbLives));
 }
 
-void Player::update(const float &dt)
+void Player::update(const float &dt) {}
+void Player::update(const float &dt, std::vector<std::shared_ptr<Enemy>> enemies)
 {
 
 	/// Needed to keep the same clock for the player (not moving too fast)
@@ -183,7 +209,22 @@ void Player::update(const float &dt)
 			}
 		}
 
-		// check hitboxes enemies depending on levels
+		// Invicibility countdown if exists
+		if (this->invincibleTimer > 0)
+		{
+			this->invincibleTimer--;
+		}
+
+		// Check hitboxes enemies depending on levels
+		for (short a = 0; a < enemies.size(); a++)
+		{
+			if (this->getHitBox().left == enemies[a]->getHitBox().left && this->getHitBox().top == enemies[a]->getHitBox().top)
+			{
+				this->justDie(false);
+
+				break;
+			}
+		}
 	}
 
 	if (this->maze.operator()(this->positionY, this->positionX) == 't' && this->trapEnabled != true)
@@ -299,7 +340,12 @@ void Player::draw(sf::RenderWindow *window)
 
 	// Draw the player
 	this->walkAnimation.setPosition(this->positionX * blockSize + 1, this->positionY * blockSize + 1);
-	this->walkAnimation.draw(window);
+
+	// When player is invincible, his sprite will blink.
+	if ((invincibleTimer / BLINKING % 2) == 0)
+	{
+		this->walkAnimation.draw(window);
+	}
 
 	// Draw the text
 	this->text.setPosition(170, 10);
