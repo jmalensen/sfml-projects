@@ -1,27 +1,38 @@
 #include "../include/gamestate.h"
 
+int GameState::getRandomNumber(int min, int max)
+{
+	static std::random_device rd;
+	static std::mt19937 rng(rd());
+	std::uniform_int_distribution<int> dist(min, max);
+	return dist(rng);
+}
+
 // Initialization
 void GameState::initVariables()
 {
-	this->enemies.push_back(std::make_shared<Enemy>(2, this->map, this->assetsManager, 5, 4, Enemy::HORIZONTAL, 5, 16, 30.f));
-	this->enemies.push_back(std::make_shared<Enemy>(2, this->map, this->assetsManager, 8, 7, Enemy::HORIZONTAL, 8, 22, 30.f));
+	this->enemies.push_back(std::make_shared<Enemy>(2, this->map, this->assetsManager, 5, 4, Enemy::HORIZONTAL, 5, getRandomNumber(13, 19), 30.f));
+	this->enemies.push_back(std::make_shared<Enemy>(2, this->map, this->assetsManager, 8, 7, Enemy::HORIZONTAL, 8, getRandomNumber(15, 24), 30.f));
 
-	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 6, 15, 50.f));
-	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 8, 13, Enemy::HORIZONTAL, 8, 21, 50.f));
-	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, 28, 50.f));
-	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 16, 10, Enemy::HORIZONTAL, 16, 24, 50.f));
+	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 6, getRandomNumber(12, 18), 50.f));
+	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 8, 13, Enemy::HORIZONTAL, 8, getRandomNumber(16, 23), 50.f));
+	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, getRandomNumber(25, 30), 50.f));
+	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 16, 10, Enemy::HORIZONTAL, 16, getRandomNumber(19, 26), 50.f));
 
-	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 5, 14, 60.f));
-	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 8, 12, Enemy::HORIZONTAL, 8, 25, 60.f));
-	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, 19, 60.f));
-	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 20, 10, Enemy::HORIZONTAL, 20, 24, 60.f));
-	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 5, 12, Enemy::HORIZONTAL, 5, 30, 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 5, getRandomNumber(12, 16), 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 8, 12, Enemy::HORIZONTAL, 8, getRandomNumber(19, 26), 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, getRandomNumber(13, 19), 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 20, 10, Enemy::HORIZONTAL, 20, getRandomNumber(22, 28), 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 5, 12, Enemy::HORIZONTAL, 5, getRandomNumber(28, 31), 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 7, 11, Enemy::HORIZONTAL, 7, getRandomNumber(20, 28), 60.f));
 
-	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 5, 13, 70.f));
-	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 8, 5, Enemy::HORIZONTAL, 8, 23, 70.f));
-	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, 19, 70.f));
-	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 16, 10, Enemy::HORIZONTAL, 16, 21, 70.f));
-	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 5, 13, Enemy::HORIZONTAL, 5, 27, 70.f));
+	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 5, getRandomNumber(13, 16), 70.f));
+	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 8, 5, Enemy::HORIZONTAL, 8, getRandomNumber(15, 24), 70.f));
+	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, getRandomNumber(13, 19), 70.f));
+	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 16, 10, Enemy::HORIZONTAL, 16, getRandomNumber(18, 23), 70.f));
+	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 7, 13, Enemy::HORIZONTAL, 7, getRandomNumber(22, 28), 70.f));
+	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 12, 14, Enemy::HORIZONTAL, 12, getRandomNumber(16, 19), 70.f));
+	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 10, 8, Enemy::HORIZONTAL, 10, getRandomNumber(20, 29), 70.f));
 
 	this->pmenu = new PauseMenu(this->stateData->gfxSettings->resolution);
 
@@ -146,14 +157,17 @@ void GameState::update(const float &dt)
 			this->enemies[8]->update(dt, this->player);
 			this->enemies[9]->update(dt, this->player);
 			this->enemies[10]->update(dt, this->player);
+			this->enemies[11]->update(dt, this->player);
 		}
 		if (this->map.getLevel() == 5)
 		{
-			this->enemies[11]->update(dt, this->player);
 			this->enemies[12]->update(dt, this->player);
 			this->enemies[13]->update(dt, this->player);
 			this->enemies[14]->update(dt, this->player);
 			this->enemies[15]->update(dt, this->player);
+			this->enemies[16]->update(dt, this->player);
+			this->enemies[17]->update(dt, this->player);
+			this->enemies[18]->update(dt, this->player);
 		}
 
 		// Time elapsed since the start of the game (updated by pause)
@@ -208,15 +222,18 @@ void GameState::draw(sf::RenderTarget *target)
 		this->enemies[8]->draw(this->window);
 		this->enemies[9]->draw(this->window);
 		this->enemies[10]->draw(this->window);
+		this->enemies[11]->draw(this->window);
 	}
 
 	if (this->map.getLevel() == 5)
 	{
-		this->enemies[11]->draw(this->window);
 		this->enemies[12]->draw(this->window);
 		this->enemies[13]->draw(this->window);
 		this->enemies[14]->draw(this->window);
 		this->enemies[15]->draw(this->window);
+		this->enemies[16]->draw(this->window);
+		this->enemies[17]->draw(this->window);
+		this->enemies[18]->draw(this->window);
 	}
 
 	// Elapsed timer

@@ -65,7 +65,7 @@ void GameoverState::initGui()
 
 	// Set the color
 	this->timerText.setFillColor(sf::Color::White);
-	this->timerText.setPosition(gui::p2pX(42.f, vm), gui::p2pY(70.f, vm));
+	this->timerText.setPosition(gui::p2pX(36.f, vm), gui::p2pY(70.f, vm));
 
 	sf::Time elapsedTime = this->stateData->elapsedTime;
 	// Convert to minutes, seconds, and milliseconds

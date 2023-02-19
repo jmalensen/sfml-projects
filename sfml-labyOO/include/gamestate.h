@@ -49,6 +49,8 @@ private:
 	// The enemies
 	std::vector<std::shared_ptr<Enemy>> enemies;
 
+	int getRandomNumber(int min, int max);
+
 	// Functions
 	void initVariables();
 	void initKeybinds();

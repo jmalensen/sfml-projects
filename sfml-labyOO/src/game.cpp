@@ -9,7 +9,7 @@ void Game::initVariables()
 	// Background music
 	if (!this->music.openFromFile("sounds/musicloop.ogg"))
 	{
-		std::cout << "Fail to load music file" << std::endl;
+		// std::cout << "Fail to load music file" << std::endl;
 	}
 
 	this->music.setVolume(20);
@@ -66,7 +66,7 @@ void Game::initKeys()
 	// DEBUG REMOVE LATER!
 	for (auto i : this->supportedKeys)
 	{
-		std::cout << i.first << " " << i.second << std::endl;
+		// std::cout << i.first << " " << i.second << std::endl;
 	}
 }
 

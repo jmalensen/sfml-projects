@@ -292,7 +292,7 @@ void Player::update(const float &dt, std::vector<std::shared_ptr<Enemy>> enemies
 			}
 			this->unlockSound.play();
 
-			std::cout << "Change content:" << this->maze.operator()(this->positionY, this->positionX) << this->positionY << this->positionX << ":P" << std::endl;
+			// std::cout << "Change content:" << this->maze.operator()(this->positionY, this->positionX) << this->positionY << this->positionX << ":P" << std::endl;
 			this->unlockEnabled = true;
 		}
 
@@ -300,7 +300,7 @@ void Player::update(const float &dt, std::vector<std::shared_ptr<Enemy>> enemies
 		if (this->maze.operator()(this->positionY, this->positionX) == 'n' && this->nextLevelEnabled != true)
 		{
 			this->exitLevelSound.play();
-			std::cout << "Next level!!" << std::endl;
+			// std::cout << "Next level!!" << std::endl;
 			this->nextLevelEnabled = true;
 
 			this->maze.setLevel(this->maze.getLevel() + 1);

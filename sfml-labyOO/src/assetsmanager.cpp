@@ -12,12 +12,12 @@ bool AssetsManager::loadTexture(std::string name, std::string filepath)
 		sf::Texture texture;
 		if (!texture.loadFromFile(filepath))
 		{
-			std::cout << "Failed to load texture: " << filepath << std::endl;
+			// std::cout << "Failed to load texture: " << filepath << std::endl;
 			throw "ERROR::ASSETSMANAGER::Failed to load texture:" + filepath;
 			return false;
 		}
 		this->textures[name] = texture;
-		std::cout << "Load texture: " << name << " " << filepath << std::endl;
+		// std::cout << "Load texture: " << name << " " << filepath << std::endl;
 	}
 	return true;
 }
@@ -30,7 +30,7 @@ bool AssetsManager::loadSound(std::string name, std::string filepath)
 		sf::SoundBuffer soundBuffer;
 		if (!soundBuffer.loadFromFile(filepath))
 		{
-			std::cout << "Failed to load sound: " << filepath << std::endl;
+			// std::cout << "Failed to load sound: " << filepath << std::endl;
 			throw "ERROR::ASSETSMANAGER::Failed to load sound:" + filepath;
 			return false;
 		}
@@ -47,7 +47,7 @@ bool AssetsManager::loadFont(std::string name, std::string filepath)
 		sf::Font font;
 		if (!font.loadFromFile(filepath))
 		{
-			std::cout << "Failed to load font: " << filepath << std::endl;
+			// std::cout << "Failed to load font: " << filepath << std::endl;
 			throw "ERROR::ASSETSMANAGER::Failed to load font:" + filepath;
 			return false;
 		}
@@ -100,7 +100,7 @@ bool AssetsManager::addAnimation(std::string name, std::vector<sf::IntRect> fram
 {
 	if (this->animations.count(name) != 0)
 	{
-		std::cout << "Animation already exists : " << name << std::endl;
+		// std::cout << "Animation already exists : " << name << std::endl;
 		return false;
 	}
 	this->animations[name] = frames;
