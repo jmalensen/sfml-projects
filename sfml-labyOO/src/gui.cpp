@@ -57,10 +57,10 @@ const float gui::getFactor(const float initialSize, sf::RenderWindow *window)
 }
 
 gui::Button::Button(float x, float y, float width, float height,
-										sf::Font *font, std::string text, unsigned character_size,
-										sf::Color text_idle_color, sf::Color text_hover_color, sf::Color text_active_color,
-										sf::Color idle_color, sf::Color hover_color, sf::Color active_color,
-										sf::Color outline_idle_color, sf::Color outline_hover_color, sf::Color outline_active_color,
+										sf::Font *font, std::string text, unsigned characterSize,
+										sf::Color textIdleColor, sf::Color textHoverColor, sf::Color textActiveColor,
+										sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor,
+										sf::Color outlineIdleColor, sf::Color outlineHoverColor, sf::Color outlineActiveColor,
 										short unsigned id)
 {
 	this->buttonState = BTN_IDLE;
@@ -68,31 +68,31 @@ gui::Button::Button(float x, float y, float width, float height,
 
 	this->shape.setPosition(sf::Vector2f(x, y));
 	this->shape.setSize(sf::Vector2f(width, height));
-	this->shape.setFillColor(idle_color);
+	this->shape.setFillColor(idleColor);
 	this->shape.setOutlineThickness(1.f);
-	this->shape.setOutlineColor(outline_idle_color);
+	this->shape.setOutlineColor(outlineIdleColor);
 
 	this->font = font;
 	this->text.setFont(*this->font);
 	this->text.setString(text);
-	this->text.setFillColor(text_idle_color);
-	this->text.setCharacterSize(character_size);
+	this->text.setFillColor(textIdleColor);
+	this->text.setCharacterSize(characterSize);
 	// std::cout << this->text.getGlobalBounds().width << "\n";
 	this->text.setPosition(
 			this->shape.getPosition().x,
 			this->shape.getPosition().y);
 
-	this->textIdleColor = text_idle_color;
-	this->textHoverColor = text_hover_color;
-	this->textActiveColor = text_active_color;
+	this->textIdleColor = textIdleColor;
+	this->textHoverColor = textHoverColor;
+	this->textActiveColor = textActiveColor;
 
-	this->idleColor = idle_color;
-	this->hoverColor = hover_color;
-	this->activeColor = active_color;
+	this->idleColor = idleColor;
+	this->hoverColor = hoverColor;
+	this->activeColor = activeColor;
 
-	this->outlineIdleColor = outline_idle_color;
-	this->outlineHoverColor = outline_hover_color;
-	this->outlineActiveColor = outline_active_color;
+	this->outlineIdleColor = outlineIdleColor;
+	this->outlineHoverColor = outlineHoverColor;
+	this->outlineActiveColor = outlineActiveColor;
 }
 
 gui::Button::~Button()
@@ -188,15 +188,15 @@ void gui::Button::draw(sf::RenderTarget &target)
 // DROP DOWN LIST =============================================
 
 gui::DropDownList::DropDownList(float x, float y, float width, float height,
-																sf::Font &font, std::string list[],
-																unsigned nrOfElements, unsigned default_index)
+																sf::Font &font, unsigned characterSize, std::string list[],
+																unsigned nrOfElements, unsigned defaultIndex)
 		: font(font), showList(false), keytimeMax(1.f), keytime(0.f)
 {
 	// unsigned nrOfElements = sizeof(list) / sizeof(std::string);
 
 	this->activeElement = new gui::Button(
 			x, y, width, height,
-			&this->font, list[default_index], 14,
+			&this->font, list[defaultIndex], characterSize,
 			sf::Color(255, 255, 255, 150), sf::Color(255, 255, 255, 200), sf::Color(20, 20, 20, 50),
 			sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200),
 			sf::Color(255, 255, 255, 200), sf::Color(255, 255, 255, 255), sf::Color(20, 20, 20, 50));
@@ -206,7 +206,7 @@ gui::DropDownList::DropDownList(float x, float y, float width, float height,
 		this->list.push_back(
 				new gui::Button(
 						x, y + ((i + 1) * height), width, height,
-						&this->font, list[i], 14,
+						&this->font, list[i], characterSize,
 						sf::Color(255, 255, 255, 150), sf::Color(255, 255, 255, 255), sf::Color(20, 20, 20, 50),
 						sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200),
 						sf::Color(255, 255, 255, 0), sf::Color(255, 255, 255, 0), sf::Color(20, 20, 20, 0),
