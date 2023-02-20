@@ -27,11 +27,14 @@ include_directories(/include)
 
 find_package(SFML 2.5 COMPONENTS system window graphics network audio REQUIRED)
 
+# Set icon of application
+set(APP_ICON_RESOURCE_WINDOWS ${SFMLFINAL_SOURCE_DIR}/appicon.rc)
+
 # puts all .cpp files inside src to the SRC_FILES variable
 file(GLOB_RECURSE SRC_FILES src/*.cpp)
 
 # compiles the files defined by SRC_FILES to generante the executable defined by EXEC
-add_executable(${PROJECT_NAME} ${SRC_FILES})
+add_executable(${PROJECT_NAME} ${SRC_FILES} ${APP_ICON_RESOURCE_WINDOWS})
 
 target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
 
