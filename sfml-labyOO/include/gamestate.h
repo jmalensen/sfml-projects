@@ -26,11 +26,13 @@ public:
 	virtual ~GameState();
 
 	// Functions
+	void updateGuiSize(sf::Event sfEvent) override;
 	void updateInput(const float &dt);
 	void update(const float &dt);
 	void draw(sf::RenderTarget *target = NULL);
 
 private:
+	sf::Music music;
 	AssetsManager assetsManager;
 	PauseMenu *pmenu;
 

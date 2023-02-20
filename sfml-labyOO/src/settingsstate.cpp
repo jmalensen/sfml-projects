@@ -2,20 +2,22 @@
 
 void SettingsState::initVariables()
 {
-	// this->modes = sf::VideoMode::getFullscreenModes();
-	sf::VideoMode bigScreen1(3720, 1920);
-	sf::VideoMode bigScreen2(2480, 1280);
-	sf::VideoMode bigScreen3(1860, 960); // accepted resolutions to keep the ratio correct
-	sf::VideoMode bigScreen4(1550, 800);
-	sf::VideoMode bigScreen5(1240, 640);
-	std::vector<sf::VideoMode> possibleResolutions{bigScreen1, bigScreen2, bigScreen3, bigScreen4, bigScreen5};
-	this->modes = possibleResolutions;
+	this->modes = sf::VideoMode::getFullscreenModes();
+	// sf::VideoMode bigScreen1(3720, 1920);
+	// sf::VideoMode bigScreen2(2480, 1280);
+	// sf::VideoMode bigScreen3(1860, 960); // accepted resolutions to keep the ratio correct
+	// sf::VideoMode bigScreen4(1550, 800);
+	// sf::VideoMode bigScreen5(1240, 640);
+	// std::vector<sf::VideoMode> possibleResolutions{bigScreen1, bigScreen2, bigScreen3, bigScreen4, bigScreen5};
+	// this->modes = possibleResolutions;
 }
 
 void SettingsState::initGui()
 {
 	this->window->setPosition(sf::Vector2i(0, 0));
 	const sf::VideoMode &vm = this->stateData->gfxSettings->resolution;
+
+	std::cout << "Settings resolution !" << vm.width << " " << vm.height << std::endl;
 
 	this->background.setSize(
 			sf::Vector2f(
@@ -33,14 +35,14 @@ void SettingsState::initGui()
 			gui::p2pX(72.f, vm), gui::p2pY(81.5f, vm),
 			gui::p2pX(13.f, vm), gui::p2pY(6.f, vm),
 			&this->font, "Back", gui::calcCharSize(vm),
-			sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+			sf::Color(70, 120, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
 			sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
 	this->buttons["APPLY"] = new gui::Button(
 			gui::p2pX(60.f, vm), gui::p2pY(81.5f, vm),
 			gui::p2pX(13.f, vm), gui::p2pY(6.f, vm),
 			&this->font, "Apply", gui::calcCharSize(vm),
-			sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+			sf::Color(70, 120, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
 			sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
 	std::vector<std::string> modes_str;
@@ -50,11 +52,11 @@ void SettingsState::initGui()
 	}
 
 	this->dropDownLists["RESOLUTION"] = new gui::DropDownList(gui::p2pX(42.f, vm), gui::p2pY(42.f, vm),
-																														gui::p2pX(10.4f, vm), gui::p2pY(4.5f, vm), font, modes_str.data(), modes_str.size());
+																														gui::p2pX(10.4f, vm), gui::p2pY(4.5f, vm), font, gui::calcCharSize(vm, 100), modes_str.data(), modes_str.size());
 
 	this->optionsText.setFont(this->font);
 	this->optionsText.setPosition(sf::Vector2f(gui::p2pX(5.2f, vm), gui::p2pY(41.7f, vm)));
-	this->optionsText.setCharacterSize(30);
+	this->optionsText.setCharacterSize(gui::calcCharSize(vm));
 	this->optionsText.setFillColor(sf::Color(255, 255, 255, 200));
 
 	this->optionsText.setString(
@@ -83,7 +85,7 @@ void SettingsState::resetGui()
 	}
 	this->dropDownLists.clear();
 
-	this->initGui();
+	// this->initGui();
 }
 
 void SettingsState::initFonts()
@@ -167,9 +169,21 @@ void SettingsState::updateGui(const float &dt)
 		this->stateData->gfxSettings->resolution = this->modes[this->dropDownLists["RESOLUTION"]->getActiveElementId()];
 
 		// Memory leak here or not ?
-		this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Default);
+		// this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Default);
 
-		this->resetGui();
+		this->window->setSize(
+				sf::Vector2u(
+						static_cast<int>(this->stateData->gfxSettings->resolution.width),
+						static_cast<int>(this->stateData->gfxSettings->resolution.height)));
+
+		// // Update the view to the new size of the window
+		// sf::FloatRect visibleArea(0.f, 0.f, this->stateData->gfxSettings->resolution.width, this->stateData->gfxSettings->resolution.height);
+		// this->window->setView(sf::View(visibleArea));
+
+		// this->resetGui();
+
+		this->endState();
+		this->states->push(new SettingsState(this->stateData));
 	}
 
 	// Dropdown lists

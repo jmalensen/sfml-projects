@@ -11,6 +11,15 @@ int GameState::getRandomNumber(int min, int max)
 // Initialization
 void GameState::initVariables()
 {
+	// Background music
+	if (!this->music.openFromFile("sounds/musicloop.ogg"))
+	{
+		// std::cout << "Fail to load music file" << std::endl;
+	}
+
+	this->music.setVolume(20);
+	this->music.setLoop(true);
+
 	this->enemies.push_back(std::make_shared<Enemy>(2, this->map, this->assetsManager, 5, 4, Enemy::HORIZONTAL, 5, getRandomNumber(13, 19), 30.f));
 	this->enemies.push_back(std::make_shared<Enemy>(2, this->map, this->assetsManager, 8, 7, Enemy::HORIZONTAL, 8, getRandomNumber(15, 24), 30.f));
 
@@ -21,9 +30,9 @@ void GameState::initVariables()
 
 	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 5, getRandomNumber(12, 16), 60.f));
 	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 8, 12, Enemy::HORIZONTAL, 8, getRandomNumber(19, 26), 60.f));
-	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, getRandomNumber(13, 19), 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 9, 8, Enemy::HORIZONTAL, 9, getRandomNumber(13, 19), 60.f));
 	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 20, 10, Enemy::HORIZONTAL, 20, getRandomNumber(22, 28), 60.f));
-	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 5, 12, Enemy::HORIZONTAL, 5, getRandomNumber(28, 31), 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 5, 12, Enemy::HORIZONTAL, 5, getRandomNumber(26, 32), 60.f));
 	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 7, 11, Enemy::HORIZONTAL, 7, getRandomNumber(20, 28), 60.f));
 
 	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 5, getRandomNumber(13, 16), 70.f));
@@ -34,6 +43,7 @@ void GameState::initVariables()
 	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 12, 14, Enemy::HORIZONTAL, 12, getRandomNumber(16, 19), 70.f));
 	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 10, 8, Enemy::HORIZONTAL, 10, getRandomNumber(20, 29), 70.f));
 
+	this->paused = false;
 	this->pmenu = new PauseMenu(this->stateData->gfxSettings->resolution);
 
 	// Text to display the time
@@ -83,11 +93,22 @@ GameState::GameState(StateData *stateData)
 {
 	this->initVariables();
 	this->initKeybinds();
+
+	this->music.play();
 }
 
 GameState::~GameState()
 {
 	delete this->pmenu;
+}
+
+void GameState::updateGuiSize(sf::Event sfEvent)
+{
+	// Call the parent class
+	State::updateGuiSize(sfEvent);
+	delete this->pmenu;
+	std::cout << "Update resolution !" << this->stateData->gfxSettings->resolution.width << " " << this->stateData->gfxSettings->resolution.height << std::endl;
+	this->pmenu = new PauseMenu(this->stateData->gfxSettings->resolution);
 }
 
 void GameState::updateInput(const float &dt)
@@ -115,6 +136,7 @@ void GameState::update(const float &dt)
 	// std::cout << "GameState::update" << std::endl;
 	if (this->player.isDead())
 	{
+		this->music.stop();
 		this->endState();
 		this->states->push(new GameoverState(this->stateData));
 	}

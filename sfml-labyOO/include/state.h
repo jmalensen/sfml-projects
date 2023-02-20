@@ -35,6 +35,7 @@ public:
 	void endState();
 	void pauseState();
 	void unpauseState();
+	virtual void updateGuiSize(sf::Event sfEvent);
 	virtual void updateMousePositions(sf::View *view = NULL);
 	virtual void updateKeytime(const float &dt);
 	virtual void update(const float &dt) = 0;

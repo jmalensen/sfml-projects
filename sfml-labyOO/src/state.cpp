@@ -48,6 +48,31 @@ void State::unpauseState()
 	this->paused = false;
 }
 
+void State::updateGuiSize(sf::Event sfEvent)
+{
+	// const sf::Vector2u oldSize = this->window->getSize();
+
+	this->window->setSize(
+			sf::Vector2u(
+					static_cast<int>(sfEvent.size.width),
+					static_cast<int>(sfEvent.size.height)));
+
+	// Update the view to the new size of the window
+	sf::FloatRect visibleArea(0.f, 0.f, sfEvent.size.width, sfEvent.size.height);
+	this->window->setView(sf::View(visibleArea));
+
+	std::cout << "Resolution event !" << sfEvent.size.width << " " << sfEvent.size.height << std::endl;
+
+	// Update the size and position of relevant elements
+	const sf::Vector2u newSize = this->window->getSize();
+	// const float xScale = static_cast<float>(newSize.x) / oldSize.x;
+	// const float yScale = static_cast<float>(newSize.y) / oldSize.y;
+
+	// Update the resolution in the graphics settings
+	this->stateData->gfxSettings->resolution.width = newSize.x;
+	this->stateData->gfxSettings->resolution.height = newSize.y;
+}
+
 void State::checkForQuit()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))))

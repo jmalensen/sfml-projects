@@ -34,7 +34,6 @@ private:
 	// Variables
 	GraphicsSettings gfxSettings;
 	StateData stateData;
-	sf::Music music;
 
 	sf::Clock dtClock;
 	float dt;

@@ -5,15 +5,6 @@ void Game::initVariables()
 {
 	this->window = nullptr;
 	this->dt = 0.f;
-
-	// Background music
-	if (!this->music.openFromFile("sounds/musicloop.ogg"))
-	{
-		// std::cout << "Fail to load music file" << std::endl;
-	}
-
-	this->music.setVolume(20);
-	this->music.setLoop(true);
 }
 
 void Game::initGraphicsSettings()
@@ -38,7 +29,7 @@ void Game::initWindow()
 		this->window = new sf::RenderWindow(
 				this->gfxSettings.resolution,
 				this->gfxSettings.title,
-				sf::Style::Titlebar | sf::Style::Close,
+				sf::Style::Titlebar | sf::Style::Resize | sf::Style::Close,
 				this->gfxSettings.contextSettings);
 	}
 	this->window->setPosition(sf::Vector2i(0, 0));
@@ -92,8 +83,6 @@ Game::Game()
 	this->initKeys();
 	this->initStateData();
 	this->initStates();
-
-	this->music.play();
 }
 
 Game::~Game()
@@ -126,6 +115,14 @@ void Game::updateSFMLEvents()
 		if (this->sfEvent.type == sf::Event::Closed)
 		{
 			this->window->close();
+		}
+
+		else if (this->sfEvent.type == sf::Event::Resized)
+		{
+			if (!this->states.empty())
+			{
+				this->states.top()->updateGuiSize(this->sfEvent);
+			}
 		}
 	}
 }
