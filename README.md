@@ -1,3 +1,3 @@
 # SFML Projects
 
-All my projects done with SFML
+Labyrinths made using SFML
