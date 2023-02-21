@@ -128,85 +128,84 @@ void Player::update(const float &dt, std::vector<std::shared_ptr<Enemy>> enemies
 	// getHitBox().intersects(enemy.getHitBox());
 	this->walkAnimation.update(dt);
 
+	// The base player speed (in pixels per second)
+	static const float BASE_SPEED = 60.0f;
+
+	// The maximum speed that the player can achieve (in pixels per second)
+	static const float MAX_SPEED = 80.0f;
+
+	// The acceleration of the player (in pixels per second squared)
+	static const float ACCELERATION = 100.0f;
+
+	// The deceleration of the player (in pixels per second squared)
+	static const float DECELERATION = 200.0f;
+
+	// The minimum delay between two moves (in seconds)
+	static const float MIN_MOVE_DELAY = 0.2f;
+
+	// The current player speed (in pixels per second)
+	float speed = BASE_SPEED;
+
+	// Update the move delay based on the current player speed
+	moveDelay = 5.0f / speed;
+
 	if (!this->dead)
 	{
-		// Handle movement of player
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		if (this->lastMove >= moveDelay)
 		{
-			this->walkAnimation.setDirection(Animation::UP);
 
-			if (this->lastMove >= moveDelay)
+			// Handle acceleration and deceleration
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 			{
-				if (this->maze.operator()(this->positionY - 1, this->positionX) != '#')
-				{
-					// std::cout << "Going up" << std::endl;
-					this->positionY--;
-					this->lastMove = 0;
-				}
-				else
-				{
-					// std::cout << "Ouch" << std::endl;
-				}
+				speed += ACCELERATION * dt;
+				speed = std::min(speed, MAX_SPEED);
 			}
-		}
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		{
-			this->walkAnimation.setDirection(Animation::DOWN);
-
-			if (this->lastMove >= moveDelay)
+			else
 			{
-				if (this->maze.operator()(this->positionY + 1, this->positionX) != '#')
-				{
-					// std::cout << "Going down" << std::endl;
-					this->positionY++;
-					this->lastMove = 0;
-				}
-				else
-				{
-					// std::cout << "Ouch" << std::endl;
-				}
+				speed -= DECELERATION * dt;
+				speed = std::max(speed, BASE_SPEED);
 			}
-		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		{
-			this->walkAnimation.setDirection(Animation::LEFT);
-
-			if (this->lastMove >= moveDelay)
+			// Handle movement in the x and y axis
+			float moveAmount = speed * dt;
+			sf::Vector2i moveDirection(0, 0);
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 			{
-				if (this->maze.operator()(this->positionY, this->positionX - 1) != '#')
-				{
-					// std::cout << "Going left" << std::endl;
-					this->positionX--;
-					this->lastMove = 0;
-				}
-				else
-				{
-					// std::cout << "Ouch" << std::endl;
-				}
+				this->walkAnimation.setDirection(Animation::UP);
+				moveDirection += sf::Vector2i(0, -1);
 			}
-		}
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		{
-			this->walkAnimation.setDirection(Animation::RIGHT);
-
-			// std::cout << "Right player: " << std::to_string(lastMove >= moveDelay) << " " << lastMove << " " << moveDelay << " " << dt << std::endl;
-
-			if (this->lastMove >= moveDelay)
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 			{
-				if (this->maze.operator()(this->positionY, this->positionX + 1) != '#')
-				{
-					// std::cout << "Going right" << std::endl;
-					this->positionX++;
-					this->lastMove = 0;
-				}
-				else
-				{
-					// std::cout << "Ouch" << std::endl;
-				}
+				this->walkAnimation.setDirection(Animation::DOWN);
+				moveDirection += sf::Vector2i(0, 1);
 			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			{
+				this->walkAnimation.setDirection(Animation::LEFT);
+				moveDirection += sf::Vector2i(-1, 0);
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			{
+				this->walkAnimation.setDirection(Animation::RIGHT);
+				moveDirection += sf::Vector2i(1, 0);
+			}
+
+			// Normalize the move direction to ensure that diagonal movement is not faster than horizontal or vertical movement
+			if (moveDirection != sf::Vector2i(0, 0))
+			{
+				moveDirection = moveDirection / std::max(std::abs(moveDirection.x), std::abs(moveDirection.y));
+			}
+
+			// Move the player by the required amount
+			sf::Vector2i newPosition = sf::Vector2i(positionX, positionY) + moveDirection * static_cast<int>(moveAmount);
+			if (maze.operator()(newPosition.y, newPosition.x) != '#')
+			{
+				positionX = newPosition.x;
+				positionY = newPosition.y;
+			}
+
+			// Reset last move
+			this->lastMove = 0.f;
 		}
 
 		// Invicibility countdown if exists
