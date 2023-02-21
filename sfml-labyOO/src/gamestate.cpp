@@ -20,28 +20,28 @@ void GameState::initVariables()
 	this->music.setVolume(20);
 	this->music.setLoop(true);
 
-	this->enemies.push_back(std::make_shared<Enemy>(2, this->map, this->assetsManager, 5, 4, Enemy::HORIZONTAL, 5, getRandomNumber(13, 19), 30.f));
+	this->enemies.push_back(std::make_shared<Enemy>(2, this->map, this->assetsManager, 5, 4, Enemy::HORIZONTAL, 5, getRandomNumber(18, 22), 30.f));
 	this->enemies.push_back(std::make_shared<Enemy>(2, this->map, this->assetsManager, 8, 7, Enemy::HORIZONTAL, 8, getRandomNumber(15, 24), 30.f));
 
-	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 6, getRandomNumber(12, 18), 50.f));
+	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 6, getRandomNumber(15, 21), 50.f));
 	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 8, 13, Enemy::HORIZONTAL, 8, getRandomNumber(16, 23), 50.f));
 	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, getRandomNumber(25, 30), 50.f));
-	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 16, 10, Enemy::HORIZONTAL, 16, getRandomNumber(19, 26), 50.f));
+	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 16, 10, Enemy::HORIZONTAL, 16, getRandomNumber(22, 28), 50.f));
 
-	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 5, getRandomNumber(12, 16), 60.f));
-	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 8, 12, Enemy::HORIZONTAL, 8, getRandomNumber(19, 26), 60.f));
-	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 9, 8, Enemy::HORIZONTAL, 9, getRandomNumber(13, 19), 60.f));
-	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 20, 10, Enemy::HORIZONTAL, 20, getRandomNumber(22, 28), 60.f));
-	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 5, 12, Enemy::HORIZONTAL, 5, getRandomNumber(26, 32), 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 5, 3, Enemy::HORIZONTAL, 5, getRandomNumber(13, 18), 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 8, 6, Enemy::HORIZONTAL, 8, getRandomNumber(20, 26), 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 9, 8, Enemy::HORIZONTAL, 9, getRandomNumber(16, 19), 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 16, 10, Enemy::HORIZONTAL, 16, getRandomNumber(28, 31), 60.f));
 	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 7, 11, Enemy::HORIZONTAL, 7, getRandomNumber(20, 28), 60.f));
+	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 5, 13, Enemy::HORIZONTAL, 5, getRandomNumber(26, 32), 60.f));
 
-	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 5, getRandomNumber(13, 16), 70.f));
-	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 8, 5, Enemy::HORIZONTAL, 8, getRandomNumber(15, 24), 70.f));
-	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, getRandomNumber(13, 19), 70.f));
-	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 16, 10, Enemy::HORIZONTAL, 16, getRandomNumber(18, 23), 70.f));
+	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 8, 5, Enemy::HORIZONTAL, 8, getRandomNumber(18, 24), 70.f));
+	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 5, getRandomNumber(17, 22), 70.f));
+	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 8, 8, Enemy::HORIZONTAL, 8, getRandomNumber(20, 29), 70.f));
+	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, getRandomNumber(15, 22), 70.f));
+	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 16, 10, Enemy::HORIZONTAL, 16, getRandomNumber(20, 23), 70.f));
 	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 7, 13, Enemy::HORIZONTAL, 7, getRandomNumber(22, 28), 70.f));
-	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 12, 14, Enemy::HORIZONTAL, 12, getRandomNumber(16, 19), 70.f));
-	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 10, 8, Enemy::HORIZONTAL, 10, getRandomNumber(20, 29), 70.f));
+	this->enemies.push_back(std::make_shared<Enemy>(5, this->map, this->assetsManager, 10, 14, Enemy::HORIZONTAL, 10, getRandomNumber(16, 19), 70.f));
 
 	this->paused = false;
 	this->pmenu = new PauseMenu(this->stateData->gfxSettings->resolution);
