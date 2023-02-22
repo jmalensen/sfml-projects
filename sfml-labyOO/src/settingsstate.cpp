@@ -169,12 +169,12 @@ void SettingsState::updateGui(const float &dt)
 		this->stateData->gfxSettings->resolution = this->modes[this->dropDownLists["RESOLUTION"]->getActiveElementId()];
 
 		// Memory leak here or not ?
-		// this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Default);
+		this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Default);
 
-		this->window->setSize(
-				sf::Vector2u(
-						static_cast<int>(this->stateData->gfxSettings->resolution.width),
-						static_cast<int>(this->stateData->gfxSettings->resolution.height)));
+		// this->window->setSize(
+		// 		sf::Vector2u(
+		// 				static_cast<int>(this->stateData->gfxSettings->resolution.width),
+		// 				static_cast<int>(this->stateData->gfxSettings->resolution.height)));
 
 		// // Update the view to the new size of the window
 		// sf::FloatRect visibleArea(0.f, 0.f, this->stateData->gfxSettings->resolution.width, this->stateData->gfxSettings->resolution.height);

@@ -31,6 +31,15 @@ void MainMenuState::initKeybinds()
 
 void MainMenuState::initGui()
 {
+	// Background music
+	if (!this->music.openFromFile("sounds/menu.ogg"))
+	{
+		// std::cout << "Fail to load music file" << std::endl;
+	}
+
+	this->music.setVolume(90);
+	this->music.setLoop(true);
+
 	this->window->setPosition(sf::Vector2i(0, 0));
 	const sf::VideoMode &vm = this->stateData->gfxSettings->resolution;
 
@@ -94,6 +103,7 @@ MainMenuState::MainMenuState(StateData *stateData)
 	this->initGui();
 	this->resetGui();
 
+	this->music.play();
 	this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
 	this->background.setFillColor(sf::Color::Magenta);
 }
@@ -119,6 +129,8 @@ void MainMenuState::updateButtons()
 	{
 		it.second->update(this->mousePosWindow);
 	}
+
+	this->music.stop();
 
 	// New game
 	if (this->buttons["GAME_STATE"]->isPressed())

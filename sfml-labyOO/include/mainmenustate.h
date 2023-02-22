@@ -23,6 +23,7 @@ public:
 
 private:
 	// Variables
+	sf::Music music;
 	sf::Texture backgroundTexture;
 	sf::RectangleShape background;
 	sf::Font font;
