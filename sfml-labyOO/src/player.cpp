@@ -147,7 +147,7 @@ void Player::update(const float &dt, std::vector<std::shared_ptr<Enemy>> enemies
 	float speed = BASE_SPEED;
 
 	// Update the move delay based on the current player speed
-	moveDelay = 5.0f / speed;
+	moveDelay = 2.0f / speed;
 
 	if (!this->dead)
 	{
@@ -172,22 +172,22 @@ void Player::update(const float &dt, std::vector<std::shared_ptr<Enemy>> enemies
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 			{
 				this->walkAnimation.setDirection(Animation::UP);
-				moveDirection += sf::Vector2i(0, -1);
+				moveDirection = sf::Vector2i(0, -1);
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 			{
 				this->walkAnimation.setDirection(Animation::DOWN);
-				moveDirection += sf::Vector2i(0, 1);
+				moveDirection = sf::Vector2i(0, 1);
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 			{
 				this->walkAnimation.setDirection(Animation::LEFT);
-				moveDirection += sf::Vector2i(-1, 0);
+				moveDirection = sf::Vector2i(-1, 0);
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 			{
 				this->walkAnimation.setDirection(Animation::RIGHT);
-				moveDirection += sf::Vector2i(1, 0);
+				moveDirection = sf::Vector2i(1, 0);
 			}
 
 			// Normalize the move direction to ensure that diagonal movement is not faster than horizontal or vertical movement
