@@ -130,11 +130,10 @@ void MainMenuState::updateButtons()
 		it.second->update(this->mousePosWindow);
 	}
 
-	this->music.stop();
-
 	// New game
 	if (this->buttons["GAME_STATE"]->isPressed())
 	{
+		this->music.stop();
 		std::cout << "GAME_STATE GameState!" << std::endl;
 		this->endState();
 		this->states->push(new GameState(this->stateData));
@@ -143,6 +142,7 @@ void MainMenuState::updateButtons()
 	// Settings
 	if (this->buttons["SETTINGS_STATE"]->isPressed())
 	{
+		this->music.stop();
 		this->endState();
 		this->states->push(new SettingsState(this->stateData));
 	}

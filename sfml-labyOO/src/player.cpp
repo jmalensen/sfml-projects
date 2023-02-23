@@ -132,22 +132,22 @@ void Player::update(const float &dt, std::vector<std::shared_ptr<Enemy>> enemies
 	static const float BASE_SPEED = 60.0f;
 
 	// The maximum speed that the player can achieve (in pixels per second)
-	static const float MAX_SPEED = 80.0f;
+	// static const float MAX_SPEED = 80.0f;
 
 	// The acceleration of the player (in pixels per second squared)
-	static const float ACCELERATION = 100.0f;
+	// static const float ACCELERATION = 100.0f;
 
 	// The deceleration of the player (in pixels per second squared)
-	static const float DECELERATION = 200.0f;
+	// static const float DECELERATION = 200.0f;
 
 	// The minimum delay between two moves (in seconds)
-	static const float MIN_MOVE_DELAY = 0.2f;
+	// static const float MIN_MOVE_DELAY = 0.2f;
 
 	// The current player speed (in pixels per second)
 	float speed = BASE_SPEED;
 
 	// Update the move delay based on the current player speed
-	moveDelay = 2.0f / speed;
+	moveDelay = 3.0f / speed;
 
 	if (!this->dead)
 	{
@@ -155,19 +155,19 @@ void Player::update(const float &dt, std::vector<std::shared_ptr<Enemy>> enemies
 		{
 
 			// Handle acceleration and deceleration
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-			{
-				speed += ACCELERATION * dt;
-				speed = std::min(speed, MAX_SPEED);
-			}
-			else
-			{
-				speed -= DECELERATION * dt;
-				speed = std::max(speed, BASE_SPEED);
-			}
+			// if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			// {
+			// 	speed += ACCELERATION * dt;
+			// 	speed = std::min(speed, MAX_SPEED);
+			// }
+			// else
+			// {
+			// 	speed -= DECELERATION * dt;
+			// 	speed = std::max(speed, BASE_SPEED);
+			// }
 
 			// Handle movement in the x and y axis
-			float moveAmount = speed * dt;
+			// float moveAmount = speed * dt;
 			sf::Vector2i moveDirection(0, 0);
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 			{
@@ -197,7 +197,7 @@ void Player::update(const float &dt, std::vector<std::shared_ptr<Enemy>> enemies
 			}
 
 			// Move the player by the required amount
-			sf::Vector2i newPosition = sf::Vector2i(positionX, positionY) + moveDirection * static_cast<int>(moveAmount);
+			sf::Vector2i newPosition = sf::Vector2i(positionX, positionY) + moveDirection; //*static_cast<int>(moveAmount);
 			if (maze.operator()(newPosition.y, newPosition.x) != '#')
 			{
 				positionX = newPosition.x;

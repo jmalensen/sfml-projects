@@ -26,7 +26,7 @@ void GameState::initVariables()
 	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 5, 6, Enemy::HORIZONTAL, 6, getRandomNumber(15, 21), 50.f));
 	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 8, 13, Enemy::HORIZONTAL, 8, getRandomNumber(16, 23), 50.f));
 	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 9, 10, Enemy::HORIZONTAL, 9, getRandomNumber(25, 30), 50.f));
-	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 16, 10, Enemy::HORIZONTAL, 16, getRandomNumber(22, 28), 50.f));
+	this->enemies.push_back(std::make_shared<Enemy>(3, this->map, this->assetsManager, 16, 10, Enemy::HORIZONTAL, 16, getRandomNumber(24, 28), 50.f));
 
 	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 5, 3, Enemy::HORIZONTAL, 5, getRandomNumber(13, 18), 60.f));
 	this->enemies.push_back(std::make_shared<Enemy>(4, this->map, this->assetsManager, 8, 6, Enemy::HORIZONTAL, 8, getRandomNumber(20, 26), 60.f));
@@ -94,7 +94,7 @@ GameState::GameState(StateData *stateData)
 	this->initVariables();
 	this->initKeybinds();
 
-	this->music.play();
+	// this->music.play();
 }
 
 GameState::~GameState()
