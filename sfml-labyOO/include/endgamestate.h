@@ -25,18 +25,18 @@ public:
 
 private:
 	// Variables
-	sf::Texture backgroundTexture;
-	sf::RectangleShape background;
-	AssetsManager assetsManager;
+	sf::Texture m_backgroundTexture;
+	sf::RectangleShape m_background;
+	AssetsManager m_assetsManager;
 
 	// Victory sound
-	float lastMove;
-	sf::Sound winSound;
-	bool playedWinSound;
+	float m_lastMove;
+	sf::Sound m_winSound;
+	bool m_playedWinSound;
 
-	sf::Font font;
-	std::map<std::string, gui::Button *> buttons;
-	sf::Text timerText;
+	sf::Font m_font;
+	std::map<std::string, gui::Button *> m_buttons;
+	sf::Text m_timerText;
 
 	// Functions
 	void initVariables();

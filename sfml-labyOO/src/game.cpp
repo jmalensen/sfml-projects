@@ -3,38 +3,38 @@
 // Initializer functions
 void Game::initVariables()
 {
-	this->window = nullptr;
-	this->dt = 0.f;
+	this->m_p_window = nullptr;
+	this->m_dt = 0.f;
 }
 
 void Game::initGraphicsSettings()
 {
-	this->gfxSettings.loadFromFile("config/graphics.ini");
+	this->m_gfxSettings.loadFromFile("config/graphics.ini");
 }
 
 void Game::initWindow()
 {
 	/*Creates a SFML window.*/
 
-	if (this->gfxSettings.fullscreen)
+	if (this->m_gfxSettings.fullscreen)
 	{
-		this->window = new sf::RenderWindow(
-				this->gfxSettings.resolution,
-				this->gfxSettings.title,
+		this->m_p_window = new sf::RenderWindow(
+				this->m_gfxSettings.resolution,
+				this->m_gfxSettings.title,
 				sf::Style::Fullscreen,
-				this->gfxSettings.contextSettings);
+				this->m_gfxSettings.contextSettings);
 	}
 	else
 	{
-		this->window = new sf::RenderWindow(
-				this->gfxSettings.resolution,
-				this->gfxSettings.title,
+		this->m_p_window = new sf::RenderWindow(
+				this->m_gfxSettings.resolution,
+				this->m_gfxSettings.title,
 				sf::Style::Titlebar | sf::Style::Resize | sf::Style::Close,
-				this->gfxSettings.contextSettings);
+				this->m_gfxSettings.contextSettings);
 	}
-	this->window->setPosition(sf::Vector2i(0, 0));
-	this->window->setFramerateLimit(this->gfxSettings.frameRateLimit);
-	// this->window->setVerticalSyncEnabled(this->gfxSettings.verticalSync);
+	this->m_p_window->setPosition(sf::Vector2i(0, 0));
+	this->m_p_window->setFramerateLimit(this->m_gfxSettings.frameRateLimit);
+	// this->m_p_window->setVerticalSyncEnabled(this->m_gfxSettings.verticalSync);
 }
 
 void Game::initKeys()
@@ -48,14 +48,14 @@ void Game::initKeys()
 
 		while (ifs >> key >> key_value)
 		{
-			this->supportedKeys[key] = key_value;
+			this->m_supportedKeys[key] = key_value;
 		}
 	}
 
 	ifs.close();
 
 	// DEBUG REMOVE LATER!
-	for (auto i : this->supportedKeys)
+	for (auto i : this->m_supportedKeys)
 	{
 		// std::cout << i.first << " " << i.second << std::endl;
 	}
@@ -63,16 +63,16 @@ void Game::initKeys()
 
 void Game::initStateData()
 {
-	this->stateData.window = this->window;
-	this->stateData.gfxSettings = &this->gfxSettings;
-	this->stateData.supportedKeys = &this->supportedKeys;
-	this->stateData.states = &this->states;
-	this->stateData.elapsedTime = sf::Time::Zero;
+	this->m_stateData.window = this->m_p_window;
+	this->m_stateData.gfxSettings = &this->m_gfxSettings;
+	this->m_stateData.supportedKeys = &this->m_supportedKeys;
+	this->m_stateData.states = &this->m_states;
+	this->m_stateData.elapsedTime = sf::Time::Zero;
 }
 
 void Game::initStates()
 {
-	this->states.push(new MainMenuState(&this->stateData));
+	this->m_states.push(new MainMenuState(&this->m_stateData));
 }
 
 Game::Game()
@@ -87,12 +87,12 @@ Game::Game()
 
 Game::~Game()
 {
-	delete this->window;
+	delete this->m_p_window;
 
-	while (!this->states.empty())
+	while (!this->m_states.empty())
 	{
-		delete this->states.top();
-		this->states.pop();
+		delete this->m_states.top();
+		this->m_states.pop();
 	}
 }
 
@@ -104,24 +104,24 @@ void Game::endApplication()
 
 void Game::updateDt()
 {
-	/*Updates the dt variable with the time it takes to update and render one frame.*/
-	this->dt = this->dtClock.restart().asSeconds();
+	/*Updates the m_dt variable with the time it takes to update and render one frame.*/
+	this->m_dt = this->m_dtClock.restart().asSeconds();
 }
 
 void Game::updateSFMLEvents()
 {
-	while (this->window->pollEvent(this->sfEvent))
+	while (this->m_p_window->pollEvent(this->m_sfEvent))
 	{
-		if (this->sfEvent.type == sf::Event::Closed)
+		if (this->m_sfEvent.type == sf::Event::Closed)
 		{
-			this->window->close();
+			this->m_p_window->close();
 		}
 
-		else if (this->sfEvent.type == sf::Event::Resized)
+		else if (this->m_sfEvent.type == sf::Event::Resized)
 		{
-			if (!this->states.empty())
+			if (!this->m_states.empty())
 			{
-				this->states.top()->updateGuiSize(this->sfEvent);
+				this->m_states.top()->updateGuiSize(this->m_sfEvent);
 			}
 		}
 	}
@@ -132,17 +132,17 @@ void Game::update()
 
 	this->updateSFMLEvents();
 
-	if (!this->states.empty())
+	if (!this->m_states.empty())
 	{
-		if (this->window->hasFocus())
+		if (this->m_p_window->hasFocus())
 		{
-			this->states.top()->update(this->dt);
+			this->m_states.top()->update(this->m_dt);
 
-			if (this->states.top()->getQuit())
+			if (this->m_states.top()->getQuit())
 			{
-				this->states.top()->endState();
-				delete this->states.top();
-				this->states.pop();
+				this->m_states.top()->endState();
+				delete this->m_states.top();
+				this->m_states.pop();
 			}
 		}
 	}
@@ -150,7 +150,7 @@ void Game::update()
 	else
 	{
 		this->endApplication();
-		this->window->close();
+		this->m_p_window->close();
 	}
 }
 
@@ -158,21 +158,21 @@ void Game::draw()
 {
 
 	// Clear the window with black color
-	this->window->clear(sf::Color::Black);
+	this->m_p_window->clear(sf::Color::Black);
 
 	// Render items
-	if (!this->states.empty())
+	if (!this->m_states.empty())
 	{
-		this->states.top()->draw();
+		this->m_states.top()->draw();
 	}
 
 	// Display the window
-	this->window->display();
+	this->m_p_window->display();
 }
 
 void Game::run()
 {
-	while (this->window->isOpen())
+	while (this->m_p_window->isOpen())
 	{
 		this->updateDt();
 		this->update();

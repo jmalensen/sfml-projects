@@ -38,20 +38,20 @@ public:
 	static constexpr int VERTICAL = 2;
 
 private:
-	int mapLevel;
-	int directionEnemy;
-	bool goingRight;
-	bool goingDown;
-	int minVal;
-	int maxVal;
+	int m_mapLevel;
+	int m_directionEnemy;
+	bool m_goingRight;
+	bool m_goingDown;
+	int m_minVal;
+	int m_maxVal;
 
-	Animation moveAnimation;
+	Animation m_moveAnimation;
 
 	// 0-60 down
 	// 60-120 left
 	// 120-180 right
 	// 180-240 up
-	ParamsMovement paramsMovement{
+	ParamsMovement m_paramsMovement{
 			120, // Right
 			60,	 // Left
 			180, // Up

@@ -4,14 +4,14 @@
 void Enemy::initVariables()
 {
 
-	this->goingRight = true;
+	this->m_goingRight = true;
 	this->lastMove = 0.f;
 
-	this->moveAnimation.setParamsMovements(this->paramsMovement);
-	this->moveAnimation.update(0.f);
+	this->m_moveAnimation.setParamsMovements(this->m_paramsMovement);
+	this->m_moveAnimation.update(0.f);
 }
 
-Enemy::Enemy(int levelNum, Map &maze, AssetsManager &assetsManager, int posx, int posy, int direction, int min, int max, float speed) : Entity(maze, assetsManager), mapLevel(levelNum), directionEnemy(direction), minVal(min), maxVal(max), moveAnimation(60, "images/enemy.png", Animation::RIGHT, 4)
+Enemy::Enemy(int levelNum, Map &maze, AssetsManager &assetsManager, int posx, int posy, int direction, int min, int max, float speed) : Entity(maze, assetsManager), m_mapLevel(levelNum), m_directionEnemy(direction), m_minVal(min), m_maxVal(max), m_moveAnimation(60, "images/enemy.png", Animation::RIGHT, 4)
 {
 	// Initialize the enemy
 	this->initVariables();
@@ -26,15 +26,15 @@ Enemy::~Enemy()
 
 void Enemy::setBehaviour(int directionMovement, int min, int max)
 {
-	this->directionEnemy = directionMovement;
-	this->minVal = min;
-	this->maxVal = max;
+	this->m_directionEnemy = directionMovement;
+	this->m_minVal = min;
+	this->m_maxVal = max;
 }
 
 // Get MapLevel enemy
 int Enemy::getMapLevel()
 {
-	return this->mapLevel;
+	return this->m_mapLevel;
 }
 
 // Update position
@@ -52,47 +52,47 @@ void Enemy::update(const float &dt, Player &player)
 	if (this->lastMove >= moveDelay)
 	{
 		this->lastMove = 0.f;
-		if (this->directionEnemy == Enemy::HORIZONTAL)
+		if (this->m_directionEnemy == Enemy::HORIZONTAL)
 		{
 
-			if (this->positionX <= this->maxVal && this->goingRight)
+			if (this->positionX <= this->m_maxVal && this->m_goingRight)
 			{
-				this->moveAnimation.setDirection(Animation::RIGHT);
+				this->m_moveAnimation.setDirection(Animation::RIGHT);
 				this->positionX++;
-				if (this->positionX == this->maxVal)
+				if (this->positionX == this->m_maxVal)
 				{
-					this->goingRight = false;
+					this->m_goingRight = false;
 				}
 			}
-			if (this->positionX >= this->minVal && !this->goingRight)
+			if (this->positionX >= this->m_minVal && !this->m_goingRight)
 			{
-				this->moveAnimation.setDirection(Animation::LEFT);
+				this->m_moveAnimation.setDirection(Animation::LEFT);
 				this->positionX--;
-				if (this->positionX == this->minVal)
+				if (this->positionX == this->m_minVal)
 				{
-					this->goingRight = true;
+					this->m_goingRight = true;
 				}
 			}
 		}
-		else if (this->directionEnemy == Enemy::VERTICAL)
+		else if (this->m_directionEnemy == Enemy::VERTICAL)
 		{
 
-			if (this->positionY <= this->maxVal && this->goingDown)
+			if (this->positionY <= this->m_maxVal && this->m_goingDown)
 			{
-				this->moveAnimation.setDirection(Animation::DOWN);
+				this->m_moveAnimation.setDirection(Animation::DOWN);
 				this->positionY++;
-				if (this->positionY == this->maxVal)
+				if (this->positionY == this->m_maxVal)
 				{
-					this->goingDown = false;
+					this->m_goingDown = false;
 				}
 			}
-			if (this->positionY >= this->minVal && !this->goingDown)
+			if (this->positionY >= this->m_minVal && !this->m_goingDown)
 			{
-				this->moveAnimation.setDirection(Animation::UP);
+				this->m_moveAnimation.setDirection(Animation::UP);
 				this->positionY--;
-				if (this->positionY == this->minVal)
+				if (this->positionY == this->m_minVal)
 				{
-					this->goingDown = true;
+					this->m_goingDown = true;
 				}
 			}
 		}
@@ -107,7 +107,7 @@ void Enemy::update(const float &dt, Player &player)
 			player.justDie(false);
 		}
 
-		this->moveAnimation.update(dt);
+		this->m_moveAnimation.update(dt);
 	}
 }
 
@@ -118,6 +118,6 @@ void Enemy::draw(sf::RenderWindow *window)
 	float blockSize = gui::scale(this->maze.getBlockSize(), window);
 
 	// Draw the enemy
-	this->moveAnimation.setPosition(this->positionX * blockSize + 1, this->positionY * blockSize + 1);
-	this->moveAnimation.draw(window);
+	this->m_moveAnimation.setPosition(this->positionX * blockSize + 1, this->positionY * blockSize + 1);
+	this->m_moveAnimation.draw(window);
 }

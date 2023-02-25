@@ -29,25 +29,25 @@ public:
 	void setParamsMovements(ParamsMovement nParamMovements);
 
 private:
-	short direction;
+	short m_direction;
 
 	// Increment the currentFrame as soon as this iterator reaches the animationSpeed
-	short animationIterator;
-	short frameWidth;
-	short totalFrames;
-	short nbMovements;
+	short m_animationIterator;
+	short m_frameWidth;
+	short m_totalFrames;
+	short m_nbMovements;
 
-	sf::Sprite sprite;
+	sf::Sprite m_sprite;
 
-	sf::Texture texture;
+	sf::Texture m_texture;
 
-	ParamsMovement paramsMovement;
+	ParamsMovement m_paramsMovement;
 
-	float animationTime{0.f};
-	float frameDuration{0.125f};
-	int currentFrame;
+	float m_animationTime{0.f};
+	float m_frameDuration{0.125f};
+	int m_currentFrame;
 
-	sf::RectangleShape rectangleSize;
+	sf::RectangleShape m_rectangleSize;
 
 	void initVariables();
 };

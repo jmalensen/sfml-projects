@@ -32,24 +32,24 @@ public:
 	void draw(sf::RenderTarget *target = NULL);
 
 private:
-	sf::Music music;
-	AssetsManager assetsManager;
-	PauseMenu *pmenu;
+	sf::Music m_music;
+	AssetsManager m_assetsManager;
+	PauseMenu *m_p_pmenu;
 
-	sf::Clock clock;
-	sf::Time startTime;
-	sf::Time pausedTime;
-	sf::Font font;
-	sf::Text timerText;
+	sf::Clock m_clock;
+	sf::Time m_startTime;
+	sf::Time m_pausedTime;
+	sf::Font m_font;
+	sf::Text m_timerText;
 
 	// The map
-	Map map;
+	Map m_map;
 
 	// The player
-	Player player;
+	Player m_player;
 
 	// The enemies
-	std::vector<std::shared_ptr<Enemy>> enemies;
+	std::vector<std::shared_ptr<Enemy>> m_enemies;
 
 	int getRandomNumber(int min, int max);
 

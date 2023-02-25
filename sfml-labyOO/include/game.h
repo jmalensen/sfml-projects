@@ -32,20 +32,19 @@ public:
 
 private:
 	// Variables
-	GraphicsSettings gfxSettings;
-	StateData stateData;
+	GraphicsSettings m_gfxSettings;
+	StateData m_stateData;
 
-	sf::Clock dtClock;
-	float dt;
+	sf::Clock m_dtClock;
+	float m_dt;
 
-	std::stack<State *> states;
+	std::stack<State *> m_states;
 
-	std::map<std::string, int> supportedKeys;
+	std::map<std::string, int> m_supportedKeys;
 
 	// The windows for the render
-	sf::RenderWindow *window;
-	sf::VideoMode vm;
-	sf::Event sfEvent;
+	sf::RenderWindow *m_p_window;
+	sf::Event m_sfEvent;
 
 	// Methods
 	void initVariables();

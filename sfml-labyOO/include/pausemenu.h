@@ -16,8 +16,8 @@ public:
 
 private:
 	// Variables
-	sf::Texture backgroundTexture;
-	sf::RectangleShape background;
+	sf::Texture m_backgroundTexture;
+	sf::RectangleShape m_background;
 
 	// Functions
 	void initVariables(sf::VideoMode &vm);

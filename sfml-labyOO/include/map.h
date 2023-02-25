@@ -51,52 +51,50 @@ public:
 	void draw(sf::RenderWindow *window);
 
 private:
-	AssetsManager &assetsManager;
+	AssetsManager &m_assetsManager;
 
-	std::array<std::array<char, COLS>, ROWS> maze;
-	std::array<std::array<char, COLS>, ROWS> maze2;
-	std::array<std::array<char, COLS>, ROWS> maze3;
-	std::array<std::array<char, COLS>, ROWS> maze4;
-	std::array<std::array<char, COLS>, ROWS> maze5;
+	std::array<std::array<char, COLS>, ROWS> m_maze;
+	std::array<std::array<char, COLS>, ROWS> m_maze2;
+	std::array<std::array<char, COLS>, ROWS> m_maze3;
+	std::array<std::array<char, COLS>, ROWS> m_maze4;
+	std::array<std::array<char, COLS>, ROWS> m_maze5;
 
-	int levelNum;
+	int m_levelNum;
 
 	// Store the multiple mazes (dynamic names aren't possible in c++)
-	std::unordered_map<std::string, std::array<std::array<char, COLS>, ROWS>> mazeList;
+	std::unordered_map<std::string, std::array<std::array<char, COLS>, ROWS>> m_mazeList;
 
 	/// Textures
 	// Texture for the wall
-	sf::Sprite wallSprite;
-	sf::Sprite wallSprite2;
-	sf::Sprite wallSprite3;
-	sf::Sprite wallSprite4;
-	sf::Sprite wallSprite5;
+	sf::Sprite m_wallSprite;
+	sf::Sprite m_wallSprite2;
+	sf::Sprite m_wallSprite3;
+	sf::Sprite m_wallSprite4;
+	sf::Sprite m_wallSprite5;
 
 	// Texture for the path
-	sf::Sprite pathSprite;
-	sf::Sprite pathSprite2;
-	sf::Sprite pathSprite2Trap;
-	sf::Sprite pathSprite3;
-	sf::Sprite pathSprite3Trap;
-	sf::Sprite pathSprite4Trap;
-	sf::Sprite pathSprite5Trap;
+	sf::Sprite m_pathSprite;
+	sf::Sprite m_pathSprite2;
+	sf::Sprite m_pathSprite2Trap;
+	sf::Sprite m_pathSprite3;
+	sf::Sprite m_pathSprite3Trap;
+	sf::Sprite m_pathSprite4Trap;
+	sf::Sprite m_pathSprite5Trap;
 
 	// Texture for the background
-	sf::Sprite backgroundI;
+	sf::Sprite m_backgroundI;
 
 	// Texture for the key
-	Animation animKey;
+	Animation m_animKey;
 
 	// Texture for the nextLevel icon
-	Animation animNextLevel;
+	Animation m_animNextLevel;
 
 	// Texture for the trophy icon
-	Animation animTrophy;
+	Animation m_animTrophy;
 
 	/// Text to display the level number
-	sf::Text text;
-	// Select the font
-	sf::Font font;
+	sf::Text m_text;
 
 	// Initialization
 	void initVariables();

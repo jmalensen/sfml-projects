@@ -6,62 +6,62 @@ void Player::initVariables()
 	this->positionX = 1;
 	this->positionY = 1;
 
-	this->dead = false;
+	this->m_dead = false;
 
 	this->lastMove = 0.f;
 
 	/// Sounds
 	// Trap sound
 	this->assetsManager.loadSound("trap", "sounds/trap.ogg");
-	this->trapSound = (this->assetsManager.getSound("trap"));
-	this->trapSound.setVolume(100);
-	this->trapEnabled = false;
+	this->m_trapSound = (this->assetsManager.getSound("trap"));
+	this->m_trapSound.setVolume(100);
+	this->m_trapEnabled = false;
 
 	// Unlock sound
 	this->assetsManager.loadSound("unlock", "sounds/unlock-sound.ogg");
-	this->unlockSound = (this->assetsManager.getSound("unlock"));
-	this->unlockSound.setVolume(50);
-	this->unlockEnabled = false;
+	this->m_unlockSound = (this->assetsManager.getSound("unlock"));
+	this->m_unlockSound.setVolume(50);
+	this->m_unlockEnabled = false;
 
 	// Exit level sound
 	this->assetsManager.loadSound("exitlevel", "sounds/exitlevel.ogg");
-	this->exitLevelSound = (this->assetsManager.getSound("exitlevel"));
-	this->exitLevelSound.setVolume(30);
-	this->nextLevelEnabled = false;
+	this->m_exitLevelSound = (this->assetsManager.getSound("exitlevel"));
+	this->m_exitLevelSound.setVolume(30);
+	this->m_nextLevelEnabled = false;
 
 	// Damage sound
 	this->assetsManager.loadSound("damage", "sounds/damage.ogg");
-	this->damageSound = (this->assetsManager.getSound("damage"));
-	this->damageSound.setVolume(100);
+	this->m_damageSound = (this->assetsManager.getSound("damage"));
+	this->m_damageSound.setVolume(100);
 
 	// Death sound
 	this->assetsManager.loadSound("dead", "sounds/dead.ogg");
-	this->deathSound = (this->assetsManager.getSound("dead"));
-	this->deathSound.setVolume(15);
+	this->m_deathSound = (this->assetsManager.getSound("dead"));
+	this->m_deathSound.setVolume(15);
 
-	this->exit = false;
+	this->m_exit = false;
 
-	this->walkAnimation.setParamsMovements(this->paramsMovement);
-	this->walkAnimation.update(0.f);
+	this->m_walkAnimation.setParamsMovements(this->m_paramsMovement);
+	this->m_walkAnimation.update(0.f);
 
 	// Text to display the number of lives of the player
 	this->assetsManager.loadFont("arial", "fonts/arial.ttf");
-	this->text.setFont(this->assetsManager.getFont("arial"));
+	this->m_text.setFont(this->assetsManager.getFont("arial"));
 
 	// Set the string to display
-	this->text.setString("Nb lives: " + std::to_string(this->nbLives));
+	this->m_text.setString("Nb lives: " + std::to_string(this->m_nbLives));
 
 	// Set the character size (in pixels, not points)
-	this->text.setCharacterSize(36);
+	this->m_text.setCharacterSize(36);
 
 	// Set the text style
-	this->text.setStyle(sf::Text::Bold);
+	this->m_text.setStyle(sf::Text::Bold);
 
 	// Set the color
-	this->text.setFillColor(sf::Color::White);
+	this->m_text.setFillColor(sf::Color::White);
 }
 
-Player::Player(Map &maze, AssetsManager &assetsManager) : Entity(maze, assetsManager), walkAnimation(60, "images/perso.png", Animation::RIGHT, 4), nbLives(3), speed(0), invincibleTimer(0)
+Player::Player(Map &maze, AssetsManager &assetsManager) : Entity(maze, assetsManager), m_walkAnimation(60, "images/perso.png", Animation::RIGHT, 4), m_nbLives(3), m_speed(0), m_invincibleTimer(0)
 {
 	// Initialize the player
 	this->initVariables();
@@ -73,45 +73,45 @@ Player::~Player()
 
 bool Player::getHasExited() const
 {
-	return this->exit;
+	return this->m_exit;
 }
 
 void Player::justDie(bool instantDeath)
 {
 	// If instant death, you just die
-	this->dead = instantDeath;
+	this->m_dead = instantDeath;
 
-	if (this->getNbLives() == 0 && this->invincibleTimer == 0)
+	if (this->getNbLives() == 0 && this->m_invincibleTimer == 0)
 	{
 		std::cout << "You DIEEEDDD!!" << std::endl;
-		this->deathSound.play();
-		this->dead = true;
+		this->m_deathSound.play();
+		this->m_dead = true;
 	}
-	else if (this->getNbLives() > 0 && this->invincibleTimer == 0)
+	else if (this->getNbLives() > 0 && this->m_invincibleTimer == 0)
 	{
 		// std::cout << "Damage by enemy!!" << std::endl;
-		this->damageSound.play();
+		this->m_damageSound.play();
 		this->setNbLives(this->getNbLives() - 1);
-		this->invincibleTimer = INVINCIBILITY_DURATION;
+		this->m_invincibleTimer = INVINCIBILITY_DURATION;
 	}
 }
 
 bool Player::isDead() const
 {
-	return this->dead;
+	return this->m_dead;
 }
 
 int Player::getNbLives() const
 {
-	return this->nbLives;
+	return this->m_nbLives;
 }
 
 void Player::setNbLives(int nnbLives)
 {
-	this->nbLives = nnbLives;
+	this->m_nbLives = nnbLives;
 
-	// Set the string to display when nbLives  change
-	this->text.setString("Nb lives: " + std::to_string(this->nbLives));
+	// Set the string to display when m_nbLives  change
+	this->m_text.setString("Nb lives: " + std::to_string(this->m_nbLives));
 }
 
 void Player::update(const float &dt) {}
@@ -126,7 +126,7 @@ void Player::update(const float &dt, std::vector<std::shared_ptr<Enemy>> enemies
 	this->lastMove += dt;
 
 	// getHitBox().intersects(enemy.getHitBox());
-	this->walkAnimation.update(dt);
+	this->m_walkAnimation.update(dt);
 
 	// The base player speed (in pixels per second)
 	static const float BASE_SPEED = 60.0f;
@@ -149,7 +149,7 @@ void Player::update(const float &dt, std::vector<std::shared_ptr<Enemy>> enemies
 	// Update the move delay based on the current player speed
 	moveDelay = 3.0f / speed;
 
-	if (!this->dead)
+	if (!this->m_dead)
 	{
 		if (this->lastMove >= moveDelay)
 		{
@@ -171,22 +171,22 @@ void Player::update(const float &dt, std::vector<std::shared_ptr<Enemy>> enemies
 			sf::Vector2i moveDirection(0, 0);
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 			{
-				this->walkAnimation.setDirection(Animation::UP);
+				this->m_walkAnimation.setDirection(Animation::UP);
 				moveDirection = sf::Vector2i(0, -1);
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 			{
-				this->walkAnimation.setDirection(Animation::DOWN);
+				this->m_walkAnimation.setDirection(Animation::DOWN);
 				moveDirection = sf::Vector2i(0, 1);
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 			{
-				this->walkAnimation.setDirection(Animation::LEFT);
+				this->m_walkAnimation.setDirection(Animation::LEFT);
 				moveDirection = sf::Vector2i(-1, 0);
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 			{
-				this->walkAnimation.setDirection(Animation::RIGHT);
+				this->m_walkAnimation.setDirection(Animation::RIGHT);
 				moveDirection = sf::Vector2i(1, 0);
 			}
 
@@ -209,9 +209,9 @@ void Player::update(const float &dt, std::vector<std::shared_ptr<Enemy>> enemies
 		}
 
 		// Invicibility countdown if exists
-		if (this->invincibleTimer > 0)
+		if (this->m_invincibleTimer > 0)
 		{
-			this->invincibleTimer--;
+			this->m_invincibleTimer--;
 		}
 
 		// Check hitboxes enemies depending on levels
@@ -231,9 +231,9 @@ void Player::update(const float &dt, std::vector<std::shared_ptr<Enemy>> enemies
 			}
 		}
 
-		if (this->maze.operator()(this->positionY, this->positionX) == 't' && this->trapEnabled != true)
+		if (this->maze.operator()(this->positionY, this->positionX) == 't' && this->m_trapEnabled != true)
 		{
-			this->trapSound.play();
+			this->m_trapSound.play();
 
 			if (this->maze.getLevel() == 2)
 			{
@@ -256,12 +256,12 @@ void Player::update(const float &dt, std::vector<std::shared_ptr<Enemy>> enemies
 				this->maze.operator()(14, 8) = 'e';
 			}
 			this->maze.operator()(this->positionY, this->positionX) = ' ';
-			this->unlockEnabled = false;
-			this->trapEnabled = true;
+			this->m_unlockEnabled = false;
+			this->m_trapEnabled = true;
 		}
 
 		// If case is a key
-		if (this->maze.operator()(this->positionY, this->positionX) == 'k' && this->unlockEnabled != true)
+		if (this->maze.operator()(this->positionY, this->positionX) == 'k' && this->m_unlockEnabled != true)
 		{
 			// Key disappear
 			this->maze.operator()(this->positionY, this->positionX) = ' ';
@@ -289,18 +289,18 @@ void Player::update(const float &dt, std::vector<std::shared_ptr<Enemy>> enemies
 				this->maze.operator()(14, 27) = ' ';
 				this->maze.operator()(14, 28) = ' ';
 			}
-			this->unlockSound.play();
+			this->m_unlockSound.play();
 
 			// std::cout << "Change content:" << this->maze.operator()(this->positionY, this->positionX) << this->positionY << this->positionX << ":P" << std::endl;
-			this->unlockEnabled = true;
+			this->m_unlockEnabled = true;
 		}
 
 		// Next level phase
-		if (this->maze.operator()(this->positionY, this->positionX) == 'n' && this->nextLevelEnabled != true)
+		if (this->maze.operator()(this->positionY, this->positionX) == 'n' && this->m_nextLevelEnabled != true)
 		{
-			this->exitLevelSound.play();
+			this->m_exitLevelSound.play();
 			// std::cout << "Next level!!" << std::endl;
-			this->nextLevelEnabled = true;
+			this->m_nextLevelEnabled = true;
 
 			this->maze.setLevel(this->maze.getLevel() + 1);
 
@@ -319,10 +319,10 @@ void Player::update(const float &dt, std::vector<std::shared_ptr<Enemy>> enemies
 		}
 
 		// Sound of the win for the exit
-		if (this->maze.operator()(this->positionY, this->positionX) == 'e' && this->exit != true)
+		if (this->maze.operator()(this->positionY, this->positionX) == 'e' && this->m_exit != true)
 		{
 			std::cout << "Exit!!" << std::endl;
-			this->exit = true;
+			this->m_exit = true;
 		}
 	}
 }
@@ -330,13 +330,13 @@ void Player::update(const float &dt, std::vector<std::shared_ptr<Enemy>> enemies
 void Player::resetSounds()
 {
 	// Reset unlock sound
-	this->unlockEnabled = false;
+	this->m_unlockEnabled = false;
 
 	// Reset nextlevel sound
-	this->nextLevelEnabled = false;
+	this->m_nextLevelEnabled = false;
 
 	// Reset trap sound
-	this->trapEnabled = false;
+	this->m_trapEnabled = false;
 }
 
 void Player::draw(sf::RenderWindow *window)
@@ -344,15 +344,15 @@ void Player::draw(sf::RenderWindow *window)
 	float blockSize = gui::scale(this->maze.getBlockSize(), window);
 
 	// Draw the player
-	this->walkAnimation.setPosition(this->positionX * blockSize + 1, this->positionY * blockSize + 1);
+	this->m_walkAnimation.setPosition(this->positionX * blockSize + 1, this->positionY * blockSize + 1);
 
 	// When player is invincible, his sprite will blink.
-	if ((invincibleTimer / BLINKING % 2) == 0)
+	if ((this->m_invincibleTimer / BLINKING % 2) == 0)
 	{
-		this->walkAnimation.draw(window);
+		this->m_walkAnimation.draw(window);
 	}
 
 	// Draw the text
-	this->text.setPosition(170, 10);
-	window->draw(this->text);
+	this->m_text.setPosition(170, 10);
+	window->draw(this->m_text);
 }

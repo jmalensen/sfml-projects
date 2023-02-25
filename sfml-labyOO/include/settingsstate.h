@@ -23,16 +23,16 @@ public:
 
 private:
 	// Variables
-	sf::Texture backgroundTexture;
-	sf::RectangleShape background;
-	sf::Font font;
+	sf::Texture m_backgroundTexture;
+	sf::RectangleShape m_background;
+	sf::Font m_font;
 
-	std::map<std::string, gui::Button *> buttons;
-	std::map<std::string, gui::DropDownList *> dropDownLists;
+	std::map<std::string, gui::Button *> m_buttons;
+	std::map<std::string, gui::DropDownList *> m_dropDownLists;
 
-	sf::Text optionsText;
+	sf::Text m_optionsText;
 
-	std::vector<sf::VideoMode> modes;
+	std::vector<sf::VideoMode> m_modes;
 
 	// Functions
 	void initVariables();

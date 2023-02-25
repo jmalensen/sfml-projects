@@ -4,10 +4,8 @@
 #include "stdHeader.h"
 #include "state.h"
 #include "gamestate.h"
-#include "assetsmanager.h"
 #include "gui.h"
 
-class AssetsManager;
 class GameState;
 
 class GameoverState : public State
@@ -25,13 +23,12 @@ public:
 
 private:
 	// Variables
-	sf::Texture backgroundTexture;
-	sf::RectangleShape background;
-	AssetsManager assetsManager;
+	sf::Texture m_backgroundTexture;
+	sf::RectangleShape m_background;
 
-	sf::Font font;
-	std::map<std::string, gui::Button *> buttons;
-	sf::Text timerText;
+	sf::Font m_font;
+	std::map<std::string, gui::Button *> m_buttons;
+	sf::Text m_timerText;
 
 	// Functions
 	void initVariables();

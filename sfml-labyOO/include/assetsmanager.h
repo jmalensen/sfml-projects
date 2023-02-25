@@ -22,10 +22,10 @@ public:
 
 private:
 	// Member variables for storing textures, sounds, animations, fonts
-	std::map<std::string, sf::Texture> textures;
-	std::map<std::string, sf::SoundBuffer> soundBuffers;
-	std::map<std::string, std::vector<sf::IntRect>> animations;
-	std::map<std::string, sf::Font> fonts;
+	std::map<std::string, sf::Texture> m_textures;
+	std::map<std::string, sf::SoundBuffer> m_soundBuffers;
+	std::map<std::string, std::vector<sf::IntRect>> m_animations;
+	std::map<std::string, sf::Font> m_fonts;
 };
 
 #endif // ASSETSMANAGER_H

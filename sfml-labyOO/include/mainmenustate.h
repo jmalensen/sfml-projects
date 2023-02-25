@@ -23,12 +23,12 @@ public:
 
 private:
 	// Variables
-	sf::Music music;
-	sf::Texture backgroundTexture;
-	sf::RectangleShape background;
-	sf::Font font;
+	sf::Music m_music;
+	sf::Texture m_backgroundTexture;
+	sf::RectangleShape m_background;
+	sf::Font m_font;
 
-	std::map<std::string, gui::Button *> buttons;
+	std::map<std::string, gui::Button *> m_buttons;
 
 	// Functions
 	void initGui();

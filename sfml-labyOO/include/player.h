@@ -51,38 +51,36 @@ public:
 
 private:
 	// Sounds
-	sf::Sound trapSound;
-	sf::Sound unlockSound;
-	bool unlockEnabled;
+	sf::Sound m_trapSound;
+	sf::Sound m_unlockSound;
+	bool m_unlockEnabled;
 
-	sf::Sound exitLevelSound;
-	bool nextLevelEnabled;
-	bool trapEnabled;
+	sf::Sound m_exitLevelSound;
+	bool m_nextLevelEnabled;
+	bool m_trapEnabled;
 
 	// Sounds
-	sf::Sound damageSound;
-	sf::Sound deathSound;
+	sf::Sound m_damageSound;
+	sf::Sound m_deathSound;
 
-	int nbLives;
-	bool dead;
-	bool exit;
+	int m_nbLives;
+	bool m_dead;
+	bool m_exit;
 
-	float speed;
-
-	short invincibleTimer;
+	short m_invincibleTimer;
 
 	/// Text to display the level number
-	sf::Text text;
-	// Select the font
-	sf::Font font;
+	sf::Text m_text;
 
-	Animation walkAnimation;
+	float m_speed;
+
+	Animation m_walkAnimation;
 
 	// 0-60 down
 	// 60-120 left
 	// 120-180 right
 	// 180-240 up
-	ParamsMovement paramsMovement{
+	ParamsMovement m_paramsMovement{
 			120, // Right
 			60,	 // Left
 			180, // Up
